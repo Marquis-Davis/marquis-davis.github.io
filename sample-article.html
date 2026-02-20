@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Designing Endpoint Architecture for Scale | Your Name</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Designing scalable endpoint architecture for enterprise environments.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container nav-container">
+        <div class="logo">Your Name</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container article-content">
+
+<article>
+    <h1>Designing Endpoint Architecture for Scale</h1>
+    <p class="article-meta">January 2026 • 8 min read</p>
+
+    <p>
+        Endpoint architecture must move beyond tooling configuration and toward systems-level thinking.
+    </p>
+
+    <h2>Principles</h2>
+
+    <ul>
+        <li>Idempotent configuration management</li>
+        <li>Separation of policy and deployment logic</li>
+        <li>Version-controlled baselines</li>
+    </ul>
+
+    <h2>Example PowerShell Pattern</h2>
+
+<pre><code>
+function Set-RegistryValue {
+    param (
+        [string]$Path,
+        [string]$Name,
+        [string]$Value
+    )
+
+    if (-not (Test-Path $Path)) {
+        New-Item -Path $Path -Force
+    }
+
+    Set-ItemProperty -Path $Path -Name $Name -Value $Value
+}
+</code></pre>
+
+    <h2>Conclusion</h2>
+    <p>
+        Architecture is not complexity — it is intentional structure.
+    </p>
+
+</article>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>© 2026 Your Name. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
