@@ -212,21 +212,22 @@ code {
 .platform-block {
     background: #161A20;
     border: 1px solid #2A2F36;
+    border-left: 4px solid #5C8DFF;
     border-radius: 10px;
     padding: 70px;
 }
 
 .platform-title {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 600;
-    margin-bottom: 60px;
-    letter-spacing: -0.4px;
+    margin-bottom: 70px;
+    letter-spacing: -0.5px;
 }
 
 /* Individual Framework Sections */
 .platform-case {
-    padding-bottom: 50px;
-    margin-bottom: 50px;
+    padding-bottom: 60px;
+    margin-bottom: 60px;
     border-bottom: 1px solid #222831;
 }
 
