@@ -400,3 +400,145 @@ code {
     color: #B0B5BA;
     max-width: 600px;
 }
+
+/* =====================================
+   Principal-Level Spacing & Hierarchy
+===================================== */
+
+/* Increase overall section spacing */
+.section {
+    padding: 120px 0;
+}
+
+/* Improve H2 hierarchy */
+.section-title {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 80px;
+}
+
+/* =====================================
+   Case Study Refinements
+===================================== */
+
+.case-study-card {
+    background: #15191F;
+    border: 1px solid #232830;
+    border-radius: 10px;
+    padding: 70px;
+    margin-bottom: 90px;
+}
+
+.case-study-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Subtle divider between case studies */
+.case-study-card::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #1F242B;
+    margin-top: 70px;
+    opacity: 0.6;
+}
+
+.case-study-card:last-child::after {
+    display: none;
+}
+
+/* Make titles more dominant */
+.case-study-title {
+    color: #5C8DFF;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 35px;
+    letter-spacing: -0.3px;
+}
+
+/* Reduce weight of structural sublabels */
+.case-study-card h4 {
+    margin-top: 30px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #7C848C;
+}
+
+/* Improve paragraph rhythm */
+.case-study-text {
+    line-height: 1.85;
+    color: #B0B5BA;
+    max-width: 820px;
+}
+
+/* Improve bullet readability */
+.case-study-list {
+    margin-left: 22px;
+    line-height: 2;
+}
+
+.case-study-list li {
+    margin-bottom: 12px;
+}
+
+/* Impact emphasis */
+.impact-heading {
+    color: #5C8DFF;
+    font-weight: 500;
+}
+
+.case-study-impact {
+    margin-top: 12px;
+    line-height: 1.8;
+    color: #E6E8EB;
+    max-width: 820px;
+}
+
+/* =====================================
+   Hero Micro-Refinement
+===================================== */
+
+.hero h1 {
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: #B0B5BA;
+    max-width: 620px;
+    line-height: 1.8;
+}
+
+/* =====================================
+   Responsive Adjustments
+===================================== */
+
+@media (max-width: 768px) {
+
+    .section {
+        padding: 90px 0;
+    }
+
+    .case-study-card {
+        padding: 45px 24px;
+        margin-bottom: 60px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 60px;
+    }
+
+    .case-study-title {
+        font-size: 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+}
