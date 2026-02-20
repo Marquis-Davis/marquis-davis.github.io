@@ -542,3 +542,99 @@ code {
         font-size: 32px;
     }
 }
+/* =====================================
+   Case Study Card Layout (Structural)
+===================================== */
+
+.case-studies-section {
+    padding: 160px 0;
+}
+
+/* Card container */
+.case-card {
+    background: #15191F;               /* subtle contrast from main bg */
+    border-radius: 8px;
+    margin-bottom: 100px;              /* 100px vertical spacing */
+    display: flex;
+    justify-content: center;
+}
+
+.case-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Inner content constraint */
+.case-card-inner {
+    padding: 60px;
+    max-width: 850px;
+    width: 100%;
+    line-height: 1.9;                  /* global line-height inside section */
+}
+
+/* Title */
+.case-study-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #5C8DFF;
+    margin-bottom: 28px;
+}
+
+/* Labels */
+.case-label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7C848C;
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+
+/* Body text */
+.case-study-text {
+    color: #B0B5BA;
+    max-width: 850px;
+}
+
+/* Bullet lists */
+.case-study-list {
+    margin-left: 22px;
+    line-height: 2.1;
+}
+
+.case-study-list li {
+    margin-bottom: 12px;
+}
+
+/* Business Impact styling */
+.case-impact {
+    margin-top: 40px;
+    padding-left: 18px;
+    border-left: 3px solid #5C8DFF;
+}
+
+.case-study-impact {
+    color: #E6E8EB;
+    margin-top: 10px;
+    max-width: 850px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .case-studies-section {
+        padding: 110px 0;
+    }
+
+    .case-card-inner {
+        padding: 40px 24px;
+    }
+
+    .case-study-title {
+        font-size: 20px;
+    }
+
+    .case-card {
+        margin-bottom: 70px;
+    }
+}
