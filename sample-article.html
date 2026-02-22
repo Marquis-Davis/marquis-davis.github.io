@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Designing Endpoint Architecture for Scale | Your Name</title>
+    <title>Turning OSD Into a Measurable System: Why I Built a Self-Healing Provisioning Monitor | Your Name</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Designing scalable endpoint architecture for enterprise environments.">
+    <meta name="description" content="How building a self-healing OSD monitoring layer transformed deployment from reactive troubleshooting into measurable reliability engineering.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,42 +24,242 @@
 <main class="container article-content">
 
 <article>
-    <h1>Designing Endpoint Architecture for Scale</h1>
-    <p class="article-meta">January 2026 • 8 min read</p>
+    <h1>Turning OSD Into a Measurable System: Why I Built a Self-Healing Provisioning Monitor</h1>
+    <p class="article-meta">February 2026 • 10 min read</p>
 
     <p>
-        Endpoint architecture must move beyond tooling configuration and toward systems-level thinking.
+        For a long time, I treated operating system deployment the way most endpoint teams do — as a necessary operational function. Devices need to be built. Task sequences need to run. Drivers need to apply. Applications need to install.
     </p>
 
-    <h2>Principles</h2>
+    <p>
+        If it fails, you rebuild.
+    </p>
+
+    <p>
+        That model works… until scale exposes the cracks.
+    </p>
+
+    <p>
+        In a 5,000+ device environment, rebuilds are not just inconveniences. They’re operational waste. They consume technician time. They create frustration. They mask recurring patterns. And most importantly, they hide systemic weaknesses.
+    </p>
+
+    <p>
+        What I realized over time is that traditional task sequences are opaque. You don’t truly see what’s happening in real time. You only know something failed after the fact. Logs exist, but they are reactive artifacts, not operational telemetry.
+    </p>
+
+    <p>
+        That realization is what led me to design OSDMonitor.
+    </p>
+
+    <h2>The Real Problem Wasn’t Failure — It Was Lack of Observability</h2>
+
+    <p>
+        Most deployment environments focus on success rates, not reliability engineering.
+    </p>
+
+    <p>We measure:</p>
 
     <ul>
-        <li>Idempotent configuration management</li>
-        <li>Separation of policy and deployment logic</li>
-        <li>Version-controlled baselines</li>
+        <li>How many builds completed</li>
+        <li>How many failed</li>
+        <li>How long they took</li>
     </ul>
 
-    <h2>Example PowerShell Pattern</h2>
+    <p>But we rarely measure:</p>
 
-<pre><code>
-function Set-RegistryValue {
-    param (
-        [string]$Path,
-        [string]$Name,
-        [string]$Value
-    )
+    <ul>
+        <li>Which phase fails most often</li>
+        <li>Which hardware model correlates with failure</li>
+        <li>Whether failures cluster by step</li>
+        <li>Whether builds are silently restarting</li>
+        <li>Whether a process died mid-sequence and never recovered</li>
+    </ul>
 
-    if (-not (Test-Path $Path)) {
-        New-Item -Path $Path -Force
-    }
-
-    Set-ItemProperty -Path $Path -Name $Name -Value $Value
-}
-</code></pre>
-
-    <h2>Conclusion</h2>
     <p>
-        Architecture is not complexity — it is intentional structure.
+        Without structured telemetry, the system behaves like a black box.
+    </p>
+
+    <p>
+        Failure becomes anecdotal.
+    </p>
+
+    <p>
+        And anecdotal systems accumulate technical debt quietly.
+    </p>
+
+    <p>
+        I didn’t want more reports.
+    </p>
+
+    <p>
+        I wanted the deployment lifecycle to behave like a measurable system.
+    </p>
+
+    <h2>Designing OSDMonitor as an Embedded Observability Layer</h2>
+
+    <p>
+        Instead of treating OSD as a static task sequence, I treated it as a lifecycle that needed instrumentation.
+    </p>
+
+    <p>
+        OSDMonitor was built with three core goals:
+    </p>
+
+    <ul>
+        <li>Introduce phase-aware telemetry</li>
+        <li>Carry a unique deployment GUID throughout the live build</li>
+        <li>Ensure the monitoring process could not silently die</li>
+    </ul>
+
+    <p>
+        The GUID allowed us to correlate every step, failure, and restart back to a single deployment instance. That alone changed how we analyzed rebuilds.
+    </p>
+
+    <p>
+        But telemetry alone wasn’t enough.
+    </p>
+
+    <p>
+        The key component became self-healing.
+    </p>
+
+    <h2>Why Self-Healing Mattered More Than Logging</h2>
+
+    <p>
+        Logging tells you what went wrong.
+    </p>
+
+    <p>
+        Self-healing prevents silent collapse.
+    </p>
+
+    <p>
+        The bootstrap script registers an event-driven scheduled task that listens for process termination events. If OSDMonitor.exe stops unexpectedly, it restarts — unless the deployment has reached a defined terminal state.
+    </p>
+
+    <p>
+        This approach was intentional.
+    </p>
+
+    <p>
+        I didn’t want polling every five minutes.  
+        I didn’t want duplicate instances.  
+        I didn’t want infinite restart loops.
+    </p>
+
+    <p>
+        So the design included:
+    </p>
+
+    <ul>
+        <li>Event-triggered restart using Security log 4689</li>
+        <li>Idempotent task registration</li>
+        <li>Duplicate instance prevention</li>
+        <li>Terminal-state detection</li>
+        <li>Boot trigger recovery</li>
+    </ul>
+
+    <p>
+        In simple terms, if the monitoring layer fails, it recovers itself.
+    </p>
+
+    <p>
+        Provisioning becomes resilient, not fragile.
+    </p>
+
+    <h2>From Reactive Troubleshooting to Reliability Engineering</h2>
+
+    <p>
+        Once telemetry was flowing into Log Analytics, and Azure Workbooks were built around it, something shifted.
+    </p>
+
+    <p>
+        We weren’t just seeing failures.
+    </p>
+
+    <p>
+        We were seeing patterns.
+    </p>
+
+    <ul>
+        <li>Certain hardware models clustering on driver steps</li>
+        <li>Specific task sequence phases trending unstable</li>
+        <li>Retry behavior emerging under certain conditions</li>
+        <li>First-pass success rates becoming measurable</li>
+    </ul>
+
+    <p>
+        Instead of waiting for tickets, we could see instability forming.
+    </p>
+
+    <p>
+        That’s when OSD stopped feeling like a deployment function and started feeling like a system.
+    </p>
+
+    <p>
+        And systems can be engineered.
+    </p>
+
+    <h2>The Bigger Lesson: Endpoint Is a Lifecycle, Not a Build</h2>
+
+    <p>
+        The most important thing I learned from building OSDMonitor wasn’t technical.
+    </p>
+
+    <p>
+        It was architectural.
+    </p>
+
+    <p>
+        Endpoint management fails when it is treated as a series of actions:
+    </p>
+
+    <p>
+        Build → Deploy → Fix → Repeat.
+    </p>
+
+    <p>
+        It matures when it is treated as a lifecycle:
+    </p>
+
+    <p>
+        Provision → Instrument → Measure → Stabilize → Optimize → Retire.
+    </p>
+
+    <p>
+        The self-healing component wasn’t about keeping a process alive.
+    </p>
+
+    <p>
+        It was about preventing silent failure inside a larger platform.
+    </p>
+
+    <p>
+        And that mindset shift is what’s pushing me beyond execution-focused engineering and toward platform architecture.
+    </p>
+
+    <p>
+        Because once you start thinking in terms of feedback loops, resilience, and measurable maturity, you stop asking:
+    </p>
+
+    <p>
+        “How do I fix this step?”
+    </p>
+
+    <p>
+        And you start asking:
+    </p>
+
+    <p>
+        “How do I prevent this system from degrading over time?”
+    </p>
+
+    <p>
+        That’s a different level of responsibility.
+    </p>
+
+    <p>
+        And a more interesting one.
     </p>
 
 </article>
