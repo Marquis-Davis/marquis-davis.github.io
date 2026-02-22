@@ -638,3 +638,90 @@ code {
         margin-bottom: 70px;
     }
 }
+/* =====================================
+   Premium Editorial Article Layout
+===================================== */
+
+/* Widen article container slightly */
+.article-content {
+    max-width: 800px;          /* 760–820px premium width */
+    padding: 100px 0 140px 0;  /* more vertical breathing room */
+}
+
+/* Improve overall reading rhythm */
+.article-content article {
+    line-height: 1.8;          /* global readability increase */
+}
+
+/* Paragraph spacing refinement */
+.article-content p {
+    margin-bottom: 22px;       /* prevents stacked density */
+    line-height: 1.8;
+}
+
+/* Improve first paragraph breathing room */
+.article-content h1 + .article-meta + p {
+    margin-top: 32px;
+}
+
+/* H1 remains dominant */
+.article-content h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    letter-spacing: -0.4px;
+}
+
+/* H2 hierarchy refinement */
+.article-content h2 {
+    font-size: 24px;
+    font-weight: 600;          /* reduce heaviness from 700 */
+    margin-top: 60px;          /* 48–64px top spacing */
+    margin-bottom: 20px;
+    letter-spacing: -0.2px;
+}
+
+/* Optional subtle rhythm divider */
+.article-content h2:not(:first-of-type)::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #1f242b;       /* low-contrast divider */
+    margin-bottom: 40px;
+    opacity: 0.6;
+}
+
+/* Improve list readability */
+.article-content ul {
+    margin: 20px 0 28px 24px;
+    line-height: 1.85;
+}
+
+.article-content li {
+    margin-bottom: 12px;
+}
+
+/* Article meta subtle refinement */
+.article-meta {
+    font-size: 14px;
+    color: #8B9299;
+    margin-bottom: 30px;
+}
+
+/* Responsive balance */
+@media (max-width: 768px) {
+
+    .article-content {
+        max-width: 100%;
+        padding: 70px 0 100px 0;
+    }
+
+    .article-content h1 {
+        font-size: 28px;
+    }
+
+    .article-content h2 {
+        font-size: 20px;
+        margin-top: 48px;
+    }
+}
