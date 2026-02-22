@@ -725,3 +725,72 @@ code {
         margin-top: 48px;
     }
 }
+
+/* ===============================
+   Resume / Professional Profile Section
+================================= */
+
+.resume-section {
+    padding: 160px 0;
+}
+
+.resume-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.resume-description {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    max-width: 420px;
+    line-height: 1.8;
+    color: #B0B5BA;
+}
+
+.resume-button {
+    display: inline-block;
+    padding: 12px 22px;
+    border: 1px solid #5C8DFF;
+    border-radius: 6px;
+    color: #5C8DFF;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.resume-button:hover {
+    background-color: #5C8DFF;
+    color: #0F1115;
+}
+
+.resume-image-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.resume-image {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 8px;
+    border: 1px solid #1F242B;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+
+    .resume-container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .resume-description {
+        max-width: 100%;
+    }
+
+    .resume-image {
+        max-width: 100%;
+    }
+}
