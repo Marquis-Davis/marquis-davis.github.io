@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Git Says Your Branch Has Diverged—Here’s What It Actually Means | Marquis Davis</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what Git means when your branch has diverged, why Git push gets rejected, and how to safely fix it using fetch, rebase, stash, and push.">
+
+    <meta name="keywords"
+          content="Git branch has diverged, Git push rejected, Git rebase, Git fetch, non-fast-forward, Azure DevOps Git, Git troubleshooting">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-container">
+        <div class="logo">Marquis Davis</div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container article-content">
+
+<article>
+
+    <h1>Git Says “Your Branch Has Diverged”—Here’s What It Actually Means</h1>
+
+    <p class="article-meta">August 2026 • 6 min read</p>
+
+    <p>
+        If you have ever tried to push your code and Git responded with:
+    </p>
+
+    <pre><code>Your branch and 'origin/master' have diverged.</code></pre>
+
+    <p>
+        or:
+    </p>
+
+    <pre><code>Updates were rejected because the tip of your current branch is behind its remote counterpart.</code></pre>
+
+    <p>
+        Don’t panic.
+    </p>
+
+    <p>
+        The first time I saw this, I thought I had broken the repository or was about to overwrite someone else’s work.
+        Neither was true.
+    </p>
+
+    <p>
+        Git was stopping me because my local branch and the remote branch no longer had the same history.
+    </p>
+
+    <h2>What “Your Branch Has Diverged” Means</h2>
+
+    <p>
+        Imagine the remote repository looks like this:
+    </p>
+
+    <pre><code>Remote
+
+A → B → C → D</code></pre>
+
+    <p>
+        While you were working, another developer pushed commits C and D.
+    </p>
+
+    <p>
+        Your local repository looks like this:
+    </p>
+
+    <pre><code>Local
+
+A → B → X</code></pre>
+
+    <p>
+        Your commit X is not on the server yet, and commits C and D are not in your local branch.
+    </p>
+
+    <p>
+        Git now sees two valid histories. That is what “diverged” means.
+    </p>
+
+    <h2>Did I Break the Repository?</h2>
+
+    <p>
+        No.
+    </p>
+
+    <p>
+        Git is protecting the shared repository.
+    </p>
+
+    <p>
+        It refuses to push because your local branch is missing newer remote commits.
+        Before your work can be uploaded, those remote commits need to be integrated locally.
+    </p>
+
+    <h2>The Commands That Fixed It</h2>
+
+    <h3>1. Check the Current State</h3>
+
+    <pre><code>git status</code></pre>
+
+    <p>
+        Always start here.
+    </p>
+
+    <p>
+        This tells you whether your branch is ahead, behind, diverged, merging, rebasing, or holding uncommitted changes.
+    </p>
+
+    <h3>2. Download the Latest Remote History</h3>
+
+    <pre><code>git fetch origin</code></pre>
+
+    <p>
+        This downloads the latest remote commits without changing your working files.
+    </p>
+
+    <p>
+        Think of it as:
+    </p>
+
+    <p>
+        “Show me what changed on the server.”
+    </p>
+
+    <h3>3. Replay Your Work on Top</h3>
+
+    <pre><code>git rebase origin/master</code></pre>
+
+    <p>
+        Rebase takes your local commit and places it after the latest remote commits.
+    </p>
+
+    <p>
+        Before:
+    </p>
+
+    <pre><code>Remote: A → B → C → D
+Local:  A → B → X</code></pre>
+
+    <p>
+        After rebase:
+    </p>
+
+    <pre><code>A → B → C → D → X</code></pre>
+
+    <p>
+        Your work is still there.
+        Git simply moves it to the top of the current branch history.
+    </p>
+
+    <h3>4. Push Your Commit</h3>
+
+    <pre><code>git push origin master</code></pre>
+
+    <p>
+        Once your local branch includes the latest remote commits, Git can safely accept the push.
+    </p>
+
+    <h2>Why Git Push Was Rejected</h2>
+
+    <p>
+        When Git says:
+    </p>
+
+    <pre><code>Updates were rejected because the tip of your current branch is behind its remote counterpart.</code></pre>
+
+    <p>
+        It means someone pushed new commits before you.
+    </p>
+
+    <p>
+        Git is telling you to update your branch before pushing.
+    </p>
+
+    <h2>When Git Says You Have Unstaged Changes</h2>
+
+    <p>
+        Sometimes rebase will fail with:
+    </p>
+
+    <pre><code>error: cannot pull with rebase:
+You have unstaged changes.</code></pre>
+
+    <p>
+        That means your working directory contains changes that have not been committed.
+    </p>
+
+    <p>
+        You can temporarily store them with:
+    </p>
+
+    <pre><code>git stash push -u -m "temp"</code></pre>
+
+    <p>
+        Then update your branch:
+    </p>
+
+    <pre><code>git fetch origin
+git rebase origin/master</code></pre>
+
+    <p>
+        Afterward, restore the stashed files:
+    </p>
+
+    <pre><code>git stash pop</code></pre>
+
+    <h2>When Git Says MERGE_HEAD Exists</h2>
+
+    <p>
+        If you see:
+    </p>
+
+    <pre><code>You have not concluded your merge.
+MERGE_HEAD exists.</code></pre>
+
+    <p>
+        A previous merge was started but never completed.
+    </p>
+
+    <p>
+        If you do not want that merge, cancel it:
+    </p>
+
+    <pre><code>git merge --abort</code></pre>
+
+    <p>
+        Then check the repository again:
+    </p>
+
+    <pre><code>git status</code></pre>
+
+    <h2>How I Avoid This Now</h2>
+
+    <p>
+        Before I start working:
+    </p>
+
+    <pre><code>git fetch origin
+git rebase origin/master</code></pre>
+
+    <p>
+        After making changes:
+    </p>
+
+    <pre><code>git add -- path/to/my/files
+git commit -m "Describe the change"
+git push origin master</code></pre>
+
+    <p>
+        I also avoid using:
+    </p>
+
+    <pre><code>git add .</code></pre>
+
+    <p>
+        in a large shared repository.
+    </p>
+
+    <p>
+        Instead, I stage the exact directory or files I want:
+    </p>
+
+    <pre><code>git add -- MQD9206/EndpointPlatform</code></pre>
+
+    <p>
+        That reduces the chance of accidentally committing unrelated files.
+    </p>
+
+    <h2>The Simple Version</h2>
+
+    <p>
+        Your branch diverged because:
+    </p>
+
+    <ul>
+        <li>You created local commits</li>
+        <li>Someone else pushed remote commits</li>
+        <li>Git needed both histories to be combined safely</li>
+    </ul>
+
+    <p>
+        The normal fix is:
+    </p>
+
+    <pre><code>git fetch origin
+git rebase origin/master
+git push origin master</code></pre>
+
+    <p>
+        If you have uncommitted changes, stash them first.
+    </p>
+
+    <p>
+        If you are stuck in an unwanted merge, abort the merge first.
+    </p>
+
+    <h2>Final Thoughts</h2>
+
+    <p>
+        “Your branch has diverged” sounds worse than it is.
+    </p>
+
+    <p>
+        It does not mean the repository is broken.
+    </p>
+
+    <p>
+        It means your local branch and the remote branch both contain commits the other side does not have.
+        Git is forcing you to synchronize them before pushing.
+    </p>
+
+    <p>
+        Once I understood that, the error stopped feeling confusing.
+    </p>
+
+</article>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>© 2026 Marquis Davis. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
