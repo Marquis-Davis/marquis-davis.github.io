@@ -5,15 +5,15 @@
 
     <meta charset="UTF-8">
 
-    <title>When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence | Marquis Davis</title>
+    <title>Invoke-WebRequest Hung, BITS Failed, and curl.exe Finally Worked | Marquis Davis</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="A real-world Windows Platform Engineering troubleshooting story involving Invoke-WebRequest, BITS, ConfigMgr Task Sequences, execution context, and curl.exe.">
+        content="A real-world Windows Platform Engineering troubleshooting story showing why Invoke-WebRequest hung, BITS failed with 0x800704DD, and curl.exe worked inside a ConfigMgr Task Sequence.">
 
     <meta name="keywords"
-        content="PowerShell Invoke-WebRequest, Start-BitsTransfer, curl.exe Windows, ConfigMgr Task Sequence, SCCM automation, Windows Platform Engineering, PowerShell automation">
+        content="Invoke-WebRequest, Start-BitsTransfer, curl.exe, ConfigMgr Task Sequence, SCCM automation, PowerShell download, 0x800704DD, Windows Platform Engineering">
 
     <link rel="stylesheet" href="styles.css">
 
@@ -41,80 +41,154 @@
 
 <article>
 
-<h1>When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence</h1>
+<h1>Invoke-WebRequest Hung, BITS Failed, and curl.exe Finally Worked</h1>
 
 <p class="article-meta">August 2026 • 7 min read</p>
 
 <p>
-    I recently ran into one of those automation problems where everything worked perfectly
-    when I ran it manually, but failed as soon as I tried to make it fully unattended.
+    I recently hit an issue while trying to make one of my Microsoft Configuration Manager
+    automation workflows completely unattended.
 </p>
 
 <p>
-    The automation was part of a driver packaging workflow I built around Microsoft Configuration Manager.
+    The PowerShell automation itself already worked.
 </p>
 
 <p>
-    The workflow was already doing most of what I wanted:
+    When I logged into the server and ran the script manually, it could download the required
+    package, extract it, build the content, copy it to the ConfigMgr content source, create the
+    ConfigMgr package, and continue the rest of the workflow.
+</p>
+
+<p>
+    The problem started when I tried to run that same automation non-interactively.
+</p>
+
+<p>
+    What followed turned into a good Windows Platform Engineering lesson about something
+    that is easy to overlook:
+</p>
+
+<pre><code>The same PowerShell code can behave very differently
+depending on the execution context.</code></pre>
+
+
+<h2>The Automation</h2>
+
+<p>
+    The workflow is part of a larger driver and BIOS automation process.
+</p>
+
+<p>
+    At a high level, the automation:
 </p>
 
 <ul>
-    <li>Identify when a driver package needs to be updated</li>
-    <li>Locate the correct vendor package</li>
-    <li>Download the package</li>
-    <li>Extract the driver files</li>
-    <li>Create a WIM</li>
-    <li>Copy the WIM to the ConfigMgr content source</li>
-    <li>Create the ConfigMgr driver package</li>
-    <li>Start content distribution</li>
+    <li>Checks whether new driver or BIOS content is available</li>
+    <li>Determines which hardware model needs an update</li>
+    <li>Locates the correct vendor download</li>
+    <li>Downloads the package</li>
+    <li>Extracts the content</li>
+    <li>Creates the required WIM</li>
+    <li>Copies the content into the ConfigMgr content source</li>
+    <li>Creates the ConfigMgr package</li>
+    <li>Starts the distribution process</li>
 </ul>
 
 <p>
-    When I ran the PowerShell script manually, the workflow worked.
+    The goal was to remove the last manual step and allow the workflow to run automatically.
 </p>
 
 <p>
-    The problem appeared when I moved the same automation into a ConfigMgr Task Sequence
-    so the entire process could run unattended.
+    That is where things got interesting.
 </p>
 
 
-<h2>The First Symptom</h2>
+<h2>The Script Worked Manually</h2>
 
 <p>
-    My logging showed that the script successfully identified the hardware model,
-    located the correct driver package, and validated the version.
+    Before changing any code, I verified the obvious question:
+</p>
+
+<pre><code>Does the automation actually work?</code></pre>
+
+<p>
+    Yes.
 </p>
 
 <p>
-    Then it reached:
-</p>
-
-<pre><code>Downloading driver package...</code></pre>
-
-<p>
-    And stopped.
+    Running the script manually completed successfully.
 </p>
 
 <p>
-    At first, it looked like the entire Task Sequence had hung.
+    That was important because it told me I was not dealing with a fundamentally broken
+    driver automation script.
 </p>
 
 <p>
-    But the script contained more than one web request, so before changing anything,
-    I wanted to determine exactly which request was causing the problem.
+    The problem was related to how the script was being launched.
 </p>
 
 
-<h2>Invoke-WebRequest Was Not Completely Broken</h2>
+<h2>Moving the Automation into a ConfigMgr Task Sequence</h2>
 
 <p>
-    The script used <code>Invoke-WebRequest</code> in two different places.
+    I eventually moved the script into a ConfigMgr Task Sequence and configured the
+    PowerShell step to run under the service account used by the automation.
 </p>
 
 <p>
-    The first request retrieved a small HTML page that I used to validate information
-    about the driver package:
+    The Task Sequence started correctly.
+</p>
+
+<p>
+    The script identified the model.
+</p>
+
+<p>
+    It located the correct package.
+</p>
+
+<p>
+    It retrieved the online version information.
+</p>
+
+<p>
+    Then the log reached:
+</p>
+
+<pre><code>Downloading package...</code></pre>
+
+<p>
+    And stayed there.
+</p>
+
+<p>
+    No error.
+</p>
+
+<p>
+    No timeout message.
+</p>
+
+<p>
+    No destination file being created.
+</p>
+
+<p>
+    The PowerShell process simply remained running.
+</p>
+
+
+<h2>Finding the Exact Invoke-WebRequest That Was Hanging</h2>
+
+<p>
+    My script actually used <code>Invoke-WebRequest</code> more than once.
+</p>
+
+<p>
+    The first request retrieved a small vendor web page so I could parse and validate
+    information about the package:
 </p>
 
 <pre><code>$SoftPaqPage = Invoke-WebRequest `
@@ -123,12 +197,12 @@
     -ErrorAction Stop</code></pre>
 
 <p>
-    That request worked inside the Task Sequence.
+    That request completed successfully inside the Task Sequence.
 </p>
 
 <p>
-    I knew this because the logs continued past that point and successfully displayed
-    the version information.
+    The logs proved it because the script continued past that point and displayed the
+    expected version information.
 </p>
 
 <p>
@@ -142,78 +216,39 @@
     -ErrorAction Stop</code></pre>
 
 <p>
-    That was where the automation stopped progressing.
+    That was the request hanging.
 </p>
 
 <p>
-    This was an important distinction.
+    I also checked the destination directory while the Task Sequence was running.
 </p>
 
 <p>
-    The problem was not simply:
-</p>
-
-<pre><code>Invoke-WebRequest does not work in a ConfigMgr Task Sequence.</code></pre>
-
-<p>
-    The smaller request worked.
+    The expected file was not growing slowly.
 </p>
 
 <p>
-    The larger file transfer did not.
-</p>
-
-
-<h2>Why Manual Testing Can Be Misleading</h2>
-
-<p>
-    One of the biggest lessons from this problem was that testing a script manually
-    does not always reproduce the environment where the automation will actually run.
+    It had not even been created.
 </p>
 
 <p>
-    When I launched PowerShell myself, I had a normal interactive Windows logon session.
-</p>
-
-<p>
-    The ConfigMgr Task Sequence was launching the automation through a non-interactive
-    execution context.
-</p>
-
-<p>
-    Same script.
-</p>
-
-<p>
-    Same machine.
-</p>
-
-<p>
-    Same download URL.
-</p>
-
-<p>
-    Different execution context.
-</p>
-
-<p>
-    That difference became one of the most important clues in the investigation.
+    That told me I was not simply dealing with a slow download.
 </p>
 
 
-<h2>Attempt #2: BITS</h2>
+<h2>My First Replacement: BITS</h2>
 
 <p>
-    My next thought was to use Background Intelligent Transfer Service.
+    The next logical option was BITS.
 </p>
 
 <p>
-    BITS is designed specifically for transferring files and is used throughout Windows,
-    so it seemed like a logical replacement.
+    Background Intelligent Transfer Service is built into Windows and is designed
+    specifically for transferring files.
 </p>
 
 <p>
-    I created a small test:
+    I created a small one-off test:
 </p>
 
 <pre><code>Import-Module BitsTransfer
@@ -224,43 +259,40 @@ Start-BitsTransfer `
     -ErrorAction Stop</code></pre>
 
 <p>
-    I ran the test manually.
+    I ran it manually.
 </p>
 
 <p>
-    It worked.
+    It downloaded the file successfully.
 </p>
 
 <p>
-    That looked promising.
+    At that point, BITS looked like the fix.
 </p>
+
+
+<h2>BITS Worked Manually but Failed in the Task Sequence</h2>
 
 <p>
     I replaced the large <code>Invoke-WebRequest</code> download with
-    <code>Start-BitsTransfer</code> and ran the Task Sequence again.
+    <code>Start-BitsTransfer</code>.
 </p>
 
 <p>
-    This time the download did not hang.
+    Then I ran the Task Sequence again.
 </p>
 
 <p>
-    It failed immediately.
-</p>
-
-
-<h2>The Error That Changed the Investigation</h2>
-
-<p>
-    My original error handling only told me that the download failed.
+    This time it did not hang.
 </p>
 
 <p>
-    That was not enough information.
+    It failed almost instantly.
 </p>
 
 <p>
-    I changed the catch block so the actual exception would be written to the log:
+    The first version of my error handling only reported that the download failed,
+    so I changed it to capture the actual exception:
 </p>
 
 <pre><code>catch {
@@ -277,54 +309,72 @@ the user has not logged on to the network.
 Exception from HRESULT: 0x800704DD</code></pre>
 
 <p>
-    That changed the direction of the troubleshooting.
-</p>
-
-<p>
-    BITS was not failing because the URL was wrong.
-</p>
-
-<p>
-    It was not failing because the destination path was invalid.
-</p>
-
-<p>
-    The same BITS transfer worked when I ran it interactively.
-</p>
-
-<p>
-    It failed when the automation ran through the Task Sequence.
-</p>
-
-<p>
-    The execution context mattered.
+    Now I had something useful.
 </p>
 
 
-<h2>Attempt #3: curl.exe</h2>
+<h2>That Error Was the Clue</h2>
 
 <p>
-    At this point, I wanted the simplest possible HTTPS file transfer.
+    The same BITS command had just worked when I ran it interactively.
 </p>
 
 <p>
-    I did not want to redesign the automation.
+    The URL had not changed.
 </p>
 
 <p>
-    I did not want to introduce another service or dependency.
+    The destination had not changed.
 </p>
 
 <p>
-    I only needed to replace the part of the workflow that was failing.
+    The server had not changed.
 </p>
 
 <p>
-    Modern versions of Windows include <code>curl.exe</code>, so I decided to test it.
+    What changed was the execution context.
 </p>
 
 <p>
-    I replaced only the file download with:
+    The Task Sequence was running the automation non-interactively.
+</p>
+
+<p>
+    BITS was telling me directly that the operation expected a logon/network state
+    that was not available in that context.
+</p>
+
+<p>
+    That is when I stopped treating this as a normal PowerShell download problem.
+</p>
+
+
+<h2>I Needed a Downloader Without That Dependency</h2>
+
+<p>
+    At this point I did not want to keep redesigning a working automation.
+</p>
+
+<p>
+    I needed one thing:
+</p>
+
+<pre><code>Download this HTTPS file successfully from the Task Sequence.</code></pre>
+
+<p>
+    Nothing more.
+</p>
+
+<p>
+    Modern versions of Windows include <code>curl.exe</code>, so I decided to try
+    the native executable instead.
+</p>
+
+
+<h2>The curl.exe Test</h2>
+
+<p>
+    I replaced only the executable download with:
 </p>
 
 <pre><code>&amp; "$env:SystemRoot\System32\curl.exe" `
@@ -338,243 +388,337 @@ if ($LASTEXITCODE -ne 0) {
 }</code></pre>
 
 <p>
-    The options are straightforward:
+    I explicitly used:
 </p>
 
+<pre><code>$env:SystemRoot\System32\curl.exe</code></pre>
+
+<p>
+    instead of simply typing <code>curl</code>.
+</p>
+
+<p>
+    That makes it clear that the automation is calling the native Windows executable.
+</p>
+
+
+<h2>What the curl Options Do</h2>
+
 <ul>
-    <li><code>-L</code> follows HTTP redirects</li>
-    <li><code>--fail</code> causes failed HTTP responses to return an error</li>
-    <li><code>--output</code> specifies the destination file</li>
+    <li>
+        <code>-L</code> tells curl to follow redirects.
+    </li>
+
+    <li>
+        <code>--fail</code> causes HTTP errors to return a failure instead of treating
+        the response like a successful download.
+    </li>
+
+    <li>
+        <code>--output</code> writes the downloaded file to the destination path.
+    </li>
 </ul>
 
 <p>
-    Since curl is a native executable rather than a PowerShell cmdlet,
-    I also check <code>$LASTEXITCODE</code>.
+    Since <code>curl.exe</code> is a native executable, PowerShell does not automatically
+    treat a non-zero exit code like a terminating PowerShell exception.
 </p>
 
 <p>
-    If curl returns anything other than zero, the script throws an exception
-    and the existing PowerShell error handling takes over.
+    That is why I also added:
+</p>
+
+<pre><code>if ($LASTEXITCODE -ne 0) {
+    throw "curl.exe download failed with exit code $LASTEXITCODE"
+}</code></pre>
+
+<p>
+    This allows the existing PowerShell <code>try/catch</code> logic to handle a failed
+    curl download normally.
 </p>
 
 
 <h2>Then I Ran the Task Sequence Again</h2>
 
 <p>
-    The Task Sequence started.
+    The script reached:
+</p>
+
+<pre><code>Downloading package...</code></pre>
+
+<p>
+    I waited.
 </p>
 
 <p>
-    The log reached:
-</p>
-
-<pre><code>Downloading driver package...</code></pre>
-
-<p>
-    But this time, it continued.
-</p>
-
-<p>
-    The next message appeared:
+    Then the next log entry appeared:
 </p>
 
 <pre><code>Extracting Driver Package...</code></pre>
 
 <p>
-    That was the moment I knew the download problem had been solved.
+    That was it.
 </p>
 
 <p>
-    More importantly, I did not have to redesign the rest of the automation.
+    curl had successfully downloaded the same file that
+    <code>Invoke-WebRequest</code> had stalled on and BITS had refused to transfer.
+</p>
+
+
+<h2>The Rest of the Automation Continued</h2>
+
+<p>
+    This was the part I cared about most.
 </p>
 
 <p>
-    The existing workflow continued and successfully:
+    I did not want a workaround that fixed the download but broke everything after it.
+</p>
+
+<p>
+    Once curl completed the transfer, the existing automation continued.
+</p>
+
+<p>
+    It successfully:
 </p>
 
 <ul>
-    <li>Downloaded the vendor package</li>
-    <li>Extracted the driver files</li>
-    <li>Created the driver WIM</li>
-    <li>Copied the WIM to the content source</li>
+    <li>Extracted the vendor package</li>
+    <li>Processed the driver content</li>
+    <li>Created the WIM</li>
+    <li>Copied the WIM to the ConfigMgr content source</li>
     <li>Created the ConfigMgr driver package</li>
-    <li>Moved the package into the appropriate ConfigMgr folder</li>
-    <li>Continued the distribution workflow</li>
+    <li>Moved the package into the proper ConfigMgr folder</li>
+    <li>Continued the package distribution workflow</li>
 </ul>
 
 <p>
-    The automation was finally able to complete unattended.
-</p>
-
-
-<h2>Was curl Better Than PowerShell?</h2>
-
-<p>
-    Not exactly.
+    The Task Sequence completed.
 </p>
 
 <p>
-    It would be easy to walk away from this and say:
+    The automation that previously required me to log into the server manually could now
+    run unattended.
 </p>
 
-<pre><code>Always use curl instead of Invoke-WebRequest.</code></pre>
+
+<h2>Three Download Methods, Three Different Results</h2>
 
 <p>
-    I do not think that is the right lesson.
+    What made this issue interesting was that all three methods were trying to accomplish
+    the same basic task.
 </p>
 
 <p>
-    <code>Invoke-WebRequest</code>, BITS, and curl are all useful tools.
+    Their behavior was completely different under automation.
+</p>
+
+<h3>Invoke-WebRequest</h3>
+
+<pre><code>Invoke-WebRequest `
+    -Uri $ExeUrl `
+    -OutFile $Destination `
+    -ErrorAction Stop</code></pre>
+
+<p>
+    Result:
+</p>
+
+<pre><code>Worked manually.
+Small web request worked in the Task Sequence.
+Large executable download stalled in the Task Sequence.</code></pre>
+
+
+<h3>Start-BitsTransfer</h3>
+
+<pre><code>Start-BitsTransfer `
+    -Source $ExeUrl `
+    -Destination $Destination `
+    -ErrorAction Stop</code></pre>
+
+<p>
+    Result:
+</p>
+
+<pre><code>Worked manually.
+Failed immediately in the Task Sequence.
+HRESULT: 0x800704DD.</code></pre>
+
+
+<h3>curl.exe</h3>
+
+<pre><code>&amp; "$env:SystemRoot\System32\curl.exe" `
+    -L `
+    --fail `
+    --output $Destination `
+    $ExeUrl</code></pre>
+
+<p>
+    Result:
+</p>
+
+<pre><code>Worked inside the Task Sequence.
+Download completed.
+Automation continued successfully.</code></pre>
+
+
+<h2>The Lesson Was Not "curl Is Better"</h2>
+
+<p>
+    I do not think the lesson is that everyone should stop using
+    <code>Invoke-WebRequest</code> or BITS.
 </p>
 
 <p>
-    The better question is:
+    Both are useful.
 </p>
 
-<pre><code>Which transfer mechanism behaves correctly in the environment
-where my automation actually runs?</code></pre>
+<p>
+    I still use <code>Invoke-WebRequest</code> elsewhere in the same automation.
+</p>
 
 <p>
-    In this particular workflow:
+    The small HTML request was not the problem, so I left it alone.
+</p>
+
+<p>
+    There was no reason to rewrite working code.
+</p>
+
+<p>
+    I changed only the operation that failed in the environment where it needed to run.
+</p>
+
+
+<h2>The Real Lesson: Execution Context Matters</h2>
+
+<p>
+    The most important takeaway for me was:
+</p>
+
+<pre><code>Working manually does not prove that an automation
+will work non-interactively.</code></pre>
+
+<p>
+    A script may eventually run as:
 </p>
 
 <ul>
-    <li>
-        <code>Invoke-WebRequest</code> successfully handled the smaller web request,
-        but the large file download stalled in the Task Sequence
-    </li>
-
-    <li>
-        <code>Start-BitsTransfer</code> successfully downloaded the file interactively,
-        but failed in the Task Sequence with error <code>0x800704DD</code>
-    </li>
-
-    <li>
-        <code>curl.exe</code> successfully completed the same HTTPS file transfer
-        from the Task Sequence
-    </li>
-</ul>
-
-<p>
-    curl was not automatically better.
-</p>
-
-<p>
-    It was simply the better fit for this execution context.
-</p>
-
-
-<h2>The Bigger Windows Platform Engineering Lesson</h2>
-
-<p>
-    The biggest takeaway from this problem had very little to do with downloading drivers.
-</p>
-
-<p>
-    It was this:
-</p>
-
-<pre><code>Always test automation in the execution context
-where it will actually run.</code></pre>
-
-<p>
-    A PowerShell script might eventually execute through:
-</p>
-
-<ul>
-    <li>Task Scheduler</li>
-    <li>Microsoft Configuration Manager</li>
-    <li>Microsoft Intune</li>
-    <li>Local System</li>
+    <li>Your interactive administrator account</li>
     <li>A domain service account</li>
+    <li>Local System</li>
+    <li>A scheduled task</li>
+    <li>A ConfigMgr Task Sequence</li>
+    <li>Intune</li>
     <li>A CI/CD runner</li>
-    <li>A remote PowerShell session</li>
+    <li>A remote automation service</li>
 </ul>
 
 <p>
-    Running a script manually proves that the code works under your current interactive session.
+    Those environments are not interchangeable.
 </p>
 
 <p>
-    It does not necessarily prove that the same script will behave identically
-    when another execution context launches it.
-</p>
-
-<p>
-    Execution context can affect:
+    Execution context can change:
 </p>
 
 <ul>
-    <li>Authentication</li>
-    <li>Network access</li>
-    <li>User profiles</li>
+    <li>Authentication behavior</li>
+    <li>Network credential availability</li>
+    <li>User profile availability</li>
     <li>Environment variables</li>
-    <li>Proxy configuration</li>
-    <li>Certificates</li>
-    <li>Windows services</li>
-    <li>Credential availability</li>
-    <li>Interactive APIs</li>
+    <li>Proxy behavior</li>
+    <li>Certificate access</li>
+    <li>Windows service behavior</li>
+    <li>Interactive session dependencies</li>
 </ul>
 
 <p>
-    Understanding where code executes can be just as important as understanding
-    what the code does.
+    The PowerShell syntax can be perfectly valid while the environment prevents the
+    operation from behaving the way it did during manual testing.
 </p>
 
 
-<h2>Another Lesson: Improve Logging Before Changing Everything</h2>
+<h2>Another Lesson: Do Not Rewrite Everything Too Early</h2>
 
 <p>
-    This troubleshooting process also reinforced how important logging is
-    when building unattended automation.
+    During troubleshooting, it is tempting to start changing multiple parts of a script.
 </p>
 
 <p>
-    A log entry like:
+    I deliberately avoided doing that.
+</p>
+
+<p>
+    The automation had already proven that it could:
+</p>
+
+<ul>
+    <li>Find the correct package</li>
+    <li>Parse the vendor information</li>
+    <li>Extract the package</li>
+    <li>Create the ConfigMgr content</li>
+    <li>Interact with ConfigMgr</li>
+</ul>
+
+<p>
+    The failing component was the executable download.
+</p>
+
+<p>
+    So that is what I changed.
+</p>
+
+<p>
+    One line of the workflow was replaced instead of redesigning an entire automation system.
+</p>
+
+
+<h2>Logging Made the Difference</h2>
+
+<p>
+    Another takeaway was the value of logging the actual exception.
+</p>
+
+<p>
+    This:
 </p>
 
 <pre><code>Download failed.</code></pre>
 
 <p>
-    tells me very little.
+    tells me almost nothing.
 </p>
 
 <p>
-    Capturing the actual exception:
+    This:
 </p>
 
-<pre><code>catch {
-    Write-Log -Message "Download failed: $($_.Exception.Message)"
-}</code></pre>
+<pre><code>Download failed: The operation being requested was not performed
+because the user has not logged on to the network.
+Exception from HRESULT: 0x800704DD</code></pre>
 
 <p>
-    can completely change the direction of an investigation.
-</p>
-
-<p>
-    In this case, the BITS error showed that I was dealing with more than
-    a simple download failure.
+    gives me a direction.
 </p>
 
 <p>
-    Windows was giving me information about the environment in which the operation
-    was being attempted.
-</p>
-
-<p>
-    For unattended automation, logs are often your debugger.
+    When an automation is unattended, the log becomes the closest thing you have to
+    sitting in front of the console watching the problem happen.
 </p>
 
 
-<h2>The Final Download Block</h2>
+<h2>The Final Implementation</h2>
 
 <p>
-    The final implementation remained intentionally simple:
+    The final download section ended up being simple:
 </p>
 
 <pre><code>try {
 
-    Write-Log -Message "Downloading driver package..."
+    Write-Log -Message "Downloading package..."
 
     &amp; "$env:SystemRoot\System32\curl.exe" `
         -L `
@@ -593,82 +737,73 @@ catch {
 }</code></pre>
 
 <p>
-    No redesign of the entire workflow.
+    No additional PowerShell module was required.
 </p>
 
 <p>
-    No unnecessary complexity.
+    No separate download service was required.
 </p>
 
 <p>
-    I replaced the component that was failing and left the rest of the automation intact.
+    No redesign of the rest of the automation was required.
 </p>
 
 
 <h2>The Simple Version</h2>
 
 <p>
-    The troubleshooting path came down to this:
+    Here is the entire troubleshooting story in a few lines:
 </p>
 
 <ul>
-    <li>The PowerShell automation worked when executed manually</li>
-    <li>The behavior changed when the workflow moved into a ConfigMgr Task Sequence</li>
-    <li>The large <code>Invoke-WebRequest</code> download stopped progressing</li>
-    <li>BITS worked interactively but exposed a non-interactive execution limitation</li>
-    <li><code>curl.exe</code> successfully completed the transfer from the Task Sequence</li>
+    <li>The automation worked when I ran it manually</li>
+    <li>The large <code>Invoke-WebRequest</code> download stalled when automated</li>
+    <li>BITS worked manually but failed non-interactively with <code>0x800704DD</code></li>
+    <li><code>curl.exe</code> successfully downloaded the same file</li>
+    <li>The existing ConfigMgr automation continued and completed successfully</li>
 </ul>
-
-<p>
-    The final code change was small.
-</p>
-
-<p>
-    Understanding why that change worked was much more valuable.
-</p>
 
 
 <h2>Final Thoughts</h2>
 
 <p>
-    This started with a simple question:
+    This issue started as a download problem.
 </p>
 
 <p>
-    Why does my PowerShell download work manually but fail when automated?
+    It ended up being a lesson about Windows automation.
 </p>
 
 <p>
-    The answer turned out to involve more than PowerShell syntax.
+    The final fix was only a few lines of code.
 </p>
 
 <p>
-    It involved execution context.
+    But getting there required proving which operation was actually failing,
+    reproducing the behavior under the real automation context, testing alternatives,
+    and paying attention to what Windows was telling me.
 </p>
 
 <p>
-    That is one of the areas I have been focusing on as I continue moving deeper
-    into Windows Platform Engineering: understanding not only how to automate something,
-    but how Windows actually executes, authenticates, and manages that automation behind the scenes.
+    That is one of the things I enjoy about moving deeper into Windows Platform Engineering.
 </p>
 
 <p>
-    The experience also changed how I approach similar problems.
+    The goal is not just to make a script run.
 </p>
 
 <p>
-    Before rewriting working code, I want to know exactly where the failure occurs,
-    what account or context is executing it, and whether the behavior can be reproduced
-    under that same context.
+    It is to understand why it behaves the way it does, make the smallest reliable change,
+    and build automation that can operate without someone sitting in front of it.
 </p>
 
 <p>
-    Sometimes the final fix is only a few lines.
+    In this case:
 </p>
 
-<p>
-    Getting to those few lines is where the engineering happens.
-</p>
+<pre><code>Invoke-WebRequest hung.
+BITS exposed the execution-context problem.
+curl.exe finished the job.</code></pre>
 
 </article>
 
