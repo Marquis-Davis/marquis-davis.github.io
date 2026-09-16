@@ -13,21 +13,31 @@
         .radar-hero h1 span{background:linear-gradient(90deg,#fff 0%,#9adfff 48%,#b6a7ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
         .radar-hero p{max-width:820px;font-size:1.05rem}
         .radar-note{margin-top:18px;padding:13px 15px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.018);font-size:12px;color:#95a4b5}
-        .mode-switch{display:inline-flex;gap:6px;margin:22px 0 28px;padding:5px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.02)}
+        .mode-switch{display:inline-flex;gap:6px;margin:22px 0 14px;padding:5px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.02)}
         .mode-button{min-height:38px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:#aab7c5;font-weight:800;cursor:pointer}
         .mode-button.active{background:linear-gradient(135deg,var(--cyan),#8ab4ff);color:#071019}
+        .mode-status{margin-bottom:30px;padding:16px 18px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(135deg,rgba(96,165,250,.07),rgba(103,232,249,.025));transition:border-color .2s ease,background .2s ease}
+        .mode-status-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;color:#8debf6;font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+        .mode-status-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px rgba(103,232,249,.45)}
+        .mode-status strong{display:block;color:#e7eef6;font-size:15px}
+        .mode-status p{margin-top:4px;font-size:12px}
+        .market-mode .mode-status{border-color:rgba(167,139,250,.35);background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(96,165,250,.035))}
+        .market-mode .mode-status-badge{color:#c4b5fd}.market-mode .mode-status-badge::before{background:var(--violet);box-shadow:0 0 12px rgba(167,139,250,.45)}
         .stack-map{display:grid;gap:10px;margin-bottom:34px}
         .stack-layer{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:center;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,rgba(17,24,35,.78),rgba(10,14,20,.9))}
         .stack-layer-name{color:#dce6f2;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
         .stack-companies{display:flex;flex-wrap:wrap;gap:8px}
         .stack-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border-bright);border-radius:999px;background:rgba(96,165,250,.05);font-size:12px;font-weight:800}
         .stack-chip b{color:var(--cyan)}
+        .market-chip{display:none}.market-mode .engineer-chip{display:none}.market-mode .market-chip{display:inline}
         .radar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-        .radar-card{padding:24px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,24,35,.86),rgba(10,14,20,.94))}
+        .radar-card{padding:24px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,24,35,.86),rgba(10,14,20,.94));transition:border-color .2s ease,background .2s ease}
         .radar-card:hover{border-color:var(--border-bright)}
+        .market-mode .radar-card{border-color:rgba(167,139,250,.22);background:linear-gradient(180deg,rgba(22,24,40,.9),rgba(10,14,20,.94))}
         .radar-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
         .radar-company{display:flex;align-items:center;gap:12px}
-        .ticker{display:grid;min-width:48px;height:38px;place-items:center;padding:0 8px;border:1px solid var(--border-bright);border-radius:10px;color:var(--cyan);background:rgba(96,165,250,.07);font-size:11px;font-weight:900}
+        .ticker{display:none;min-width:48px;height:38px;place-items:center;padding:0 8px;border:1px solid var(--border-bright);border-radius:10px;color:var(--cyan);background:rgba(96,165,250,.07);font-size:11px;font-weight:900}
+        .market-mode .ticker{display:grid}
         .radar-company h3{margin:0;font-size:20px}.radar-company span{display:block;margin-top:2px;color:var(--muted);font-size:11px}
         .radar-card p{font-size:13px}
         .radar-label{margin:18px 0 7px;color:#7f8b99;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
@@ -36,15 +46,16 @@
         .context-copy{display:none}.market-mode .engineer-copy{display:none}.market-mode .context-copy{display:block}
         .signal-board{margin-top:54px}
         .signal-list{display:grid;gap:10px}
-        .signal-item{display:grid;grid-template-columns:100px 82px minmax(0,1fr);gap:14px;padding:16px 18px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.018)}
-        .signal-date,.signal-ticker{color:#7f8b99;font-size:11px;font-weight:800}.signal-ticker{color:var(--cyan)}
+        .signal-item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:14px;padding:16px 18px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.018)}
+        .signal-date,.signal-ticker{color:#7f8b99;font-size:11px;font-weight:800}.signal-ticker{display:none;color:var(--cyan)}
+        .market-mode .signal-item{grid-template-columns:100px 82px minmax(0,1fr)}.market-mode .signal-ticker{display:block}
         .signal-copy strong{display:block;color:#dfe8f2;font-size:13px}.signal-copy span{display:block;margin-top:5px;color:var(--muted);font-size:12px}
         .signal-copy a{display:inline-block;margin-top:7px;color:var(--cyan);font-size:11px;font-weight:800}
         .learning-panel{margin-top:54px;padding:26px;border:1px solid var(--border-bright);border-radius:var(--radius);background:linear-gradient(135deg,rgba(96,165,250,.07),rgba(167,139,250,.04))}
         .learning-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
         .loading{padding:30px;border:1px solid var(--border);border-radius:14px;color:var(--muted);text-align:center}
-        @media(max-width:820px){.stack-layer{grid-template-columns:1fr;gap:9px}.radar-grid{grid-template-columns:1fr}.signal-item{grid-template-columns:80px 60px 1fr}}
-        @media(max-width:560px){.radar-shell{padding:42px 0 62px}.radar-hero h1{font-size:clamp(2.3rem,12vw,3.1rem)}.radar-card{padding:18px}.signal-item{grid-template-columns:1fr;gap:5px}.mode-switch{width:100%;display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%}}
+        @media(max-width:820px){.stack-layer{grid-template-columns:1fr;gap:9px}.radar-grid{grid-template-columns:1fr}.signal-item,.market-mode .signal-item{grid-template-columns:80px minmax(0,1fr)}.market-mode .signal-ticker{grid-column:1}.market-mode .signal-copy{grid-column:2}}
+        @media(max-width:560px){.radar-shell{padding:42px 0 62px}.radar-hero h1{font-size:clamp(2.3rem,12vw,3.1rem)}.radar-card{padding:18px}.signal-item,.market-mode .signal-item{grid-template-columns:1fr;gap:5px}.market-mode .signal-ticker,.market-mode .signal-copy{grid-column:auto}.mode-switch{width:100%;display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%}.mode-status{padding:14px 15px}}
     </style>
 </head>
 <body>
@@ -65,22 +76,27 @@
             <button class="mode-button active" id="engineerMode" type="button">Engineer View</button>
             <button class="mode-button" id="marketMode" type="button">Market Context View</button>
         </div>
+        <div class="mode-status" id="modeStatus" aria-live="polite">
+            <span class="mode-status-badge" id="modeBadge">Engineer View Active</span>
+            <strong id="modeTitle">Architecture & career lens</strong>
+            <p id="modeDescription">Showing where each company fits technically, what problem that layer solves, and what an AI Platform Engineer should learn from it.</p>
+        </div>
     </section>
 
     <section class="container">
-        <div class="section-heading"><div class="kicker">Architecture Stack</div><h2>AI is a dependency chain, not a single product.</h2><p>Each layer solves a different bottleneck. The radar connects the company to the technology and then to the skill an AI Platform Engineer should understand.</p></div>
+        <div class="section-heading"><div class="kicker">Architecture Stack</div><h2 id="stackHeading">AI is a dependency chain, not a single product.</h2><p id="stackIntro">Each layer solves a different bottleneck. The radar connects the company to the technology and then to the skill an AI Platform Engineer should understand.</p></div>
         <div class="stack-map" id="stackMap"><div class="loading">Loading AI buildout stack…</div></div>
     </section>
 
-    <section class="section-tight">
+    <section class="section-tight" id="playersSection">
         <div class="container">
-            <div class="section-heading"><div class="kicker">Selected Buildout Players</div><h2>Follow the role each company plays—not the share price.</h2><p>Default view explains the engineering relevance. Switch to Market Context View to see how each public company maps to the commercial AI buildout without turning this into an investment dashboard.</p></div>
+            <div class="section-heading"><div class="kicker">Selected Buildout Players</div><h2 id="playersHeading">What each company contributes to the architecture.</h2><p id="playersIntro">Engineer View prioritizes technical role, dependencies, and the skills worth understanding. Tickers stay out of the way unless you switch to Market Context View.</p></div>
             <div class="radar-grid" id="radarGrid"><div class="loading">Loading radar…</div></div>
         </div>
     </section>
 
     <section class="container signal-board">
-        <div class="section-heading"><div class="kicker">Buildout Signals</div><h2>Technology developments worth translating into architecture knowledge.</h2><p>These are curated engineering signals from official product and documentation sources. The important question is: what does this development teach about the AI stack?</p></div>
+        <div class="section-heading"><div class="kicker">Buildout Signals</div><h2 id="signalsHeading">Technology developments worth translating into architecture knowledge.</h2><p id="signalsIntro">These are curated engineering signals from official product and documentation sources. The important question is: what does this development teach about the AI stack?</p></div>
         <div class="signal-list" id="signalList"><div class="loading">Loading signals…</div></div>
     </section>
 
@@ -103,6 +119,15 @@
     const radarGrid = document.getElementById('radarGrid');
     const signalList = document.getElementById('signalList');
     const learningQueue = document.getElementById('learningQueue');
+    const modeBadge = document.getElementById('modeBadge');
+    const modeTitle = document.getElementById('modeTitle');
+    const modeDescription = document.getElementById('modeDescription');
+    const stackHeading = document.getElementById('stackHeading');
+    const stackIntro = document.getElementById('stackIntro');
+    const playersHeading = document.getElementById('playersHeading');
+    const playersIntro = document.getElementById('playersIntro');
+    const signalsHeading = document.getElementById('signalsHeading');
+    const signalsIntro = document.getElementById('signalsIntro');
 
     const setMode = mode => {
         const market = mode === 'market';
@@ -111,6 +136,32 @@
         marketBtn.classList.toggle('active', market);
         engineerBtn.setAttribute('aria-pressed', String(!market));
         marketBtn.setAttribute('aria-pressed', String(market));
+
+        if (market) {
+            modeBadge.textContent = 'Market Context View Active';
+            modeTitle.textContent = 'Commercial dependency lens';
+            modeDescription.textContent = 'Showing which public companies sit at each AI dependency layer and what business exposure they represent. This is architecture context—not a stock rating or buy/sell signal.';
+            stackHeading.textContent = 'Which businesses sit underneath each AI dependency?';
+            stackIntro.textContent = 'This view maps each ticker and company to the infrastructure layer it supplies so the commercial buildout can be understood as a system.';
+            playersHeading.textContent = 'How each public company participates in the AI buildout.';
+            playersIntro.textContent = 'Market Context View focuses on the business dependency represented by each company without ranking the stocks, discussing valuation, or making investment calls.';
+            signalsHeading.textContent = 'Buildout developments that can shift demand across the AI stack.';
+            signalsIntro.textContent = 'Read these signals as changes in infrastructure demand, capacity, product generations, and platform adoption—not as trading signals.';
+        } else {
+            modeBadge.textContent = 'Engineer View Active';
+            modeTitle.textContent = 'Architecture & career lens';
+            modeDescription.textContent = 'Showing where each company fits technically, what problem that layer solves, and what an AI Platform Engineer should learn from it.';
+            stackHeading.textContent = 'AI is a dependency chain, not a single product.';
+            stackIntro.textContent = 'Each layer solves a different bottleneck. The radar connects the company to the technology and then to the skill an AI Platform Engineer should understand.';
+            playersHeading.textContent = 'What each company contributes to the architecture.';
+            playersIntro.textContent = 'Engineer View prioritizes technical role, dependencies, and the skills worth understanding. Tickers stay out of the way unless you switch to Market Context View.';
+            signalsHeading.textContent = 'Technology developments worth translating into architecture knowledge.';
+            signalsIntro.textContent = 'These are curated engineering signals from official product and documentation sources. The important question is: what does this development teach about the AI stack?';
+        }
+
+        document.querySelectorAll('.watch-label').forEach(label => {
+            label.textContent = market ? 'What to monitor' : 'What to learn';
+        });
     };
     engineerBtn.addEventListener('click', () => setMode('engineer'));
     marketBtn.addEventListener('click', () => setMode('market'));
@@ -139,7 +190,13 @@
             for (const company of layer.companies || []) {
                 const chip = document.createElement('span');
                 chip.className = 'stack-chip';
-                chip.innerHTML = `<b>${company.ticker}</b> ${company.company}`;
+                const engineerName = document.createElement('span');
+                engineerName.className = 'engineer-chip';
+                engineerName.textContent = company.company;
+                const marketName = document.createElement('span');
+                marketName.className = 'market-chip';
+                marketName.innerHTML = `<b>${company.ticker}</b> ${company.company}`;
+                chip.append(engineerName, marketName);
                 companies.appendChild(chip);
             }
             layerRow.append(name, companies);
@@ -173,7 +230,7 @@
                 const noPick = document.createElement('p'); noPick.style.marginTop = '10px'; noPick.textContent = 'This view maps the business to the architecture. It does not rate the stock or make a buy/sell call.';
                 context.append(marketLabel, marketCopy, noPick);
 
-                const watchLabel = document.createElement('div'); watchLabel.className = 'radar-label'; watchLabel.textContent = 'What to monitor / learn';
+                const watchLabel = document.createElement('div'); watchLabel.className = 'radar-label watch-label'; watchLabel.textContent = root.classList.contains('market-mode') ? 'What to monitor' : 'What to learn';
                 const chips = document.createElement('div'); chips.className = 'chips';
                 (company.watch || []).forEach(item => addChip(chips, item));
                 const source = document.createElement('a'); source.className = 'source-link'; source.href = company.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Official source →';
@@ -197,6 +254,8 @@
 
         (data.learningQueue || []).forEach(item => addChip(learningQueue, item));
     };
+
+    setMode('engineer');
 
     fetch(`data/ai-buildout-radar.json?v=${Date.now()}`, { cache: 'no-store' })
         .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
