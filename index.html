@@ -44,6 +44,7 @@
                 <div class="button-row">
                     <a class="button" href="#work">Explore My Work</a>
                     <a class="button secondary" href="resume.html">View Updated Resume</a>
+                    <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume (PDF)</a>
                     <a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
             </div>
@@ -57,6 +58,14 @@
                     </div>
                 </div>
                 <div class="status-line"><span class="status-dot"></span> Building in public through hands-on engineering labs</div>
+
+                <div class="signal-card" aria-label="Live date and time">
+                    <div class="signal-label">Live Date & Time</div>
+                    <div id="portfolioClockTime" style="font-size:32px;font-weight:850;letter-spacing:-0.03em;color:var(--text);line-height:1.05;">--:--:--</div>
+                    <div id="portfolioClockDate" style="margin-top:7px;color:var(--muted);font-size:13px;">Loading date...</div>
+                    <div id="portfolioClockZone" style="margin-top:4px;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">Local time</div>
+                </div>
+
                 <div class="signal-card">
                     <div class="signal-label">Current Build</div>
                     <h3>AI Endpoint Troubleshooting Assistant</h3>
@@ -199,22 +208,15 @@
             <div class="section-heading">
                 <div class="kicker">Updated Resume</div>
                 <h2>Senior Platform Engineer | Azure | Endpoint | Automation | AI Platform Engineering</h2>
-                <p>This resume section now reflects the uploaded 2026 resume, including Microsoft Foundry, AI agents, Python/REST API integration, AI Endpoint Troubleshooting Assistant work, Azure platform engineering, ConfigMgr, Intune, Microsoft Graph, Log Analytics, and current certifications.</p>
+                <p>This resume section reflects my current resume, including Microsoft Foundry, AI agents, Python/REST API integration, AI Endpoint Troubleshooting Assistant work, Azure platform engineering, ConfigMgr, Intune, Microsoft Graph, Log Analytics, and current certifications.</p>
             </div>
             <div class="grid-2">
-                <article class="card">
-                    <div class="icon-box">15+</div>
-                    <h3>Enterprise Platform Engineering</h3>
-                    <p>15+ years across Windows, Azure-connected platforms, endpoint engineering, automation, observability, lifecycle governance, identity, and security controls.</p>
-                </article>
-                <article class="card">
-                    <div class="icon-box">AI</div>
-                    <h3>AI Platform Engineering</h3>
-                    <p>Microsoft Foundry agents, Python/REST APIs, RAG/MCP concepts, secure Azure identity/RBAC patterns, and AI integration with real endpoint systems and telemetry.</p>
-                </article>
+                <article class="card"><div class="icon-box">15+</div><h3>Enterprise Platform Engineering</h3><p>15+ years across Windows, Azure-connected platforms, endpoint engineering, automation, observability, lifecycle governance, identity, and security controls.</p></article>
+                <article class="card"><div class="icon-box">AI</div><h3>AI Platform Engineering</h3><p>Microsoft Foundry agents, Python/REST APIs, RAG/MCP concepts, secure Azure identity/RBAC patterns, and AI integration with real endpoint systems and telemetry.</p></article>
             </div>
             <div class="button-row">
                 <a class="button" href="resume.html">Open Updated Resume</a>
+                <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Current Resume (PDF)</a>
                 <a class="button secondary" href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Microsoft Certifications</a>
             </div>
         </div>
@@ -223,11 +225,39 @@
     <section class="section" id="contact">
         <div class="container cta-panel">
             <div><div class="kicker">Connect</div><h2>Interested in endpoint, automation, or AI platform engineering?</h2><p>I use this site to document the systems I build, the architecture behind them, and the progression into AI engineering.</p></div>
-            <div class="contact-links"><a class="button secondary" href="https://www.linkedin.com/in/i-am-marquis-davis/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a><a class="button secondary" href="articles.html">Engineering Notes</a></div>
+            <div class="contact-links">
+                <a class="button secondary" href="https://www.linkedin.com/in/i-am-marquis-davis/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume</a>
+                <a class="button secondary" href="articles.html">Engineering Notes</a>
+            </div>
         </div>
     </section>
 </main>
 
 <footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis. Built as a living engineering portfolio.</p><p>Endpoint Engineering → Automation → AI Platform Engineering</p></div></footer>
+
+<script>
+(() => {
+    const timeEl = document.getElementById('portfolioClockTime');
+    const dateEl = document.getElementById('portfolioClockDate');
+    const zoneEl = document.getElementById('portfolioClockZone');
+    if (!timeEl || !dateEl || !zoneEl) return;
+
+    const updateClock = () => {
+        const now = new Date();
+        timeEl.textContent = new Intl.DateTimeFormat(undefined, {
+            hour: 'numeric', minute: '2-digit', second: '2-digit'
+        }).format(now);
+        dateEl.textContent = new Intl.DateTimeFormat(undefined, {
+            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+        }).format(now);
+        zoneEl.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
+    };
+
+    updateClock();
+    window.setInterval(updateClock, 1000);
+})();
+</script>
 </body>
 </html>
