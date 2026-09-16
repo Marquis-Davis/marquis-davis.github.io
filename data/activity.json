@@ -1,0 +1,46 @@
+{
+  "generatedAtUtc": "2026-09-16T03:26:00Z",
+  "items": [
+    {
+      "id": "defender",
+      "label": "Defender data refreshed",
+      "detail": "Platform 4.18.26080.3 • Intelligence 1.459.218.0",
+      "timestamp": "2026-09-16T02:05:00Z",
+      "status": "healthy",
+      "url": "zero-day-defender-osd-lab.html"
+    },
+    {
+      "id": "deployment",
+      "label": "Portfolio deployment succeeded",
+      "detail": "GitHub Pages • main",
+      "timestamp": "2026-09-16T02:29:50Z",
+      "status": "healthy",
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/actions/runs/35048157131"
+    },
+    {
+      "id": "driver-bios",
+      "label": "Driver / BIOS automation updated",
+      "detail": "Initial add: HP Platform ID Mapping",
+      "timestamp": "2026-08-06T18:18:43Z",
+      "status": "info",
+      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/6a1486846c2c82a2dba851aafc3ba2fc301638ea"
+    },
+    {
+      "id": "ai-agent",
+      "label": "AI Endpoint Agent",
+      "detail": "Active build • Foundry + Graph + Intune architecture",
+      "timestamp": null,
+      "status": "building",
+      "statusText": "In progress",
+      "url": "#lab"
+    },
+    {
+      "id": "commit",
+      "label": "Latest GitHub commit",
+      "detail": "Improve mobile portfolio layout",
+      "timestamp": "2026-09-16T02:29:07Z",
+      "status": "info",
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/d5c76f4a20679a99024ead489882f206ec733fa3"
+    }
+  ]
+}
