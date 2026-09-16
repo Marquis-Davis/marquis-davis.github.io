@@ -16,7 +16,9 @@
         .activity-dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px rgba(96,165,250,.42)}.activity-dot.healthy{background:var(--green);box-shadow:0 0 14px rgba(52,211,153,.45)}.activity-dot.building{background:var(--amber);box-shadow:0 0 14px rgba(251,191,36,.4)}
         .activity-copy{min-width:0}.activity-copy strong{display:block;color:#e8eef6;font-size:13px}.activity-copy span{display:block;margin-top:2px;overflow:hidden;color:var(--muted);font-size:12px;text-overflow:ellipsis;white-space:nowrap}.activity-time{color:#7f8b99;font-size:11px;font-weight:750;white-space:nowrap}
         .activity-loading{padding:20px 24px;color:var(--muted);font-size:13px}
-        @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}}
+        .nav-links a.recruiter-nav{padding:8px 12px;border:1px solid var(--border-bright);border-radius:999px;color:#081018;background:linear-gradient(135deg,var(--cyan),#8ab4ff);font-weight:850;box-shadow:0 8px 24px rgba(96,165,250,.16)}
+        .nav-links a.recruiter-nav:hover{color:#081018;transform:translateY(-1px)}
+        @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}.nav-links a.recruiter-nav{padding:7px 10px}}
     </style>
 </head>
 <body>
@@ -24,7 +26,7 @@
     <div class="container nav-container">
         <a class="logo" href="index.html" aria-label="Marquis Davis home"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
         <nav aria-label="Primary navigation"><ul class="nav-links">
-            <li><a href="#work" class="active">Projects</a></li><li><a href="#activity">Activity</a></li><li><a href="#lab">AI Lab</a></li><li><a href="#architecture">Architecture</a></li><li><a href="articles.html">Articles</a></li><li><a href="resume.html">Resume</a></li><li><a href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Certifications</a></li><li><a href="#contact">Contact</a></li>
+            <li><a href="recruiter.html" class="recruiter-nav">Recruiter? Start Here →</a></li><li><a href="#work" class="active">Projects</a></li><li><a href="#activity">Activity</a></li><li><a href="#lab">AI Lab</a></li><li><a href="#architecture">Architecture</a></li><li><a href="articles.html">Articles</a></li><li><a href="resume.html">Resume</a></li><li><a href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Certifications</a></li><li><a href="#contact">Contact</a></li>
         </ul></nav>
     </div>
 </header>
