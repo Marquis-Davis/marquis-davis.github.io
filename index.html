@@ -18,7 +18,11 @@
         .activity-loading{padding:20px 24px;color:var(--muted);font-size:13px}
         .nav-links a.recruiter-nav{padding:8px 12px;border:1px solid var(--border-bright);border-radius:999px;color:#081018;background:linear-gradient(135deg,var(--cyan),#8ab4ff);font-weight:850;box-shadow:0 8px 24px rgba(96,165,250,.16)}
         .nav-links a.recruiter-nav:hover{color:#081018;transform:translateY(-1px)}
-        @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}.nav-links a.recruiter-nav{padding:7px 10px}}
+        .weather-banner{border-top:1px solid rgba(148,163,184,.08);border-bottom:1px solid rgba(148,163,184,.11);background:linear-gradient(90deg,rgba(8,13,20,.94),rgba(13,20,30,.84),rgba(8,13,20,.94))}
+        .weather-inner{min-height:40px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-top:7px;padding-bottom:7px;color:#aab7c5;font-size:11px}
+        .weather-location{display:flex;align-items:center;gap:8px;font-weight:760;letter-spacing:.025em;white-space:nowrap}.weather-location::before{content:"";width:6px;height:6px;border-radius:50%;background:#67e8f9;box-shadow:0 0 10px rgba(103,232,249,.34)}
+        .weather-current{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}.weather-icon{display:grid;width:26px;height:26px;place-items:center;font-size:17px;line-height:1}.weather-temp{color:#e7eef6;font-size:13px;font-weight:850;white-space:nowrap}.weather-condition{min-width:0;color:#95a4b5;white-space:nowrap}.weather-feels{color:#6f7d8d;white-space:nowrap}.weather-separator{color:#445160}
+        @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}.nav-links a.recruiter-nav{padding:7px 10px}.weather-inner{gap:10px;overflow:hidden}.weather-location{font-size:10px}.weather-current{gap:7px}.weather-feels,.weather-separator{display:none}.weather-condition{overflow:hidden;text-overflow:ellipsis}.weather-temp{font-size:12px}}
     </style>
 </head>
 <body>
@@ -30,6 +34,19 @@
         </ul></nav>
     </div>
 </header>
+
+<div class="weather-banner" aria-label="Current Orlando weather">
+    <div class="container weather-inner">
+        <div class="weather-location">Remote · Orlando, FL</div>
+        <div class="weather-current" id="orlandoWeather" aria-live="polite">
+            <span class="weather-icon" id="orlandoWeatherIcon" aria-hidden="true">·</span>
+            <span class="weather-temp" id="orlandoWeatherTemp">--°F</span>
+            <span class="weather-condition" id="orlandoWeatherCondition">Loading weather…</span>
+            <span class="weather-separator">•</span>
+            <span class="weather-feels" id="orlandoWeatherFeels">Feels --°F</span>
+        </div>
+    </div>
+</div>
 
 <main>
     <section class="hero"><div class="container hero-grid">
@@ -82,6 +99,14 @@
 
 <script>
 (() => {
+    const weatherIconEl=document.getElementById('orlandoWeatherIcon');
+    const weatherTempEl=document.getElementById('orlandoWeatherTemp');
+    const weatherConditionEl=document.getElementById('orlandoWeatherCondition');
+    const weatherFeelsEl=document.getElementById('orlandoWeatherFeels');
+    const weatherState=(code,isDay)=>{if(code===0)return {icon:isDay?'☀️':'🌙',label:'Clear'};if(code<=2)return {icon:isDay?'🌤️':'☁️',label:'Partly cloudy'};if(code===3)return {icon:'☁️',label:'Overcast'};if(code===45||code===48)return {icon:'🌫️',label:'Fog'};if(code>=51&&code<=67)return {icon:'🌧️',label:'Rain'};if(code>=71&&code<=77)return {icon:'🌨️',label:'Snow'};if(code>=80&&code<=82)return {icon:'🌦️',label:'Showers'};if(code>=85&&code<=86)return {icon:'🌨️',label:'Snow showers'};if(code>=95)return {icon:'⛈️',label:'Thunderstorms'};return {icon:isDay?'🌤️':'🌙',label:'Current conditions'};};
+    const loadOrlandoWeather=async()=>{if(!weatherIconEl||!weatherTempEl||!weatherConditionEl||!weatherFeelsEl)return;try{const url='https://api.open-meteo.com/v1/forecast?latitude=28.5383&longitude=-81.3792&current=temperature_2m,apparent_temperature,weather_code,is_day&temperature_unit=fahrenheit&timezone=America%2FNew_York';const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();const current=data.current||{};const temp=Math.round(Number(current.temperature_2m));const feels=Math.round(Number(current.apparent_temperature));const state=weatherState(Number(current.weather_code),Number(current.is_day)===1);weatherIconEl.textContent=state.icon;weatherTempEl.textContent=Number.isFinite(temp)?`${temp}°F`:'--°F';weatherConditionEl.textContent=state.label;weatherFeelsEl.textContent=Number.isFinite(feels)?`Feels ${feels}°F`:'Feels --°F';}catch(error){weatherIconEl.textContent='◌';weatherConditionEl.textContent='Weather unavailable';weatherTempEl.textContent='';weatherFeelsEl.textContent='';}};
+    loadOrlandoWeather();window.setInterval(loadOrlandoWeather,600000);
+
     const timeEl=document.getElementById('portfolioClockTime');
     const dateEl=document.getElementById('portfolioClockDate');
     if(timeEl&&dateEl){const updateClock=()=>{const now=new Date();timeEl.textContent=now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'});dateEl.textContent=now.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});};updateClock();window.setInterval(updateClock,1000);}
