@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Infrastructure & Platform Radar | Marquis Davis</title>
+    <meta name="description" content="A career-focused AI infrastructure and platform radar tracking the technologies and companies that make enterprise AI possible.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .radar-shell{padding:64px 0 88px}
+        .radar-hero{max-width:980px;margin-bottom:30px}
+        .radar-hero h1{margin:0 0 16px;font-size:clamp(2.8rem,6vw,5.2rem);line-height:.97;letter-spacing:-.055em}
+        .radar-hero h1 span{background:linear-gradient(90deg,#fff 0%,#9adfff 48%,#b6a7ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .radar-hero p{max-width:820px;font-size:1.05rem}
+        .radar-note{margin-top:18px;padding:13px 15px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.018);font-size:12px;color:#95a4b5}
+        .mode-switch{display:inline-flex;gap:6px;margin:22px 0 28px;padding:5px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.02)}
+        .mode-button{min-height:38px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:#aab7c5;font-weight:800;cursor:pointer}
+        .mode-button.active{background:linear-gradient(135deg,var(--cyan),#8ab4ff);color:#071019}
+        .stack-map{display:grid;gap:10px;margin-bottom:34px}
+        .stack-layer{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:center;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,rgba(17,24,35,.78),rgba(10,14,20,.9))}
+        .stack-layer-name{color:#dce6f2;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+        .stack-companies{display:flex;flex-wrap:wrap;gap:8px}
+        .stack-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border-bright);border-radius:999px;background:rgba(96,165,250,.05);font-size:12px;font-weight:800}
+        .stack-chip b{color:var(--cyan)}
+        .radar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+        .radar-card{padding:24px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,24,35,.86),rgba(10,14,20,.94))}
+        .radar-card:hover{border-color:var(--border-bright)}
+        .radar-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+        .radar-company{display:flex;align-items:center;gap:12px}
+        .ticker{display:grid;min-width:48px;height:38px;place-items:center;padding:0 8px;border:1px solid var(--border-bright);border-radius:10px;color:var(--cyan);background:rgba(96,165,250,.07);font-size:11px;font-weight:900}
+        .radar-company h3{margin:0;font-size:20px}.radar-company span{display:block;margin-top:2px;color:var(--muted);font-size:11px}
+        .radar-card p{font-size:13px}
+        .radar-label{margin:18px 0 7px;color:#7f8b99;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .radar-card .chips{gap:6px}.radar-card .chip{font-size:10px}
+        .source-link{display:inline-flex;margin-top:18px;color:var(--cyan);font-size:12px;font-weight:850}
+        .context-copy{display:none}.market-mode .engineer-copy{display:none}.market-mode .context-copy{display:block}
+        .signal-board{margin-top:54px}
+        .signal-list{display:grid;gap:10px}
+        .signal-item{display:grid;grid-template-columns:100px 82px minmax(0,1fr);gap:14px;padding:16px 18px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.018)}
+        .signal-date,.signal-ticker{color:#7f8b99;font-size:11px;font-weight:800}.signal-ticker{color:var(--cyan)}
+        .signal-copy strong{display:block;color:#dfe8f2;font-size:13px}.signal-copy span{display:block;margin-top:5px;color:var(--muted);font-size:12px}
+        .signal-copy a{display:inline-block;margin-top:7px;color:var(--cyan);font-size:11px;font-weight:800}
+        .learning-panel{margin-top:54px;padding:26px;border:1px solid var(--border-bright);border-radius:var(--radius);background:linear-gradient(135deg,rgba(96,165,250,.07),rgba(167,139,250,.04))}
+        .learning-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+        .loading{padding:30px;border:1px solid var(--border);border-radius:14px;color:var(--muted);text-align:center}
+        @media(max-width:820px){.stack-layer{grid-template-columns:1fr;gap:9px}.radar-grid{grid-template-columns:1fr}.signal-item{grid-template-columns:80px 60px 1fr}}
+        @media(max-width:560px){.radar-shell{padding:42px 0 62px}.radar-hero h1{font-size:clamp(2.3rem,12vw,3.1rem)}.radar-card{padding:18px}.signal-item{grid-template-columns:1fr;gap:5px}.mode-switch{width:100%;display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%}}
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-container">
+        <a class="logo" href="index.html"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav aria-label="Radar navigation"><ul class="nav-links"><li><a href="index.html">Full Portfolio</a></li><li><a href="recruiter.html">Recruiter Mode</a></li><li><a href="incident-simulator.html">Incident Lab</a></li><li><a href="articles.html">Articles</a></li></ul></nav>
+    </div>
+</header>
+
+<main class="radar-shell">
+    <section class="container radar-hero">
+        <div class="kicker">AI Infrastructure & Platform Radar</div>
+        <h1><span>Who has to succeed for enterprise AI to actually work?</span></h1>
+        <p>This radar follows the technology stack underneath AI applications—from silicon and memory through networking, interconnection, cloud platforms, governance, and agents. The goal is not to publish stock picks. It is to understand the systems an AI Platform Engineer depends on.</p>
+        <div class="radar-note">Career-first lens: architecture, dependencies, operational skills, and what to learn next. Tickers are included only as identifiers for public companies participating in the buildout.</div>
+        <div class="mode-switch" role="group" aria-label="Radar view mode">
+            <button class="mode-button active" id="engineerMode" type="button">Engineer View</button>
+            <button class="mode-button" id="marketMode" type="button">Market Context View</button>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-heading"><div class="kicker">Architecture Stack</div><h2>AI is a dependency chain, not a single product.</h2><p>Each layer solves a different bottleneck. The radar connects the company to the technology and then to the skill an AI Platform Engineer should understand.</p></div>
+        <div class="stack-map" id="stackMap"><div class="loading">Loading AI buildout stack…</div></div>
+    </section>
+
+    <section class="section-tight">
+        <div class="container">
+            <div class="section-heading"><div class="kicker">Selected Buildout Players</div><h2>Follow the role each company plays—not the share price.</h2><p>Default view explains the engineering relevance. Switch to Market Context View to see how each public company maps to the commercial AI buildout without turning this into an investment dashboard.</p></div>
+            <div class="radar-grid" id="radarGrid"><div class="loading">Loading radar…</div></div>
+        </div>
+    </section>
+
+    <section class="container signal-board">
+        <div class="section-heading"><div class="kicker">Buildout Signals</div><h2>Technology developments worth translating into architecture knowledge.</h2><p>These are curated engineering signals from official product and documentation sources. The important question is: what does this development teach about the AI stack?</p></div>
+        <div class="signal-list" id="signalList"><div class="loading">Loading signals…</div></div>
+    </section>
+
+    <section class="container learning-panel">
+        <div class="kicker">Career Learning Queue</div>
+        <h2>Topics this radar should push me to understand.</h2>
+        <p>Instead of passively watching companies, convert buildout activity into a practical AI infrastructure study plan.</p>
+        <div class="learning-grid chips" id="learningQueue"></div>
+    </section>
+</main>
+
+<footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis. AI Infrastructure & Platform Radar.</p><p>Silicon → Memory → Compute → Network → Interconnect → Foundry → Agent</p></div></footer>
+
+<script>
+(() => {
+    const root = document.body;
+    const engineerBtn = document.getElementById('engineerMode');
+    const marketBtn = document.getElementById('marketMode');
+    const stackMap = document.getElementById('stackMap');
+    const radarGrid = document.getElementById('radarGrid');
+    const signalList = document.getElementById('signalList');
+    const learningQueue = document.getElementById('learningQueue');
+
+    const setMode = mode => {
+        const market = mode === 'market';
+        root.classList.toggle('market-mode', market);
+        engineerBtn.classList.toggle('active', !market);
+        marketBtn.classList.toggle('active', market);
+        engineerBtn.setAttribute('aria-pressed', String(!market));
+        marketBtn.setAttribute('aria-pressed', String(market));
+    };
+    engineerBtn.addEventListener('click', () => setMode('engineer'));
+    marketBtn.addEventListener('click', () => setMode('market'));
+
+    const addChip = (container, text) => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = text;
+        container.appendChild(chip);
+    };
+
+    const render = data => {
+        stackMap.textContent = '';
+        radarGrid.textContent = '';
+        signalList.textContent = '';
+        learningQueue.textContent = '';
+
+        for (const layer of data.layers || []) {
+            const layerRow = document.createElement('div');
+            layerRow.className = 'stack-layer';
+            const name = document.createElement('div');
+            name.className = 'stack-layer-name';
+            name.textContent = layer.layer;
+            const companies = document.createElement('div');
+            companies.className = 'stack-companies';
+            for (const company of layer.companies || []) {
+                const chip = document.createElement('span');
+                chip.className = 'stack-chip';
+                chip.innerHTML = `<b>${company.ticker}</b> ${company.company}`;
+                companies.appendChild(chip);
+            }
+            layerRow.append(name, companies);
+            stackMap.appendChild(layerRow);
+        }
+
+        const seen = new Set();
+        for (const layer of data.layers || []) {
+            for (const company of layer.companies || []) {
+                const key = `${company.ticker}-${layer.id}`;
+                if (seen.has(key)) continue;
+                seen.add(key);
+                const card = document.createElement('article');
+                card.className = 'radar-card';
+                const top = document.createElement('div');
+                top.className = 'radar-top';
+                top.innerHTML = `<div class="radar-company"><span class="ticker">${company.ticker}</span><div><h3>${company.company}</h3><span>${layer.layer}</span></div></div>`;
+
+                const engineer = document.createElement('div');
+                engineer.className = 'engineer-copy';
+                const roleLabel = document.createElement('div'); roleLabel.className = 'radar-label'; roleLabel.textContent = 'Role in the AI stack';
+                const role = document.createElement('p'); role.textContent = company.role;
+                const careerLabel = document.createElement('div'); careerLabel.className = 'radar-label'; careerLabel.textContent = 'Why it matters to an AI Platform Engineer';
+                const career = document.createElement('p'); career.textContent = company.career;
+                engineer.append(roleLabel, role, careerLabel, career);
+
+                const context = document.createElement('div');
+                context.className = 'context-copy';
+                const marketLabel = document.createElement('div'); marketLabel.className = 'radar-label'; marketLabel.textContent = 'Buildout / market context';
+                const marketCopy = document.createElement('p'); marketCopy.textContent = company.marketContext;
+                const noPick = document.createElement('p'); noPick.style.marginTop = '10px'; noPick.textContent = 'This view maps the business to the architecture. It does not rate the stock or make a buy/sell call.';
+                context.append(marketLabel, marketCopy, noPick);
+
+                const watchLabel = document.createElement('div'); watchLabel.className = 'radar-label'; watchLabel.textContent = 'What to monitor / learn';
+                const chips = document.createElement('div'); chips.className = 'chips';
+                (company.watch || []).forEach(item => addChip(chips, item));
+                const source = document.createElement('a'); source.className = 'source-link'; source.href = company.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Official source →';
+                card.append(top, engineer, context, watchLabel, chips, source);
+                radarGrid.appendChild(card);
+            }
+        }
+
+        for (const signal of data.signals || []) {
+            const item = document.createElement('article'); item.className = 'signal-item';
+            const date = document.createElement('div'); date.className = 'signal-date'; date.textContent = signal.date;
+            const ticker = document.createElement('div'); ticker.className = 'signal-ticker'; ticker.textContent = signal.ticker;
+            const copy = document.createElement('div'); copy.className = 'signal-copy';
+            const title = document.createElement('strong'); title.textContent = signal.title;
+            const takeaway = document.createElement('span'); takeaway.textContent = `Career translation: ${signal.careerTakeaway}`;
+            const source = document.createElement('a'); source.href = signal.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'View official source →';
+            copy.append(title, takeaway, source);
+            item.append(date, ticker, copy);
+            signalList.appendChild(item);
+        }
+
+        (data.learningQueue || []).forEach(item => addChip(learningQueue, item));
+    };
+
+    fetch(`data/ai-buildout-radar.json?v=${Date.now()}`, { cache: 'no-store' })
+        .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
+        .then(render)
+        .catch(() => {
+            stackMap.innerHTML = '<div class="loading">Radar data is temporarily unavailable.</div>';
+            radarGrid.innerHTML = '<div class="loading">Radar data is temporarily unavailable.</div>';
+            signalList.innerHTML = '<div class="loading">Signals are temporarily unavailable.</div>';
+        });
+})();
+</script>
+</body>
+</html>
