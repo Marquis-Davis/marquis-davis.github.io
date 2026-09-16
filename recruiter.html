@@ -14,7 +14,7 @@
 <header class="site-header">
     <div class="container nav-container">
         <a class="logo" href="index.html"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
-        <nav aria-label="Recruiter navigation"><ul class="nav-links"><li><a href="index.html">Full Portfolio</a></li><li><a href="resume.html">Resume</a></li><li><a href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download PDF</a></li><li><a href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul></nav>
+        <nav aria-label="Recruiter navigation"><ul class="nav-links"><li><a href="index.html">Full Portfolio</a></li><li><a href="ai-buildout-radar.html">AI Buildout Radar</a></li><li><a href="resume.html">Resume</a></li><li><a href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download PDF</a></li><li><a href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul></nav>
     </div>
 </header>
 
@@ -75,14 +75,14 @@
     <section class="section-tight">
         <div class="container recruiter-split">
             <article class="skill-panel"><div class="kicker">Certifications</div><h3>Microsoft platform foundation.</h3><div class="cert-list"><div>Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)</div><div>Microsoft Certified: Azure Solutions Architect Expert (AZ-305)</div><div>Microsoft Certified: Azure Administrator Associate (AZ-104)</div><div>Microsoft Certified: Azure Fundamentals (AZ-900)</div><div>Certified Nexthink Associate</div></div></article>
-            <article class="skill-panel"><div class="kicker">Current Direction</div><h3>Where the portfolio is headed next.</h3><p>Microsoft Foundry agents, Python/REST integrations, Graph/Intune data access, RAG, MCP, AI identity/RBAC, observability, and production-ready AI troubleshooting workflows.</p><div class="project-links"><a href="index.html#activity">See live engineering activity →</a><a href="index.html#work">Explore project demos →</a></div></article>
+            <article class="skill-panel"><div class="kicker">Current Direction</div><h3>Where the portfolio is headed next.</h3><p>Microsoft Foundry agents, Python/REST integrations, Graph/Intune data access, RAG, MCP, AI identity/RBAC, observability, and a growing understanding of the compute, memory, networking, interconnection, and silicon layers underneath enterprise AI.</p><div class="project-links"><a href="ai-buildout-radar.html">Explore AI Infrastructure & Platform Radar →</a><a href="index.html#activity">See live engineering activity →</a><a href="index.html#work">Explore project demos →</a></div></article>
         </div>
     </section>
 
     <section class="section">
         <div class="container recruiter-cta">
             <div><div class="kicker">Next Step</div><h2>Resume, GitHub, and full engineering portfolio.</h2><p>Use whichever level of detail you need: resume for the formal history, GitHub for code, or the full portfolio for architecture and interactive demos.</p></div>
-            <div class="button-row"><a class="button" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume</a><a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a><a class="button secondary" href="index.html">Full Portfolio</a></div>
+            <div class="button-row"><a class="button" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume</a><a class="button secondary" href="ai-buildout-radar.html">AI Buildout Radar</a><a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a><a class="button secondary" href="index.html">Full Portfolio</a></div>
         </div>
     </section>
 </main>
@@ -95,8 +95,6 @@
     const statusEl = document.getElementById('careerUptimeStatus');
     if (!uptimeEl || !statusEl) return;
 
-    // Only the start month is known, so Feb 1 is used as the technical baseline
-    // while the visible portfolio wording remains "Since Feb 2008."
     const careerStart = new Date(Date.UTC(2008, 1, 1, 0, 0, 0));
     const inactivityLimitMs = 365 * 24 * 60 * 60 * 1000;
     let latestHumanActivity = null;
@@ -132,30 +130,17 @@
 
     const formatDuration = end => {
         if (end <= careerStart) return '0y 0m 0d 00:00:00';
-
         let years = end.getUTCFullYear() - careerStart.getUTCFullYear();
         let cursor = addUtcYears(careerStart, years);
-        if (cursor > end) {
-            years--;
-            cursor = addUtcYears(careerStart, years);
-        }
-
+        if (cursor > end) { years--; cursor = addUtcYears(careerStart, years); }
         let months = (end.getUTCFullYear() - cursor.getUTCFullYear()) * 12 + (end.getUTCMonth() - cursor.getUTCMonth());
         let monthCursor = addUtcMonths(cursor, months);
-        if (monthCursor > end) {
-            months--;
-            monthCursor = addUtcMonths(cursor, months);
-        }
-
+        if (monthCursor > end) { months--; monthCursor = addUtcMonths(cursor, months); }
         let remaining = Math.max(0, end.getTime() - monthCursor.getTime());
-        const days = Math.floor(remaining / 86400000);
-        remaining -= days * 86400000;
-        const hours = Math.floor(remaining / 3600000);
-        remaining -= hours * 3600000;
-        const minutes = Math.floor(remaining / 60000);
-        remaining -= minutes * 60000;
+        const days = Math.floor(remaining / 86400000); remaining -= days * 86400000;
+        const hours = Math.floor(remaining / 3600000); remaining -= hours * 3600000;
+        const minutes = Math.floor(remaining / 60000); remaining -= minutes * 60000;
         const seconds = Math.floor(remaining / 1000);
-
         const pad = value => String(value).padStart(2, '0');
         return `${years}y ${months}m ${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     };
@@ -164,25 +149,15 @@
         const now = new Date();
         let effectiveEnd = now;
         let archived = false;
-
         if (latestHumanActivity) {
             const inactivityDeadline = new Date(latestHumanActivity.getTime() + inactivityLimitMs);
-            if (now > inactivityDeadline) {
-                effectiveEnd = inactivityDeadline;
-                archived = true;
-            }
+            if (now > inactivityDeadline) { effectiveEnd = inactivityDeadline; archived = true; }
         }
-
         uptimeEl.textContent = formatDuration(effectiveEnd);
         statusEl.classList.toggle('archived', archived);
-
-        if (archived) {
-            statusEl.textContent = 'Archived · no engineering activity for 365 days';
-        } else if (latestHumanActivity) {
-            statusEl.textContent = `Active · latest engineering activity ${relativeTime(latestHumanActivity)}`;
-        } else {
-            statusEl.textContent = 'Active · engineering activity feed unavailable';
-        }
+        if (archived) statusEl.textContent = 'Archived · no engineering activity for 365 days';
+        else if (latestHumanActivity) statusEl.textContent = `Active · latest engineering activity ${relativeTime(latestHumanActivity)}`;
+        else statusEl.textContent = 'Active · engineering activity feed unavailable';
     };
 
     const loadActivity = async () => {
@@ -195,9 +170,7 @@
                 const parsed = new Date(humanCommit.timestamp);
                 if (!Number.isNaN(parsed.getTime())) latestHumanActivity = parsed;
             }
-        } catch (error) {
-            latestHumanActivity = null;
-        }
+        } catch (error) { latestHumanActivity = null; }
         render();
     };
 
