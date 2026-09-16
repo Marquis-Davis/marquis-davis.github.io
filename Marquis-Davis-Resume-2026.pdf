@@ -1,0 +1,632 @@
+%PDF-1.4
+%#### ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+5 0 obj
+<<
+/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+>>
+endobj
+6 0 obj
+<<
+/Contents 11 0 R /MediaBox [ 0 0 612 792 ] /Parent 10 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/Contents 12 0 R /MediaBox [ 0 0 612 792 ] /Parent 10 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+8 0 obj
+<<
+/PageMode /UseNone /Pages 10 0 R /Type /Catalog
+>>
+endobj
+9 0 obj
+<<
+/Author (Marquis Davis) /CreationDate (D:20260916021009+00'00') /Creator (Marquis Davis Portfolio) /Keywords (Azure, Endpoint, Automation, AI Platform Engineering) /ModDate (D:20260916021009+00'00') /Producer (ReportLab PDF Library - opensource) 
+  /Subject (Senior Platform Engineer Resume) /Title (Marquis Davis - Senior Platform Engineer Resume) /Trapped /False
+>>
+endobj
+10 0 obj
+<<
+/Count 2 /Kids [ 6 0 R 7 0 R ] /Type /Pages
+>>
+endobj
+11 0 obj
+<<
+/Length 10282
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 38.4 734.64 cm
+q
+.090196 .211765 .364706 rg
+BT 1 0 0 1 0 2 Tm /F2 22 Tf 24 TL 178.984 0 Td (MARQUIS DAVIS) Tj T* -178.984 0 Td ET
+Q
+Q
+q
+1 0 0 1 38.4 721.64 cm
+q
+.372549 .419608 .478431 rg
+BT 1 0 0 1 0 1.5 Tm /F1 8.5 Tf 10 TL 89.67375 0 Td (Orlando, FL | LinkedIn: linkedin.com/in/i-am-marquis-davis | GitHub: github.com/Marquis-Davis) Tj T* -89.67375 0 Td ET
+Q
+Q
+q
+1 0 0 1 38.4 706.64 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F2 9.5 Tf 11 TL 39.543 0 Td (SENIOR PLATFORM ENGINEER | AZURE | ENDPOINT | AUTOMATION | AI PLATFORM ENGINEERING) Tj T* -39.543 0 Td ET
+Q
+Q
+q
+1 0 0 1 38.4 688.64 cm
+q
+.090196 .211765 .364706 rg
+BT 1 0 0 1 0 1 Tm /F2 11 Tf 12 TL (PLATFORM PROFILE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 685.14 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 5 Tm  T* ET
+q
+1 J
+1 j
+.090196 .211765 .364706 RG
+.7 w
+n 0 .5 m 514.8 .5 l S
+Q
+Q
+Q
+q
+1 0 0 1 38.4 683.14 cm
+Q
+q
+1 0 0 1 38.4 640.34 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 29.2 Tm /F1 7.6 Tf 9.2 TL (Senior platform engineer with 15+ years of enterprise IT experience designing, automating and operating Windows and Azure-connected enterprise platforms.) Tj T* -0.0724 Tw (Deep experience across ConfigMgr, Intune, Azure, PowerShell, Microsoft Graph, Log Analytics, identity and security controls, observability, lifecycle automation) Tj T* 0 Tw (and production governance. Now applying this platform-engineering foundation to Microsoft Foundry, AI agents, Python/REST APIs and secure enterprise AI) Tj T* (integration, with a focus on connecting AI to real enterprise systems, telemetry and automation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 623.34 cm
+q
+BT 1 0 0 1 0 1 Tm 12 TL /F2 11 Tf .090196 .211765 .364706 rg (ARCHITECTURE & ENGINEERING EXPERTISE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 619.84 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 5 Tm  T* ET
+q
+1 J
+1 j
+.090196 .211765 .364706 RG
+.7 w
+n 0 .5 m 514.8 .5 l S
+Q
+Q
+Q
+q
+1 0 0 1 38.4 617.84 cm
+Q
+q
+1 0 0 1 48.24 563.84 cm
+q
+.203922 .258824 .352941 rg
+BT /F2 7.2 Tf 12 TL ET
+BT 1 0 0 1 17.0316 43.8 Tm (Azure Platform Engineering) Tj T* ET
+BT 1 0 0 1 152.9136 43.8 Tm (PowerShell Automation) Tj T* ET
+BT 1 0 0 1 272.79 43.8 Tm (Microsoft Graph / REST APIs) Tj T* ET
+BT 1 0 0 1 399.6756 43.8 Tm (Microsoft Foundry / AI Agents) Tj T* ET
+BT 1 0 0 1 21.6396 25.8 Tm (ConfigMgr / MECM / OSD) Tj T* ET
+BT 1 0 0 1 163.7208 25.8 Tm (Intune / Autopilot) Tj T* ET
+BT 1 0 0 1 264.9888 25.8 Tm (Azure Log Analytics / Workbooks) Tj T* ET
+BT 1 0 0 1 401.868 25.8 Tm (Identity / Conditional Access) Tj T* ET
+BT 1 0 0 1 11.034 7.8 Tm (Endpoint Platform Architecture) Tj T* ET
+BT 1 0 0 1 134.7048 7.8 Tm (Platform Standards & Governance) Tj T* ET
+BT 1 0 0 1 278.1828 7.8 Tm (Driver / BIOS Governance) Tj T* ET
+BT 1 0 0 1 397.8648 7.8 Tm (Change & Release Engineering) Tj T* ET
+q
+Q
+Q
+Q
+q
+1 0 0 1 38.4 546.84 cm
+q
+.090196 .211765 .364706 rg
+BT 1 0 0 1 0 1 Tm /F2 11 Tf 12 TL (AI PLATFORM ENGINEERING) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 543.34 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 5 Tm  T* ET
+q
+1 J
+1 j
+.090196 .211765 .364706 RG
+.7 w
+n 0 .5 m 514.8 .5 l S
+Q
+Q
+Q
+q
+1 0 0 1 38.4 541.34 cm
+Q
+q
+1 0 0 1 38.4 516.94 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td -0.0708 Tw (- Developing Microsoft Foundry agent workflows, Python/REST API integration, RAG/MCP concepts and secure Azure identity/RBAC patterns for enterprise AI) Tj T* 0 Tw 5 0 Td (use cases.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 492.54 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Building an AI Endpoint Troubleshooting Assistant that connects AI agents with Microsoft Graph/Intune data, endpoint telemetry and enterprise automation) Tj T* 5 0 Td (workflows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 475.54 cm
+q
+.090196 .211765 .364706 rg
+BT 1 0 0 1 0 1 Tm /F2 11 Tf 12 TL (PROFESSIONAL EXPERIENCE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 472.04 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 5 Tm  T* ET
+q
+1 J
+1 j
+.090196 .211765 .364706 RG
+.7 w
+n 0 .5 m 514.8 .5 l S
+Q
+Q
+Q
+q
+1 0 0 1 38.4 470.04 cm
+Q
+q
+1 0 0 1 48.6 460.64 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL (Senior Endpoint Platform Engineer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 406.8 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL 49.6834 0 Td (2022 - Present) Tj T* -49.6834 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 38.4 445.64 cm
+q
+.188235 .223529 .270588 rg
+BT 1 0 0 1 0 1 Tm /F3 8 Tf 9 TL (Fortune 500 Enterprise Environment | Remote / Enterprise) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 421.24 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Own architecture and engineering for enterprise Windows provisioning and endpoint platform services, combining automation, observability, structured) Tj T* 5 0 Td (telemetry and lifecycle governance across a large-scale ConfigMgr environment.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 396.84 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Define reusable platform standards, automation patterns and operational controls that make provisioning workflows consistent, measurable and easier to) Tj T* 5 0 Td (extend through API-driven and data-driven engineering.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 372.44 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Partner with endpoint, infrastructure and security teams to assess production risk, troubleshoot complex failures and execute controlled enterprise changes,) Tj T* 5 0 Td (using telemetry, log analysis and AI-assisted engineering workflows to accelerate investigation while retaining engineer validation and rollback controls.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 348.04 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Designed and implemented OSDMonitor.exe, a phase-aware observability and self-healing framework that converts task-sequence activity into real-time) Tj T* 5 0 Td (telemetry, recovery actions and structured troubleshooting signals.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 323.64 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Engineered event-driven recovery using scheduled-task automation and process-termination auditing, applying rule-based remediation to prevent) Tj T* 5 0 Td (provisioning failures and improve deployment resilience.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 299.24 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Built Azure Log Analytics ingestion and Azure Workbooks for platform health, deployment telemetry, failure trends and operational decision-making, creating) Tj T* 5 0 Td (a centralized analytics foundation for automation and AI-assisted troubleshooting while improving provisioning reliability by approximately 25-30%.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 274.84 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Architected hardware lifecycle governance for driver version control, BIOS auditing, compliance modeling and repeatable release management, turning) Tj T* 5 0 Td (hardware state into standardized data for automated decisions.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 250.44 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Automated HP driver acquisition with PowerShell, dynamic HTML parsing and SoftPaq resolution, using programmatic discovery and data extraction to) Tj T* 5 0 Td (reduce manual dependency and avoid HP CMSL requirements.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 226.04 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Standardized modular task-sequence design and hardware abstraction patterns to reduce drift, improve reuse and simplify integration with automated) Tj T* 5 0 Td (platform services.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 201.64 cm
+q
+BT 1 0 0 1 7 10.8 Tm 9.2 TL /F3 7.6 Tf .188235 .223529 .270588 rg (Impact:) Tj /F4 7.6 Tf ( Evolved operating-system deployment from reactive troubleshooting into a measurable, automation-driven endpoint platform with the telemetry and) Tj T* (governance needed for advanced analytics.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 189.24 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL (SCCM / Intune Administrator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 406.8 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL 62.1018 0 Td (2019 - 2022) Tj T* -62.1018 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 38.4 174.24 cm
+q
+.188235 .223529 .270588 rg
+BT 1 0 0 1 0 1 Tm /F3 8 Tf 9 TL (Gulfstream Aerospace Corporation | Savannah, GA) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 149.84 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Operated hybrid endpoint platforms across ConfigMgr and Intune co-management, using client health, workload state and platform telemetry to support) Tj T* 5 0 Td (upgrades and service reliability.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 125.44 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Engineered zero-day patch automation and repeatable deployment workflows, translating vulnerability-response requirements into policy-driven remediation) Tj T* 5 0 Td (for critical threats.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 101.04 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Governed Win32 application packaging, testing, deployment and lifecycle changes through repeatable ConfigMgr task-sequence and software-distribution) Tj T* 5 0 Td (workflows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 76.64 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Configured Azure AD Connect synchronization, Conditional Access, data loss prevention and identity protection, building identity and access controls that) Tj T* 5 0 Td (support secure cloud and automation workflows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 61.44 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 1.6 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Implemented policy-driven Windows feature-update controls to prevent unmanaged upgrades and preserve application and hardware compatibility.) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 38.4 46.24 cm
+q
+BT 1 0 0 1 7 1.6 Tm 9.2 TL /F3 7.6 Tf .188235 .223529 .270588 rg (Impact:) Tj /F4 7.6 Tf ( Strengthened governance and automation across a hybrid ConfigMgr/Intune platform while expanding cloud identity and security integration.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 33.84 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL (Senior Systems Engineer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 406.8 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL 62.1018 0 Td (2017 - 2018) Tj T* -62.1018 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+ 
+endstream
+endobj
+12 0 obj
+<<
+/Length 4347
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 38.4 749.64 cm
+q
+.188235 .223529 .270588 rg
+BT 1 0 0 1 0 1 Tm /F3 8 Tf 9 TL (Publix Corporation | Lakeland, FL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 725.24 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Automated enterprise administration and endpoint-management workflows with PowerShell and used Azure AD sign-in and provisioning logs for data-driven) Tj T* 5 0 Td (identity troubleshooting.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 700.84 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Managed Windows, iOS and Android endpoints through Intune and SOTI while supporting Azure virtual-machine operations and cloud-connected endpoint) Tj T* 5 0 Td (services.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 676.44 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Provided enterprise engineering guidance across hardware, software and user-computing services, emphasizing repeatable standards and automation) Tj T* 5 0 Td (across corporate and retail environments.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 665.64 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL (Senior Deskside Analyst) Tj T* ET
+Q
+Q
+q
+1 0 0 1 406.8 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL 62.1018 0 Td (2014 - 2017) Tj T* -62.1018 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 38.4 650.64 cm
+q
+.188235 .223529 .270588 rg
+BT 1 0 0 1 0 1 Tm /F3 8 Tf 9 TL (Gulfstream Aerospace Corporation | Savannah, GA) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 626.24 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Administered SCCM application deployment, patching and client troubleshooting using CCM logs and SCCM Client Center, applying log-driven root-cause) Tj T* 5 0 Td (analysis to endpoint incidents.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 601.84 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Packaged, tested and distributed applications under DISA STIG and Department of Defense standards, reinforcing secure and repeatable software-delivery) Tj T* 5 0 Td (practices.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 591.04 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL (IT Specialist) Tj T* ET
+Q
+Q
+q
+1 0 0 1 406.8 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 .8 Tm /F2 8.6 Tf 9.4 TL 62.1018 0 Td (2012 - 2014) Tj T* -62.1018 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 38.4 576.04 cm
+q
+.188235 .223529 .270588 rg
+BT 1 0 0 1 0 1 Tm /F3 8 Tf 9 TL (Effingham County | Springfield, GA) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 551.64 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Designed the SCCM strategy for a 500+ user Windows 7 migration, combining automated deployment, user-state preservation and risk controls for a) Tj T* 5 0 Td (repeatable rollout.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 527.24 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 10.8 Tm /F1 7.6 Tf 9.2 TL -5 0 Td -0.023933 Tw (- Automated Active Directory and Exchange administration with PowerShell and delivered applications through SCCM, Group Policy and scripting, establishing) Tj T* 0 Tw 5 0 Td (a strong foundation in scripted infrastructure automation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 38.4 512.04 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 1.6 Tm /F1 7.6 Tf 9.2 TL -5 0 Td (- Supported DNS, Active Directory replication topology and enterprise voice systems, building core identity, directory and network infrastructure experience.) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 38.4 495.04 cm
+q
+BT 1 0 0 1 0 1 Tm 12 TL /F2 11 Tf .090196 .211765 .364706 rg (CERTIFICATIONS & EDUCATION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 48.6 491.54 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 6 5 Tm  T* ET
+q
+1 J
+1 j
+.090196 .211765 .364706 RG
+.7 w
+n 0 .5 m 514.8 .5 l S
+Q
+Q
+Q
+q
+1 0 0 1 38.4 489.54 cm
+Q
+q
+1 0 0 1 48.6 437.54 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 3 cm
+q
+BT 1 0 0 1 0 38.4 Tm 9.2 TL /F1 7.6 Tf 0 0 0 rg (Microsoft 365 Certified: Endpoint Administrator Associate \(MD-102\)) Tj  T* (Certified Nexthink Associate) Tj  T* (Microsoft Certified: Azure Solutions Architect Expert \(AZ-305\)) Tj  T* (Microsoft Certified: Azure Administrator Associate \(AZ-104\)) Tj  T* (Microsoft Certified: Azure Fundamentals \(AZ-900\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 266.4 21.4 cm
+q
+BT 1 0 0 1 0 20 Tm 9.2 TL /F2 7.6 Tf 0 0 0 rg (Armstrong Atlantic State University) Tj /F1 7.6 Tf  T* (Information Technology coursework - 117 credit hours) Tj  T* (Savannah, GA) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+ 
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000061 00000 n 
+0000000122 00000 n 
+0000000229 00000 n 
+0000000341 00000 n 
+0000000460 00000 n 
+0000000575 00000 n 
+0000000770 00000 n 
+0000000965 00000 n 
+0000001034 00000 n 
+0000001314 00000 n 
+0000001380 00000 n 
+0000011715 00000 n 
+trailer
+<<
+/ID 
+[<c1b3bf149a106c2b277cff3cc1ad018c><c1b3bf149a106c2b277cff3cc1ad018c>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 9 0 R
+/Root 8 0 R
+/Size 13
+>>
+startxref
+16114
+%%EOF

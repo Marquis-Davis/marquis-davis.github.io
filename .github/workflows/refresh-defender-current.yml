@@ -1,0 +1,59 @@
+name: Refresh Defender Current Versions
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull current Microsoft Defender versions
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $url = 'https://www.microsoft.com/en-us/wdsi/defenderupdates'
+
+          $response = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 30 -Headers @{ 'User-Agent' = 'Mozilla/5.0' }
+          if (-not $response.Content) { throw 'Microsoft Defender update page returned no content.' }
+
+          $text = $response.Content
+          $text = [regex]::Replace($text, '(?is)<script.*?</script>', ' ')
+          $text = [regex]::Replace($text, '(?is)<style.*?</style>', ' ')
+          $text = [regex]::Replace($text, '(?s)<[^>]+>', ' ')
+          $text = [System.Net.WebUtility]::HtmlDecode($text)
+          $text = [regex]::Replace($text, '\s+', ' ')
+
+          $pattern = 'Latest security intelligence update.*?Version:\s*(?<Intel>\d+\.\d+\.\d+\.\d+)\s+Engine Version:\s*(?<Engine>\d+\.\d+\.\d+\.\d+)\s+Platform Version:\s*(?<Platform>\d+\.\d+\.\d+\.\d+)\s+Released:\s*(?<Released>.+?)\s+Documentation:'
+          $match = [regex]::Match($text, $pattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+          if (-not $match.Success) { throw 'Unable to parse Defender version information from Microsoft.' }
+
+          $data = [ordered]@{
+            securityIntelligenceVersion = $match.Groups['Intel'].Value
+            engineVersion               = $match.Groups['Engine'].Value
+            platformVersion             = $match.Groups['Platform'].Value
+            released                    = $match.Groups['Released'].Value.Trim()
+            retrievedAtUtc              = (Get-Date).ToUniversalTime().ToString('o')
+            source                      = $url
+          }
+
+          New-Item -ItemType Directory -Path data -Force | Out-Null
+          $data | ConvertTo-Json -Depth 4 | Set-Content -Path 'data/defender-current.json' -Encoding UTF8
+
+      - name: Commit updated data
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/defender-current.json
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "Refresh Microsoft Defender current versions [skip ci]"
+            git push
+          }

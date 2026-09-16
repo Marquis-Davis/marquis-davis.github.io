@@ -1,90 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Articles | Marquis Davis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Technical writing on endpoint architecture, automation, and enterprise platform engineering.">
+    <title>Engineering Notes | Marquis Davis</title>
+    <meta name="description" content="Engineering notes on endpoint platforms, automation, Microsoft Graph, ConfigMgr, Intune, and AI platform engineering.">
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-
     <header class="site-header">
         <div class="container nav-container">
-            <div class="logo">Marquis Davis</div>
-            <nav>
+            <a class="logo" href="index.html" aria-label="Marquis Davis home">
+                <span class="logo-mark">MD</span>
+                <span>Marquis Davis</span>
+            </a>
+            <nav aria-label="Primary navigation">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#work">Projects</a></li>
+                    <li><a href="index.html#lab">AI Lab</a></li>
+                    <li><a href="index.html#architecture">Architecture</a></li>
                     <li><a href="articles.html" class="active">Articles</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Certifications</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="container section">
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="kicker">Engineering Notes</div>
+                <h1>Real troubleshooting, architecture, and automation lessons.</h1>
+                <p>I document the problems worth remembering: what failed, why it failed, how I fixed it, and the platform lesson behind the fix.</p>
+                <div class="chips">
+                    <span class="chip">Windows Platform</span>
+                    <span class="chip">ConfigMgr</span>
+                    <span class="chip">Intune</span>
+                    <span class="chip">PowerShell</span>
+                    <span class="chip">Git</span>
+                    <span class="chip">AI Platform</span>
+                </div>
+            </div>
+        </section>
 
-        <h1>Articles</h1>
+        <section class="section-tight">
+            <div class="container article-grid">
+                <article class="article-card">
+                    <p class="article-meta">February 2026 · 10 min read</p>
+                    <h3><a href="sample-article.html">Why I Built a Self-Healing Provisioning Monitor</a></h3>
+                    <p>Why deployment should be treated as an observable lifecycle instead of a static sequence of steps.</p>
+                    <div class="project-links"><a href="sample-article.html">Read article →</a></div>
+                </article>
 
-        <article class="article-preview">
-            <h2><a href="sample-article.html">Why I Built a Self-Healing Provisioning Monitor</a></h2>
-            <p class="article-meta">February 2026 • 10 min read</p>
-            <p>
-                Instead of treating OSD as a static task sequence, I treated it as a lifecycle that needed
-                instrumentation.
-            </p>
-        </article>
+                <article class="article-card">
+                    <p class="article-meta">August 2026 · 6 min read</p>
+                    <h3><a href="git-branch-has-diverged.html">Git Says “Your Branch Has Diverged” but This Here is What It Actually Means</a></h3>
+                    <p>A practical explanation of branch divergence, rejected pushes, and safe synchronization without overwriting someone else’s work.</p>
+                    <div class="project-links"><a href="git-branch-has-diverged.html">Read article →</a></div>
+                </article>
 
-        <hr class="divider">
+                <article class="article-card">
+                    <p class="article-meta">August 2026 · 7 min read</p>
+                    <h3><a href="powershell-downloads-configmgr-task-sequence.html">When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence</a></h3>
+                    <p>A real-world ConfigMgr troubleshooting story about execution context, BITS, Invoke-WebRequest, and why curl.exe became the reliable fix.</p>
+                    <div class="project-links"><a href="powershell-downloads-configmgr-task-sequence.html">Read article →</a></div>
+                </article>
+            </div>
+        </section>
 
-        <article class="article-preview">
-            <h2>
-                <a href="git-branch-has-diverged.html">
-                    Git Says “Your Branch Has Diverged” but This Here is What It Actually Means
-                </a>
-            </h2>
-
-            <p class="article-meta">August 2026 • 6 min read</p>
-
-            <p>
-                A clear explanation of why Git branches diverge, why pushes get rejected,
-                and how to safely sync your work without overwriting someone else’s changes.
-            </p>
-
-
-        </article>
-
-        <article class="article-preview">
-            <h2>
-                <a href="powershell-downloads-configmgr-task-sequence.html">
-                    When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence
-                </a>
-            </h2>
-
-            <p class="article-meta">August 2026 • 7 min read</p>
-
-            <p>
-                A real-world Windows Platform Engineering troubleshooting story about why
-                Invoke-WebRequest and BITS behaved differently in a ConfigMgr Task Sequence,
-                and how curl.exe became the reliable fix.
-            </p>
-
-
-        </article>
-
+        <section class="section">
+            <div class="container cta-panel">
+                <div>
+                    <div class="kicker">Next Series</div>
+                    <h2>AI Platform Engineering notes are coming next.</h2>
+                    <p>Future write-ups will follow the Microsoft Foundry labs, agent architecture, Graph integration, RAG, MCP, and the build-out of the AI Endpoint Troubleshooting Assistant.</p>
+                </div>
+                <div class="contact-links">
+                    <a class="button secondary" href="index.html#lab">View AI Lab</a>
+                    <a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <p>© 2024 Marquis Davis. All rights reserved.</p>
+        <div class="container footer-row">
+            <p>© 2026 Marquis Davis. Built as a living engineering portfolio.</p>
+            <p>Endpoint Engineering → Automation → AI Platform Engineering</p>
         </div>
     </footer>
-
 </body>
-
 </html>
