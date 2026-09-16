@@ -1,4 +1,12 @@
 (() => {
+    if (!document.querySelector('link[data-weather-banner-style]')) {
+        const styleLink = document.createElement('link');
+        styleLink.rel = 'stylesheet';
+        styleLink.href = 'weather-banner.css?v=20260916';
+        styleLink.dataset.weatherBannerStyle = 'true';
+        document.head.appendChild(styleLink);
+    }
+
     const header = document.querySelector('.site-header');
     if (!header) return;
 
