@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Incident Simulator | Marquis Davis</title>
+    <meta name="description" content="Interactive endpoint incident simulator showing detect, investigate, remediate, and validate workflows across Autopilot, ConfigMgr, Defender, drivers, and Intune compliance.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .incident-shell{padding:66px 0 86px}
+        .incident-hero{max-width:900px;margin-bottom:28px}
+        .incident-hero h1{margin:0 0 16px;font-size:clamp(2.7rem,6vw,5rem);line-height:.98;letter-spacing:-.055em}
+        .incident-hero h1 span{background:linear-gradient(90deg,#fff 0%,#9adfff 48%,#b6a7ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .lab-note{margin-top:18px;padding:13px 15px;border:1px solid rgba(251,191,36,.22);border-radius:12px;background:rgba(251,191,36,.045);color:#c9b77d;font-size:12px}
+        .scenario-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:28px 0 20px}
+        .scenario-button{min-height:92px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.022);color:var(--text);text-align:left;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+        .scenario-button:hover{border-color:var(--border-bright);background:rgba(96,165,250,.055);transform:translateY(-1px)}
+        .scenario-button.active{border-color:var(--cyan);background:rgba(96,165,250,.09);box-shadow:inset 0 0 24px rgba(96,165,250,.05)}
+        .scenario-button:disabled{cursor:not-allowed;opacity:.58;transform:none}
+        .scenario-icon{display:inline-grid;width:30px;height:30px;place-items:center;margin-bottom:9px;border:1px solid var(--border-bright);border-radius:9px;color:var(--cyan);font-size:10px;font-weight:900}
+        .scenario-button strong{display:block;font-size:12px;line-height:1.3}
+        .sim-grid{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:18px;align-items:start}
+        .sim-panel{overflow:hidden;border:1px solid var(--border-bright);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,24,35,.92),rgba(8,12,18,.97));box-shadow:0 16px 50px rgba(0,0,0,.2)}
+        .panel-head{padding:19px 20px;border-bottom:1px solid var(--border)}
+        .panel-head h2,.panel-head h3{margin:0;font-size:18px}
+        .panel-head p{margin-top:4px;font-size:12px}
+        .panel-body{padding:20px}
+        .incident-title{font-size:22px;line-height:1.15;margin-bottom:7px}
+        .incident-summary{font-size:13px}
+        .facts{display:grid;gap:9px;margin-top:18px}
+        .fact{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.018)}
+        .fact span{color:var(--muted);font-size:11px}
+        .fact strong{color:#e7eef6;font-size:11px;text-align:right;word-break:break-word}
+        .stage-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:20px}
+        .stage{position:relative;padding:12px 10px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);text-align:center}
+        .stage span{display:block;color:#7f8b99;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .stage strong{display:block;margin-top:4px;color:#b9c5d2;font-size:11px}
+        .stage.running{border-color:rgba(96,165,250,.45);background:rgba(96,165,250,.08)}
+        .stage.running span,.stage.running strong{color:#9adfff}
+        .stage.complete{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.06)}
+        .stage.complete span,.stage.complete strong{color:#7ef0c2}
+        .controls{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:18px}
+        .controls .button{width:100%}
+        .controls .button.secondary{width:auto}
+        .source-link{display:block;margin-top:14px;color:var(--cyan);font-size:12px;font-weight:800;word-break:break-word}
+        .terminal{min-height:520px;max-height:520px;overflow:auto;padding:18px;background:#05080d;font:12px/1.65 "Cascadia Code",Consolas,monospace;color:#b8c5d2;white-space:normal}
+        .terminal-line{display:grid;grid-template-columns:76px 90px minmax(0,1fr);gap:9px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.025)}
+        .terminal-time{color:#647181}.terminal-stage{font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#86c8ff}.terminal-message{min-width:0;word-break:break-word}
+        .terminal-line.ok .terminal-message{color:#7ef0c2}.terminal-line.warn .terminal-message{color:#f8d66d}.terminal-line.err .terminal-message{color:#ff9d9d}
+        .terminal-empty{color:#657280;padding:4px 0}
+        .result-banner{display:none;margin-top:14px;padding:13px 15px;border:1px solid rgba(52,211,153,.28);border-radius:11px;background:rgba(52,211,153,.055);color:#7ef0c2;font-size:12px;font-weight:800}
+        .result-banner.show{display:block}
+        .workflow-note{margin-top:18px;color:#7d8997;font-size:11px}
+        @media(max-width:980px){.scenario-grid{grid-template-columns:repeat(3,1fr)}.sim-grid{grid-template-columns:1fr}.terminal{min-height:430px;max-height:430px}}
+        @media(max-width:760px){.incident-shell{padding:42px 0 58px}.incident-hero h1{font-size:clamp(2.35rem,12vw,3.2rem)}.scenario-grid{grid-template-columns:1fr 1fr;gap:8px}.scenario-button{min-height:86px}.panel-head,.panel-body{padding:17px}.stage-rail{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr}.controls .button.secondary{width:100%}.terminal{min-height:390px;max-height:390px;padding:14px;font-size:10.5px}.terminal-line{grid-template-columns:58px 70px minmax(0,1fr);gap:7px}.fact{flex-direction:column;gap:3px}.fact strong{text-align:left}}
+        @media(max-width:420px){.scenario-grid{grid-template-columns:1fr}.stage-rail{grid-template-columns:1fr}.terminal-line{grid-template-columns:1fr;gap:0;padding:7px 0}.terminal-time,.terminal-stage{font-size:9px}.terminal{max-height:none;min-height:360px}}
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-container">
+        <a class="logo" href="index.html"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav><ul class="nav-links"><li><a href="index.html#work">Projects</a></li><li><a class="active" href="incident-simulator.html">Incident Lab</a></li><li><a href="driver-bios-automation-lab.html">Driver/BIOS Demo</a></li><li><a href="zero-day-defender-osd-lab.html">Defender Demo</a></li><li><a href="recruiter.html">Recruiter Mode</a></li></ul></nav>
+    </div>
+</header>
+
+<main class="incident-shell">
+    <div class="container">
+        <section class="incident-hero">
+            <div class="kicker">Interactive Engineering Lab</div>
+            <h1><span>Endpoint Incident Simulator</span></h1>
+            <p class="hero-subtitle">Choose an endpoint incident and watch the platform move through detection, investigation, remediation, and validation using troubleshooting patterns from real enterprise endpoint engineering workflows.</p>
+            <div class="lab-note"><strong>Simulation boundary:</strong> this lab uses sanitized browser-side test data. It does not connect to a live Intune tenant, ConfigMgr site, or production endpoint. Microsoft Defender current-version data is read from the same automated portfolio data feed when available.</div>
+        </section>
+
+        <div class="scenario-grid" role="group" aria-label="Choose incident scenario">
+            <button class="scenario-button active" type="button" data-scenario="autopilot"><span class="scenario-icon">AP</span><strong>Autopilot ESP failure</strong></button>
+            <button class="scenario-button" type="button" data-scenario="driver"><span class="scenario-icon">DRV</span><strong>Driver package outdated</strong></button>
+            <button class="scenario-button" type="button" data-scenario="defender"><span class="scenario-icon">DEF</span><strong>Defender intelligence stale</strong></button>
+            <button class="scenario-button" type="button" data-scenario="osd"><span class="scenario-icon">OSD</span><strong>ConfigMgr OSD stalled</strong></button>
+            <button class="scenario-button" type="button" data-scenario="compliance"><span class="scenario-icon">CMP</span><strong>Device noncompliant</strong></button>
+        </div>
+
+        <div class="sim-grid">
+            <section class="sim-panel" aria-label="Selected incident">
+                <div class="panel-head"><h2>Incident Control</h2><p>Select a scenario, then run the engineering workflow.</p></div>
+                <div class="panel-body">
+                    <div class="signal-label" id="incidentCategory">Modern Management</div>
+                    <h3 class="incident-title" id="incidentTitle">Autopilot ESP failure</h3>
+                    <p class="incident-summary" id="incidentSummary">Device setup is blocked because an ESP-tracked Win32 application reports a failed installation state.</p>
+                    <div class="facts" id="incidentFacts"></div>
+
+                    <div class="stage-rail" aria-label="Incident workflow stages">
+                        <div class="stage" data-stage="detect"><span>01</span><strong>Detect</strong></div>
+                        <div class="stage" data-stage="investigate"><span>02</span><strong>Investigate</strong></div>
+                        <div class="stage" data-stage="remediate"><span>03</span><strong>Remediate</strong></div>
+                        <div class="stage" data-stage="validate"><span>04</span><strong>Validate</strong></div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="button" type="button" id="runIncident">Run Selected Incident</button>
+                        <button class="button secondary" type="button" id="resetIncident">Reset</button>
+                    </div>
+                    <a class="source-link" id="sourceLink" target="_blank" rel="noopener noreferrer">View engineering source →</a>
+                    <div class="result-banner" id="resultBanner" aria-live="polite">Incident remediated and validation passed.</div>
+                    <div class="workflow-note">The simulator emphasizes the engineering sequence: observe state first, gather the next useful signal, apply a controlled remediation, then prove recovery.</div>
+                </div>
+            </section>
+
+            <section class="sim-panel" aria-label="Live incident console">
+                <div class="panel-head"><h3>Incident Execution Console</h3><p id="consoleStatus">Ready for Autopilot ESP failure.</p></div>
+                <div class="terminal" id="incidentConsole" aria-live="polite"><div class="terminal-empty">Select an incident and run the workflow to begin.</div></div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis.</p><p>Detect → Investigate → Remediate → Validate</p></div></footer>
+
+<script>
+(() => {
+    const scenarioButtons=[...document.querySelectorAll('.scenario-button')];
+    const stageEls=[...document.querySelectorAll('.stage')];
+    const titleEl=document.getElementById('incidentTitle');
+    const categoryEl=document.getElementById('incidentCategory');
+    const summaryEl=document.getElementById('incidentSummary');
+    const factsEl=document.getElementById('incidentFacts');
+    const consoleEl=document.getElementById('incidentConsole');
+    const statusEl=document.getElementById('consoleStatus');
+    const sourceEl=document.getElementById('sourceLink');
+    const resultEl=document.getElementById('resultBanner');
+    const runBtn=document.getElementById('runIncident');
+    const resetBtn=document.getElementById('resetIncident');
+    let selected='autopilot';
+    let running=false;
+    let runToken=0;
+
+    const baseScenarios={
+        autopilot:{
+            title:'Autopilot ESP failure',category:'Modern Management',
+            summary:'Device setup is blocked because an ESP-tracked Win32 application reports a failed installation state.',
+            source:'https://github.com/Marquis-Davis/modern-endpoint-platform/blob/main/Tools/ESP%20Troubleshooting/Get-AutopilotFailedApps.ps1',
+            facts:[['Device','AP-LT-1042'],['ESP phase','Device setup → Apps'],['Tracked state','1 failed / 8 completed'],['Lab error','0x87D1041C']],
+            phases:{
+                detect:[['warn','ESP progress stopped at Device setup → Apps.'],['info','Reading Sidecar tracking under EnrollmentStatusTracking\\Device\\Setup\\Apps.'],['warn','Win32 app state = Failed; ErrorHResult captured.']],
+                investigate:[['info','Resolving app ID from retained AppWorkload / IntuneManagementExtension logs.'],['info','Matched failed app to Contoso VPN Client (sanitized lab app).'],['warn','Detection state does not confirm install after the last retry.']],
+                remediate:[['info','Clearing the lab failure condition and triggering a controlled app retry.'],['info','Intune Management Extension re-evaluates the Win32 app assignment.'],['ok','Application install reports success.']],
+                validate:[['info','Re-reading ESP tracked application state.'],['ok','Failed = 0 | Completed = 9 | Incomplete = 0.'],['ok','ESP application phase can continue.']]
+            }
+        },
+        driver:{
+            title:'Driver package outdated',category:'Hardware Lifecycle Governance',
+            summary:'The ConfigMgr driver package version trails the latest vendor driver pack discovered by the governance workflow.',
+            source:'https://github.com/Marquis-Davis/modern-endpoint-platform/blob/main/ConfigMgr/Driver%20%26%20BIOS%20Automation/Drivers/HP-Endpoint-Driver-Governance.ps1',
+            facts:[['Model','HP EliteBook 840 G10'],['OS','Windows 11 x64'],['ConfigMgr version','1.0.0'],['Vendor version','1.0.2 (lab)']],
+            phases:{
+                detect:[['info','Loading HP Windows 11 driver packages from ConfigMgr inventory.'],['info','Parsing HP Driver Pack Matrix for the selected model.'],['warn','Status = UPDATE AVAILABLE.']],
+                investigate:[['info','Comparing ConfigMgr package version to vendor-discovered version.'],['info','Resolving latest SoftPaq metadata and release information.'],['warn','ConfigMgr 1.0.0 is behind vendor 1.0.2 in this sanitized lab scenario.']],
+                remediate:[['info','Staging updated driver source content.'],['info','Validating package content before packaging.'],['info','Updating driver package and distribution content.'],['ok','Updated content accepted by the simulated distribution workflow.']],
+                validate:[['info','Re-running package compliance comparison.'],['ok','ConfigMgr version = vendor version.'],['ok','Status = UP TO DATE.']]
+            }
+        },
+        defender:{
+            title:'Defender intelligence stale',category:'Endpoint Security',
+            summary:'The OSD image contains Defender platform or security-intelligence data older than the current Microsoft data feed.',
+            source:'zero-day-defender-osd-lab.html',
+            facts:[['Image platform','Previous build'],['Image intelligence','Previous definition'],['Microsoft current','Loading feed…'],['State','Update required']],
+            phases:{
+                detect:[['info','Reading Defender versions from the OSD image.'],['info','Loading current Microsoft Defender data from the portfolio feed.'],['warn','Image security intelligence is behind current Microsoft data.']],
+                investigate:[['info','Comparing platform, engine, and security-intelligence versions.'],['warn','One or more Defender components require refresh before provisioning completes.']],
+                remediate:[['info','Applying locally staged Defender platform / intelligence content.'],['info','Waiting for update completion without forcing an uncontrolled reboot.'],['ok','Defender update operation completed.']],
+                validate:[['info','Re-reading Defender platform and intelligence state.'],['ok','Installed versions now match the current portfolio data feed.'],['ok','OSD security validation passed.']]
+            }
+        },
+        osd:{
+            title:'ConfigMgr OSD stalled',category:'Deployment Intelligence',
+            summary:'Provisioning telemetry shows the task sequence has stopped advancing between expected lifecycle checkpoints.',
+            source:'https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/OSD',
+            facts:[['Device','LAB-W11-247'],['Last checkpoint','Client Installed'],['No progress','18 minutes'],['Expected next','Apps Installed']],
+            phases:{
+                detect:[['warn','OSDMonitor telemetry has not received the next lifecycle checkpoint.'],['info','Last known checkpoint = Client Installed.'],['warn','Stall threshold exceeded for the current provisioning phase.']],
+                investigate:[['info','Inspecting task-sequence execution state and recent smsts.log activity.'],['info','Checking the active process / step associated with the stalled application phase.'],['warn','Current step is no longer making forward progress.']],
+                remediate:[['info','Triggering the controlled recovery path for the stalled phase.'],['info','Resetting the lab step state and resuming task-sequence execution.'],['ok','Task sequence reports forward progress.']],
+                validate:[['info','Waiting for the next expected OSD checkpoint.'],['ok','Checkpoint received: Apps Installed.'],['ok','Provisioning telemetry returned to healthy state.']]
+            }
+        },
+        compliance:{
+            title:'Device noncompliant',category:'Intune Compliance',
+            summary:'A managed Windows device reports noncompliant because a required security control is not currently satisfied.',
+            source:'https://github.com/Marquis-Davis/modern-endpoint-platform',
+            facts:[['Device','W11-CLD-031'],['Compliance','Noncompliant'],['Policy signal','BitLocker required'],['Last check-in','4 minutes ago']],
+            phases:{
+                detect:[['warn','Intune compliance state = noncompliant.'],['info','Reading the failing compliance signal from the sanitized device record.'],['warn','Required BitLocker protection state is not satisfied.']],
+                investigate:[['info','Checking device check-in freshness and encryption readiness.'],['info','TPM readiness = healthy; policy assignment = present.'],['warn','Protection state requires remediation, not a policy-assignment change.']],
+                remediate:[['info','Running the lab remediation workflow to restore the required protection state.'],['info','Triggering a device management sync and compliance re-evaluation.'],['ok','Required security state reports healthy.']],
+                validate:[['info','Refreshing the simulated Intune compliance record.'],['ok','Compliance state = compliant.'],['ok','No remaining failing compliance signals.']]
+            }
+        }
+    };
+
+    const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+    const nowText=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const setStage=(stage,state)=>{const el=stageEls.find(x=>x.dataset.stage===stage);if(!el)return;el.classList.remove('running','complete');if(state)el.classList.add(state);};
+    const clearStages=()=>stageEls.forEach(el=>el.classList.remove('running','complete'));
+    const addLine=(stage,message,type='info')=>{if(consoleEl.querySelector('.terminal-empty'))consoleEl.textContent='';const row=document.createElement('div');row.className=`terminal-line ${type}`;const time=document.createElement('span');time.className='terminal-time';time.textContent=nowText();const stageCell=document.createElement('span');stageCell.className='terminal-stage';stageCell.textContent=stage;const msg=document.createElement('span');msg.className='terminal-message';msg.textContent=message;row.append(time,stageCell,msg);consoleEl.appendChild(row);consoleEl.scrollTop=consoleEl.scrollHeight;};
+
+    async function getScenario(key){
+        const scenario=JSON.parse(JSON.stringify(baseScenarios[key]));
+        if(key!=='defender')return scenario;
+        try{
+            const response=await fetch(`data/defender-current.json?v=${Date.now()}`,{cache:'no-store'});
+            if(!response.ok)throw new Error(`HTTP ${response.status}`);
+            const data=await response.json();
+            scenario.facts[2][1]=`Platform ${data.platformVersion} / Intel ${data.securityIntelligenceVersion}`;
+            scenario.phases.detect[1][1]=`Current feed: Platform ${data.platformVersion} | Intelligence ${data.securityIntelligenceVersion}.`;
+            scenario.phases.investigate.push(['info',`Current Microsoft engine from feed = ${data.engineVersion}.`]);
+            scenario.phases.validate[1][1]=`Installed platform ${data.platformVersion} and intelligence ${data.securityIntelligenceVersion} now match the feed.`;
+        }catch(error){
+            scenario.facts[2][1]='Feed temporarily unavailable';
+            scenario.phases.detect[1]=['warn','Current Defender feed could not be loaded; using version-neutral simulation steps.'];
+            scenario.phases.validate[1]=['ok','Installed Defender state passes the simulated current-version validation.'];
+        }
+        return scenario;
+    }
+
+    async function renderScenario(key){
+        const scenario=await getScenario(key);
+        titleEl.textContent=scenario.title;
+        categoryEl.textContent=scenario.category;
+        summaryEl.textContent=scenario.summary;
+        factsEl.textContent='';
+        scenario.facts.forEach(([label,value])=>{const row=document.createElement('div');row.className='fact';const left=document.createElement('span');left.textContent=label;const right=document.createElement('strong');right.textContent=value;row.append(left,right);factsEl.appendChild(row);});
+        sourceEl.href=scenario.source;
+        if(!/^https?:/i.test(scenario.source)){sourceEl.removeAttribute('target');}else{sourceEl.target='_blank';}
+        statusEl.textContent=`Ready for ${scenario.title}.`;
+        return scenario;
+    }
+
+    async function selectScenario(key){
+        if(running)return;
+        selected=key;
+        scenarioButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.scenario===key));
+        clearStages();resultEl.classList.remove('show');
+        consoleEl.innerHTML='<div class="terminal-empty">Select an incident and run the workflow to begin.</div>';
+        await renderScenario(key);
+    }
+
+    async function runIncident(){
+        if(running)return;
+        running=true;runToken++;const token=runToken;
+        scenarioButtons.forEach(btn=>btn.disabled=true);runBtn.disabled=true;resultEl.classList.remove('show');clearStages();consoleEl.textContent='';
+        const scenario=await getScenario(selected);
+        await renderScenario(selected);
+        addLine('system',`Incident opened: ${scenario.title}.`,'warn');
+        const stages=['detect','investigate','remediate','validate'];
+        for(const stage of stages){
+            if(token!==runToken)return;
+            setStage(stage,'running');statusEl.textContent=`${stage.charAt(0).toUpperCase()+stage.slice(1)} phase running…`;
+            await sleep(430);
+            for(const [type,message] of scenario.phases[stage]){
+                if(token!==runToken)return;
+                addLine(stage,message,type);await sleep(520);
+            }
+            setStage(stage,'complete');await sleep(280);
+        }
+        addLine('system','Incident lifecycle complete. Validation passed.','ok');
+        statusEl.textContent='Incident remediated and validation passed.';resultEl.classList.add('show');
+        scenarioButtons.forEach(btn=>btn.disabled=false);runBtn.disabled=false;running=false;
+    }
+
+    function resetIncident(){
+        runToken++;running=false;scenarioButtons.forEach(btn=>btn.disabled=false);runBtn.disabled=false;clearStages();resultEl.classList.remove('show');consoleEl.innerHTML='<div class="terminal-empty">Select an incident and run the workflow to begin.</div>';renderScenario(selected);
+    }
+
+    scenarioButtons.forEach(btn=>btn.addEventListener('click',()=>selectScenario(btn.dataset.scenario)));
+    runBtn.addEventListener('click',runIncident);resetBtn.addEventListener('click',resetIncident);
+    renderScenario(selected);
+})();
+</script>
+</body>
+</html>
