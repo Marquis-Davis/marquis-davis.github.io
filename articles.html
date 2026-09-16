@@ -45,26 +45,27 @@
         </section>
 
         <section class="section-tight">
-            <div class="container article-grid">
-                <article class="article-card">
-                    <p class="article-meta">February 2026 · 10 min read</p>
-                    <h3><a href="sample-article.html">Why I Built a Self-Healing Provisioning Monitor</a></h3>
-                    <p>Why deployment should be treated as an observable lifecycle instead of a static sequence of steps.</p>
-                    <div class="project-links"><a href="sample-article.html">Read article →</a></div>
+            <div class="container article-grid" id="articleGrid">
+                <!-- Keep data-published in ISO format. The page automatically sorts newest to oldest. -->
+                <article class="article-card" data-published="2026-08-07">
+                    <p class="article-meta">August 2026 · 7 min read</p>
+                    <h3><a href="powershell-downloads-configmgr-task-sequence.html">When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence</a></h3>
+                    <p>A real-world ConfigMgr troubleshooting story about execution context, BITS, Invoke-WebRequest, and why curl.exe became the reliable fix.</p>
+                    <div class="project-links"><a href="powershell-downloads-configmgr-task-sequence.html">Read article →</a></div>
                 </article>
 
-                <article class="article-card">
+                <article class="article-card" data-published="2026-08-03">
                     <p class="article-meta">August 2026 · 6 min read</p>
                     <h3><a href="git-branch-has-diverged.html">Git Says “Your Branch Has Diverged” but This Here is What It Actually Means</a></h3>
                     <p>A practical explanation of branch divergence, rejected pushes, and safe synchronization without overwriting someone else’s work.</p>
                     <div class="project-links"><a href="git-branch-has-diverged.html">Read article →</a></div>
                 </article>
 
-                <article class="article-card">
-                    <p class="article-meta">August 2026 · 7 min read</p>
-                    <h3><a href="powershell-downloads-configmgr-task-sequence.html">When PowerShell Downloads Work Manually but Fail in a ConfigMgr Task Sequence</a></h3>
-                    <p>A real-world ConfigMgr troubleshooting story about execution context, BITS, Invoke-WebRequest, and why curl.exe became the reliable fix.</p>
-                    <div class="project-links"><a href="powershell-downloads-configmgr-task-sequence.html">Read article →</a></div>
+                <article class="article-card" data-published="2026-02-01">
+                    <p class="article-meta">February 2026 · 10 min read</p>
+                    <h3><a href="sample-article.html">Why I Built a Self-Healing Provisioning Monitor</a></h3>
+                    <p>Why deployment should be treated as an observable lifecycle instead of a static sequence of steps.</p>
+                    <div class="project-links"><a href="sample-article.html">Read article →</a></div>
                 </article>
             </div>
         </section>
@@ -90,5 +91,16 @@
             <p>Endpoint Engineering → Automation → AI Platform Engineering</p>
         </div>
     </footer>
+
+    <script>
+    (() => {
+        const grid = document.getElementById('articleGrid');
+        if (!grid) return;
+
+        const articles = Array.from(grid.querySelectorAll('.article-card[data-published]'));
+        articles.sort((a, b) => b.dataset.published.localeCompare(a.dataset.published));
+        articles.forEach(article => grid.appendChild(article));
+    })();
+    </script>
 </body>
 </html>
