@@ -32,6 +32,8 @@
         .demo-note { margin-top:20px; padding:16px 18px; border:1px solid rgba(251,191,36,.22); border-radius:14px; background:rgba(251,191,36,.04); color:#c9b77d; font-size:13px; }
         @media(max-width:900px){.automation-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
     </style>
+    <link rel="stylesheet" href="weather-banner.css?v=20260916">
+    <link rel="stylesheet" href="system-health.css?v=20260916">
 </head>
 <body>
 <header class="site-header">
@@ -153,5 +155,6 @@ function reset(){
 runButton.addEventListener('click',runAutomation); resetButton.addEventListener('click',reset); render(); reset();
 </script>
 <script src="weather-banner.js?v=20260916" defer></script>
+<script src="system-health.js?v=20260916" defer></script>
 </body>
 </html>

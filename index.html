@@ -24,6 +24,8 @@
         .weather-current{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}.weather-icon{display:grid;width:26px;height:26px;place-items:center;font-size:17px;line-height:1}.weather-temp{color:#e7eef6;font-size:13px;font-weight:850;white-space:nowrap}.weather-condition{min-width:0;color:#95a4b5;white-space:nowrap}.weather-feels{color:#6f7d8d;white-space:nowrap}.weather-separator{color:#445160}
         @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}.nav-links a.recruiter-nav{padding:7px 10px}.weather-inner{gap:10px;overflow:hidden}.weather-location{font-size:10px}.weather-current{gap:7px}.weather-feels,.weather-separator{display:none}.weather-condition{overflow:hidden;text-overflow:ellipsis}.weather-temp{font-size:12px}}
     </style>
+    <link rel="stylesheet" href="weather-banner.css?v=20260916">
+    <link rel="stylesheet" href="system-health.css?v=20260916">
 </head>
 <body>
 <header class="site-header">
@@ -118,5 +120,6 @@
     loadActivity();window.setInterval(loadActivity,60000);
 })();
 </script>
+<script src="system-health.js?v=20260916" defer></script>
 </body>
 </html>
