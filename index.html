@@ -6,254 +6,90 @@
     <title>Marquis Davis | AI Endpoint & Platform Engineer</title>
     <meta name="description" content="AI Endpoint and Platform Engineer focused on Microsoft Foundry, Azure, Intune, Microsoft Graph, PowerShell, Python, automation, and enterprise endpoint engineering.">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .activity-panel{overflow:hidden;border:1px solid var(--border-bright);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,24,35,.9),rgba(8,12,18,.96));box-shadow:0 14px 46px rgba(0,0,0,.2)}
+        .activity-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;border-bottom:1px solid var(--border)}
+        .activity-header h3{margin:0;font-size:18px}.activity-header p{margin-top:3px;font-size:12px}
+        .activity-live{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:#7ef0c2;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .activity-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(52,211,153,.08),0 0 18px rgba(52,211,153,.45)}
+        .activity-feed{display:grid}.activity-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:17px 24px;border-top:1px solid rgba(148,163,184,.1);transition:background .18s ease}.activity-item:first-child{border-top:0}.activity-item:hover{background:rgba(96,165,250,.045);color:inherit}
+        .activity-dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px rgba(96,165,250,.42)}.activity-dot.healthy{background:var(--green);box-shadow:0 0 14px rgba(52,211,153,.45)}.activity-dot.building{background:var(--amber);box-shadow:0 0 14px rgba(251,191,36,.4)}
+        .activity-copy{min-width:0}.activity-copy strong{display:block;color:#e8eef6;font-size:13px}.activity-copy span{display:block;margin-top:2px;overflow:hidden;color:var(--muted);font-size:12px;text-overflow:ellipsis;white-space:nowrap}.activity-time{color:#7f8b99;font-size:11px;font-weight:750;white-space:nowrap}
+        .activity-loading{padding:20px 24px;color:var(--muted);font-size:13px}
+        @media(max-width:760px){.activity-header{align-items:flex-start;flex-direction:column;padding:18px}.activity-item{grid-template-columns:auto minmax(0,1fr);gap:11px;padding:15px 18px}.activity-time{grid-column:2}.activity-copy span{white-space:normal}.activity-live{font-size:9px}}
+    </style>
 </head>
 <body>
 <header class="site-header">
     <div class="container nav-container">
-        <a class="logo" href="index.html" aria-label="Marquis Davis home">
-            <span class="logo-mark">MD</span>
-            <span>Marquis Davis</span>
-        </a>
-        <nav aria-label="Primary navigation">
-            <ul class="nav-links">
-                <li><a href="#work" class="active">Projects</a></li>
-                <li><a href="#lab">AI Lab</a></li>
-                <li><a href="#architecture">Architecture</a></li>
-                <li><a href="articles.html">Articles</a></li>
-                <li><a href="resume.html">Resume</a></li>
-                <li><a href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Certifications</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <a class="logo" href="index.html" aria-label="Marquis Davis home"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav aria-label="Primary navigation"><ul class="nav-links">
+            <li><a href="#work" class="active">Projects</a></li><li><a href="#activity">Activity</a></li><li><a href="#lab">AI Lab</a></li><li><a href="#architecture">Architecture</a></li><li><a href="articles.html">Articles</a></li><li><a href="resume.html">Resume</a></li><li><a href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Certifications</a></li><li><a href="#contact">Contact</a></li>
+        </ul></nav>
     </div>
 </header>
 
 <main>
-    <section class="hero">
-        <div class="container hero-grid">
-            <div>
-                <div class="eyebrow">Enterprise Endpoint Engineering + AI</div>
-                <h1><span>AI Endpoint & Platform Engineer</span></h1>
-                <p class="hero-subtitle">I build intelligent endpoint platforms by combining enterprise Windows engineering, automation, Microsoft Graph, Azure, Microsoft Foundry, and AI agents.</p>
-                <div class="hero-route" aria-label="Engineering progression">
-                    <span>Endpoint Engineering</span><span class="arrow">→</span>
-                    <span>Automation</span><span class="arrow">→</span>
-                    <span>AI Agents</span><span class="arrow">→</span>
-                    <span>AI Platform Engineering</span>
-                </div>
-                <div class="button-row">
-                    <a class="button" href="#work">Explore My Work</a>
-                    <a class="button secondary" href="resume.html">View Updated Resume</a>
-                    <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume (PDF)</a>
-                    <a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </div>
-            </div>
-
-            <aside class="hero-panel" aria-label="Current engineering focus">
-                <div class="profile-row">
-                    <img src="profile.jpg" alt="Professional headshot of Marquis Davis">
-                    <div>
-                        <strong>Marquis Davis</strong>
-                        <span>Windows Platform → AI Platform Engineering</span>
-                    </div>
-                </div>
-                <div class="status-line"><span class="status-dot"></span> Building in public through hands-on engineering labs</div>
-
-                <div class="signal-card" aria-label="Live date and time">
-                    <div class="signal-label">Live Date & Time</div>
-                    <div id="portfolioClockTime" style="font-size:32px;font-weight:850;letter-spacing:-0.03em;color:var(--text);line-height:1.05;">--:--:--</div>
-                    <div id="portfolioClockDate" style="margin-top:7px;color:var(--muted);font-size:13px;">Loading date...</div>
-                </div>
-
-                <div class="signal-card">
-                    <div class="signal-label">Current Build</div>
-                    <h3>AI Endpoint Troubleshooting Assistant</h3>
-                    <p>Connecting AI reasoning to enterprise endpoint data and troubleshooting workflows.</p>
-                    <div class="signal-flow">
-                        <span>Engineer <b>01</b></span>
-                        <span>AI Agent <b>02</b></span>
-                        <span>Microsoft Foundry <b>03</b></span>
-                        <span>Graph + Intune + Entra <b>04</b></span>
-                    </div>
-                </div>
-            </aside>
+    <section class="hero"><div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Enterprise Endpoint Engineering + AI</div>
+            <h1><span>AI Endpoint & Platform Engineer</span></h1>
+            <p class="hero-subtitle">I build intelligent endpoint platforms by combining enterprise Windows engineering, automation, Microsoft Graph, Azure, Microsoft Foundry, and AI agents.</p>
+            <div class="hero-route" aria-label="Engineering progression"><span>Endpoint Engineering</span><span class="arrow">→</span><span>Automation</span><span class="arrow">→</span><span>AI Agents</span><span class="arrow">→</span><span>AI Platform Engineering</span></div>
+            <div class="button-row"><a class="button" href="#work">Explore My Work</a><a class="button secondary" href="resume.html">View Updated Resume</a><a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume (PDF)</a><a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </div>
-    </section>
+        <aside class="hero-panel" aria-label="Current engineering focus">
+            <div class="profile-row"><img src="profile.jpg" alt="Professional headshot of Marquis Davis"><div><strong>Marquis Davis</strong><span>Windows Platform → AI Platform Engineering</span></div></div>
+            <div class="status-line"><span class="status-dot"></span> Building in public through hands-on engineering labs</div>
+            <div class="signal-card" aria-label="Live date and time"><div class="signal-label">Live Date & Time</div><div id="portfolioClockTime" style="font-size:32px;font-weight:850;letter-spacing:-0.03em;color:var(--text);line-height:1.05;">--:--:--</div><div id="portfolioClockDate" style="margin-top:7px;color:var(--muted);font-size:13px;">Loading date...</div></div>
+            <div class="signal-card"><div class="signal-label">Current Build</div><h3>AI Endpoint Troubleshooting Assistant</h3><p>Connecting AI reasoning to enterprise endpoint data and troubleshooting workflows.</p><div class="signal-flow"><span>Engineer <b>01</b></span><span>AI Agent <b>02</b></span><span>Microsoft Foundry <b>03</b></span><span>Graph + Intune + Entra <b>04</b></span></div></div>
+        </aside>
+    </div></section>
 
-    <section class="proof-strip" aria-label="Core engineering areas">
-        <div class="container proof-grid">
-            <div class="proof-item"><strong>Enterprise Endpoint</strong><span>Intune, ConfigMgr, Autopilot, Windows</span></div>
-            <div class="proof-item"><strong>Automation</strong><span>PowerShell, Graph, REST APIs, Azure Automation</span></div>
-            <div class="proof-item"><strong>AI Platform</strong><span>Microsoft Foundry, agents, RAG, MCP</span></div>
-            <div class="proof-item"><strong>Architecture</strong><span>Identity, governance, telemetry, lifecycle design</span></div>
+    <section class="proof-strip" aria-label="Core engineering areas"><div class="container proof-grid"><div class="proof-item"><strong>Enterprise Endpoint</strong><span>Intune, ConfigMgr, Autopilot, Windows</span></div><div class="proof-item"><strong>Automation</strong><span>PowerShell, Graph, REST APIs, Azure Automation</span></div><div class="proof-item"><strong>AI Platform</strong><span>Microsoft Foundry, agents, RAG, MCP</span></div><div class="proof-item"><strong>Architecture</strong><span>Identity, governance, telemetry, lifecycle design</span></div></div></section>
+
+    <section class="section-tight" id="activity"><div class="container">
+        <div class="section-heading"><div class="kicker">Live Engineering Activity</div><h2>A portfolio that updates itself.</h2><p>Current signals from the systems, repositories, deployments, and engineering labs behind this portfolio.</p></div>
+        <div class="activity-panel">
+            <div class="activity-header"><div><h3>Engineering Activity Feed</h3><p id="activityUpdated">Loading automated engineering signals...</p></div><div class="activity-live">Auto-refreshed</div></div>
+            <div class="activity-feed" id="activityFeed"><div class="activity-loading">Loading activity...</div></div>
         </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="about">
-        <div class="container">
-            <div class="section-heading">
-                <div class="kicker">What I Build</div>
-                <h2>Enterprise platform engineering with an AI layer.</h2>
-                <p>My background is hands-on Windows and endpoint engineering at enterprise scale. I now apply that same platform mindset to AI agents, automation, APIs, identity, and intelligent operational workflows.</p>
-            </div>
-            <div class="grid-3">
-                <article class="card"><div class="icon-box">EP</div><h3>Endpoint Platforms</h3><p>Windows provisioning, Intune, ConfigMgr, Autopilot, policy architecture, lifecycle governance, and endpoint observability.</p></article>
-                <article class="card"><div class="icon-box">AU</div><h3>Automation Systems</h3><p>PowerShell, Microsoft Graph, REST APIs, Azure Automation, hardware governance, deployment intelligence, and repeatable engineering workflows.</p></article>
-                <article class="card"><div class="icon-box">AI</div><h3>AI Engineering</h3><p>Microsoft Foundry, AI agents, Python, RAG, MCP, identity, secure data access, and AI-powered endpoint troubleshooting.</p></article>
-            </div>
-        </div>
-    </section>
+    <section class="section" id="about"><div class="container"><div class="section-heading"><div class="kicker">What I Build</div><h2>Enterprise platform engineering with an AI layer.</h2><p>My background is hands-on Windows and endpoint engineering at enterprise scale. I now apply that same platform mindset to AI agents, automation, APIs, identity, and intelligent operational workflows.</p></div><div class="grid-3"><article class="card"><div class="icon-box">EP</div><h3>Endpoint Platforms</h3><p>Windows provisioning, Intune, ConfigMgr, Autopilot, policy architecture, lifecycle governance, and endpoint observability.</p></article><article class="card"><div class="icon-box">AU</div><h3>Automation Systems</h3><p>PowerShell, Microsoft Graph, REST APIs, Azure Automation, hardware governance, deployment intelligence, and repeatable engineering workflows.</p></article><article class="card"><div class="icon-box">AI</div><h3>AI Engineering</h3><p>Microsoft Foundry, AI agents, Python, RAG, MCP, identity, secure data access, and AI-powered endpoint troubleshooting.</p></article></div></div></section>
 
-    <section class="section-tight" id="work">
-        <div class="container">
-            <div class="section-heading">
-                <div class="kicker">Featured Engineering</div>
-                <h2>Projects that show the progression from platform engineering to AI.</h2>
-                <p>Each project focuses on a real operational problem, the engineering approach, and the architecture behind the solution.</p>
-            </div>
+    <section class="section-tight" id="work"><div class="container"><div class="section-heading"><div class="kicker">Featured Engineering</div><h2>Projects that show the progression from platform engineering to AI.</h2><p>Each project focuses on a real operational problem, the engineering approach, and the architecture behind the solution.</p></div><div class="project-grid">
+        <article class="project-card featured"><div class="project-topline"><span class="project-status">Active Build</span><span class="chip">AI + Endpoint</span></div><h3>AI Endpoint Troubleshooting Assistant</h3><p>An AI-powered troubleshooting assistant designed to help endpoint engineers gather device state, policy context, and operational signals faster using Microsoft Foundry, Microsoft Graph, Intune, Entra ID, and Python.</p><div class="chips"><span class="chip">Microsoft Foundry</span><span class="chip">AI Agents</span><span class="chip">Python</span><span class="chip">REST APIs</span><span class="chip">Microsoft Graph</span><span class="chip">Intune</span><span class="chip">Entra ID</span></div><div class="architecture"><div class="architecture-title">Target Architecture</div><div class="flow-row"><div class="flow-node">Engineer</div><div class="flow-node">AI Agent</div><div class="flow-node">Microsoft Foundry</div><div class="flow-node">Python / REST</div><div class="flow-node">Microsoft Graph</div><div class="flow-node">Intune + Entra</div></div></div></article>
+        <article class="project-card"><div class="project-topline"><span class="project-status">Production Engineering</span></div><h3>Driver & BIOS Lifecycle Intelligence</h3><p>Automated driver and firmware governance across large hardware fleets using vendor catalogs, lifecycle logic, packaging, and compliance-oriented reporting.</p><div class="chips"><span class="chip">PowerShell</span><span class="chip">ConfigMgr</span><span class="chip">HP</span><span class="chip">Dell</span><span class="chip">Automation</span></div><div class="project-links"><a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Driver%20%26%20BIOS%20Automation" target="_blank" rel="noopener noreferrer">View Driver & BIOS Code →</a><a href="driver-bios-automation-lab.html">Run Live Automation Demo →</a></div></article>
+        <article class="project-card"><div class="project-topline"><span class="project-status">Production Engineering</span></div><h3>Deployment Intelligence & OSD Telemetry</h3><p>Instrumented enterprise operating system deployment with lifecycle checkpoints, telemetry, fault detection, and operational visibility.</p><div class="chips"><span class="chip">ConfigMgr</span><span class="chip">Log Analytics</span><span class="chip">PowerShell</span><span class="chip">Telemetry</span></div><div class="project-links"><a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/OSD" target="_blank" rel="noopener noreferrer">View OSD Code →</a><a href="sample-article.html">Read Case Study →</a></div></article>
+        <article class="project-card"><div class="project-topline"><span class="project-status">Modern Management</span></div><h3>Autopilot Troubleshooting Toolkit</h3><p>Built practical tooling and troubleshooting workflows for ESP failures, app installation state, provisioning reliability, and device lifecycle debugging.</p><div class="chips"><span class="chip">Intune</span><span class="chip">Autopilot</span><span class="chip">PowerShell</span><span class="chip">IME</span></div><div class="project-links"><a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/Tools/ESP%20Troubleshooting" target="_blank" rel="noopener noreferrer">View Autopilot Toolkit →</a></div></article>
+        <article class="project-card"><div class="project-topline"><span class="project-status">Security Engineering</span></div><h3>Zero-Day OSD Patch Framework</h3><p>A ConfigMgr task sequence framework for applying urgent OS patches during provisioning with CVE-aware state tracking, Microsoft Defender update validation, and CBS servicing visibility.</p><div class="chips"><span class="chip">Windows</span><span class="chip">ConfigMgr</span><span class="chip">PowerShell</span><span class="chip">Defender</span><span class="chip">CBS</span><span class="chip">Security</span></div><div class="project-links"><a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Security/Zero%20Day" target="_blank" rel="noopener noreferrer">View Zero-Day Code →</a><a href="zero-day-defender-osd-lab.html">Run Live Defender + Zero-Day Demo →</a></div></article>
+    </div></div></section>
 
-            <div class="project-grid">
-                <article class="project-card featured">
-                    <div class="project-topline"><span class="project-status">Active Build</span><span class="chip">AI + Endpoint</span></div>
-                    <h3>AI Endpoint Troubleshooting Assistant</h3>
-                    <p>An AI-powered troubleshooting assistant designed to help endpoint engineers gather device state, policy context, and operational signals faster using Microsoft Foundry, Microsoft Graph, Intune, Entra ID, and Python.</p>
-                    <div class="chips"><span class="chip">Microsoft Foundry</span><span class="chip">AI Agents</span><span class="chip">Python</span><span class="chip">REST APIs</span><span class="chip">Microsoft Graph</span><span class="chip">Intune</span><span class="chip">Entra ID</span></div>
-                    <div class="architecture"><div class="architecture-title">Target Architecture</div><div class="flow-row"><div class="flow-node">Engineer</div><div class="flow-node">AI Agent</div><div class="flow-node">Microsoft Foundry</div><div class="flow-node">Python / REST</div><div class="flow-node">Microsoft Graph</div><div class="flow-node">Intune + Entra</div></div></div>
-                </article>
+    <section class="section" id="lab"><div class="container"><div class="section-heading"><div class="kicker">AI Engineering Lab</div><h2>What I am actively learning and building.</h2><p>This section tracks technologies being turned into working projects, not just courses completed.</p></div><div class="lab-list"><div class="lab-row"><strong>Microsoft Foundry</strong><p>Portal, projects, model deployment, agents, identity, tools, and deployment patterns.</p><span class="lab-badge">Building</span></div><div class="lab-row"><strong>AI Endpoint Troubleshooting Agent</strong><p>Agent architecture tied to endpoint troubleshooting and operational workflows.</p><span class="lab-badge">Building</span></div><div class="lab-row"><strong>Python + REST APIs</strong><p>Automation layer for service integration, Graph access, and AI orchestration.</p><span class="lab-badge next">In Progress</span></div><div class="lab-row"><strong>Microsoft Graph + Intune</strong><p>Secure retrieval of device, policy, compliance, and identity data for AI-assisted troubleshooting.</p><span class="lab-badge next">Next</span></div><div class="lab-row"><strong>RAG</strong><p>Grounding AI responses in endpoint engineering knowledge, logs, runbooks, and operational documentation.</p><span class="lab-badge planned">Planned</span></div><div class="lab-row"><strong>MCP</strong><p>Exploring standardized tool connectivity between AI systems and enterprise engineering services.</p><span class="lab-badge planned">Planned</span></div></div></div></section>
 
-                <article class="project-card">
-                    <div class="project-topline"><span class="project-status">Production Engineering</span></div>
-                    <h3>Driver & BIOS Lifecycle Intelligence</h3>
-                    <p>Automated driver and firmware governance across large hardware fleets using vendor catalogs, lifecycle logic, packaging, and compliance-oriented reporting.</p>
-                    <div class="chips"><span class="chip">PowerShell</span><span class="chip">ConfigMgr</span><span class="chip">HP</span><span class="chip">Dell</span><span class="chip">Automation</span></div>
-                    <div class="project-links">
-                        <a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Driver%20%26%20BIOS%20Automation" target="_blank" rel="noopener noreferrer">View Driver & BIOS Code →</a>
-                        <a href="driver-bios-automation-lab.html">Run Live Automation Demo →</a>
-                    </div>
-                </article>
+    <section class="section-tight" id="architecture"><div class="container"><div class="section-heading"><div class="kicker">Architecture Case Studies</div><h2>How I think about platform design.</h2><p>My engineering approach is lifecycle-driven, automation-first, observable, and designed for real enterprise operations.</p></div><article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">Enterprise Provisioning & Deployment Intelligence Platform</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">Integrated deployment automation, telemetry capture, hardware abstraction, and governance into one operational provisioning model.</p><h4 class="case-label">Key Contributions</h4><ul class="case-study-list"><li>Modular task sequence architecture with hardware abstraction</li><li>Deployment telemetry and checkpoint-based observability</li><li>Driver and firmware lifecycle automation</li><li>Governance-oriented reporting and operational visibility</li></ul></div></article><article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">OSDMonitor.exe – Self-Healing Deployment Framework</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">A monitoring layer embedded into task sequences to detect stalled execution states and trigger corrective remediation.</p><div class="case-impact"><h4 class="case-label">Business Impact</h4><p class="case-study-impact">Reduced rebuild cycles and improved first-pass deployment reliability through earlier fault detection.</p></div></div></article><article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">Driver & BIOS Lifecycle Intelligence Framework</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">A lifecycle intelligence system that combines vendor catalogs, version state, package automation, and compliance logic for scalable hardware governance.</p></div></article></div></section>
 
-                <article class="project-card">
-                    <div class="project-topline"><span class="project-status">Production Engineering</span></div>
-                    <h3>Deployment Intelligence & OSD Telemetry</h3>
-                    <p>Instrumented enterprise operating system deployment with lifecycle checkpoints, telemetry, fault detection, and operational visibility.</p>
-                    <div class="chips"><span class="chip">ConfigMgr</span><span class="chip">Log Analytics</span><span class="chip">PowerShell</span><span class="chip">Telemetry</span></div>
-                    <div class="project-links">
-                        <a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/OSD" target="_blank" rel="noopener noreferrer">View OSD Code →</a>
-                        <a href="sample-article.html">Read Case Study →</a>
-                    </div>
-                </article>
+    <section class="section"><div class="container"><div class="section-heading"><div class="kicker">Technology Stack</div><h2>The systems I work across.</h2></div><div class="stack-grid"><article class="stack-card"><h3>AI</h3><div class="chips"><span class="chip">Microsoft Foundry</span><span class="chip">AI Agents</span><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">Copilot Studio</span></div></article><article class="stack-card"><h3>Cloud & Identity</h3><div class="chips"><span class="chip">Azure</span><span class="chip">Entra ID</span><span class="chip">RBAC</span><span class="chip">Azure Automation</span><span class="chip">Log Analytics</span></div></article><article class="stack-card"><h3>Endpoint</h3><div class="chips"><span class="chip">Intune</span><span class="chip">ConfigMgr</span><span class="chip">Windows Autopilot</span><span class="chip">Windows</span><span class="chip">Endpoint Security</span></div></article><article class="stack-card"><h3>Engineering</h3><div class="chips"><span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">REST APIs</span><span class="chip">Microsoft Graph</span><span class="chip">GitHub</span></div></article><article class="stack-card"><h3>Platform Design</h3><div class="chips"><span class="chip">Automation</span><span class="chip">Telemetry</span><span class="chip">Governance</span><span class="chip">Lifecycle</span><span class="chip">Observability</span></div></article><article class="stack-card"><h3>Current Direction</h3><div class="chips"><span class="chip">AI Platform Engineering</span><span class="chip">AI Automation</span><span class="chip">Azure AI</span><span class="chip">AI Infrastructure</span></div></article></div></div></section>
 
-                <article class="project-card">
-                    <div class="project-topline"><span class="project-status">Modern Management</span></div>
-                    <h3>Autopilot Troubleshooting Toolkit</h3>
-                    <p>Built practical tooling and troubleshooting workflows for ESP failures, app installation state, provisioning reliability, and device lifecycle debugging.</p>
-                    <div class="chips"><span class="chip">Intune</span><span class="chip">Autopilot</span><span class="chip">PowerShell</span><span class="chip">IME</span></div>
-                    <div class="project-links"><a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/Tools/ESP%20Troubleshooting" target="_blank" rel="noopener noreferrer">View Autopilot Toolkit →</a></div>
-                </article>
+    <section class="section-tight"><div class="container"><div class="section-heading"><div class="kicker">Updated Resume</div><h2>Senior Platform Engineer | Azure | Endpoint | Automation | AI Platform Engineering</h2><p>This resume section reflects my current resume, including Microsoft Foundry, AI agents, Python/REST API integration, AI Endpoint Troubleshooting Assistant work, Azure platform engineering, ConfigMgr, Intune, Microsoft Graph, Log Analytics, and current certifications.</p></div><div class="grid-2"><article class="card"><div class="icon-box">15+</div><h3>Enterprise Platform Engineering</h3><p>15+ years across Windows, Azure-connected platforms, endpoint engineering, automation, observability, lifecycle governance, identity, and security controls.</p></article><article class="card"><div class="icon-box">AI</div><h3>AI Platform Engineering</h3><p>Microsoft Foundry agents, Python/REST APIs, RAG/MCP concepts, secure Azure identity/RBAC patterns, and AI integration with real endpoint systems and telemetry.</p></article></div><div class="button-row"><a class="button" href="resume.html">Open Updated Resume</a><a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Current Resume (PDF)</a><a class="button secondary" href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Microsoft Certifications</a></div></div></section>
 
-                <article class="project-card">
-                    <div class="project-topline"><span class="project-status">Security Engineering</span></div>
-                    <h3>Zero-Day OSD Patch Framework</h3>
-                    <p>A ConfigMgr task sequence framework for applying urgent OS patches during provisioning with CVE-aware state tracking, Microsoft Defender update validation, and CBS servicing visibility.</p>
-                    <div class="chips"><span class="chip">Windows</span><span class="chip">ConfigMgr</span><span class="chip">PowerShell</span><span class="chip">Defender</span><span class="chip">CBS</span><span class="chip">Security</span></div>
-                    <div class="project-links">
-                        <a href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Security/Zero%20Day" target="_blank" rel="noopener noreferrer">View Zero-Day Code →</a>
-                        <a href="zero-day-defender-osd-lab.html">Run Live Defender + Zero-Day Demo →</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="lab">
-        <div class="container">
-            <div class="section-heading"><div class="kicker">AI Engineering Lab</div><h2>What I am actively learning and building.</h2><p>This section tracks technologies being turned into working projects, not just courses completed.</p></div>
-            <div class="lab-list">
-                <div class="lab-row"><strong>Microsoft Foundry</strong><p>Portal, projects, model deployment, agents, identity, tools, and deployment patterns.</p><span class="lab-badge">Building</span></div>
-                <div class="lab-row"><strong>AI Endpoint Troubleshooting Agent</strong><p>Agent architecture tied to endpoint troubleshooting and operational workflows.</p><span class="lab-badge">Building</span></div>
-                <div class="lab-row"><strong>Python + REST APIs</strong><p>Automation layer for service integration, Graph access, and AI orchestration.</p><span class="lab-badge next">In Progress</span></div>
-                <div class="lab-row"><strong>Microsoft Graph + Intune</strong><p>Secure retrieval of device, policy, compliance, and identity data for AI-assisted troubleshooting.</p><span class="lab-badge next">Next</span></div>
-                <div class="lab-row"><strong>RAG</strong><p>Grounding AI responses in endpoint engineering knowledge, logs, runbooks, and operational documentation.</p><span class="lab-badge planned">Planned</span></div>
-                <div class="lab-row"><strong>MCP</strong><p>Exploring standardized tool connectivity between AI systems and enterprise engineering services.</p><span class="lab-badge planned">Planned</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-tight" id="architecture">
-        <div class="container">
-            <div class="section-heading"><div class="kicker">Architecture Case Studies</div><h2>How I think about platform design.</h2><p>My engineering approach is lifecycle-driven, automation-first, observable, and designed for real enterprise operations.</p></div>
-            <article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">Enterprise Provisioning & Deployment Intelligence Platform</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">Integrated deployment automation, telemetry capture, hardware abstraction, and governance into one operational provisioning model.</p><h4 class="case-label">Key Contributions</h4><ul class="case-study-list"><li>Modular task sequence architecture with hardware abstraction</li><li>Deployment telemetry and checkpoint-based observability</li><li>Driver and firmware lifecycle automation</li><li>Governance-oriented reporting and operational visibility</li></ul></div></article>
-            <article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">OSDMonitor.exe – Self-Healing Deployment Framework</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">A monitoring layer embedded into task sequences to detect stalled execution states and trigger corrective remediation.</p><div class="case-impact"><h4 class="case-label">Business Impact</h4><p class="case-study-impact">Reduced rebuild cycles and improved first-pass deployment reliability through earlier fault detection.</p></div></div></article>
-            <article class="case-card"><div class="case-card-inner"><h3 class="case-study-title">Driver & BIOS Lifecycle Intelligence Framework</h3><h4 class="case-label">Architecture Overview</h4><p class="case-study-text">A lifecycle intelligence system that combines vendor catalogs, version state, package automation, and compliance logic for scalable hardware governance.</p></div></article>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <div class="section-heading"><div class="kicker">Technology Stack</div><h2>The systems I work across.</h2></div>
-            <div class="stack-grid">
-                <article class="stack-card"><h3>AI</h3><div class="chips"><span class="chip">Microsoft Foundry</span><span class="chip">AI Agents</span><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">Copilot Studio</span></div></article>
-                <article class="stack-card"><h3>Cloud & Identity</h3><div class="chips"><span class="chip">Azure</span><span class="chip">Entra ID</span><span class="chip">RBAC</span><span class="chip">Azure Automation</span><span class="chip">Log Analytics</span></div></article>
-                <article class="stack-card"><h3>Endpoint</h3><div class="chips"><span class="chip">Intune</span><span class="chip">ConfigMgr</span><span class="chip">Windows Autopilot</span><span class="chip">Windows</span><span class="chip">Endpoint Security</span></div></article>
-                <article class="stack-card"><h3>Engineering</h3><div class="chips"><span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">REST APIs</span><span class="chip">Microsoft Graph</span><span class="chip">GitHub</span></div></article>
-                <article class="stack-card"><h3>Platform Design</h3><div class="chips"><span class="chip">Automation</span><span class="chip">Telemetry</span><span class="chip">Governance</span><span class="chip">Lifecycle</span><span class="chip">Observability</span></div></article>
-                <article class="stack-card"><h3>Current Direction</h3><div class="chips"><span class="chip">AI Platform Engineering</span><span class="chip">AI Automation</span><span class="chip">Azure AI</span><span class="chip">AI Infrastructure</span></div></article>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-tight">
-        <div class="container">
-            <div class="section-heading">
-                <div class="kicker">Updated Resume</div>
-                <h2>Senior Platform Engineer | Azure | Endpoint | Automation | AI Platform Engineering</h2>
-                <p>This resume section reflects my current resume, including Microsoft Foundry, AI agents, Python/REST API integration, AI Endpoint Troubleshooting Assistant work, Azure platform engineering, ConfigMgr, Intune, Microsoft Graph, Log Analytics, and current certifications.</p>
-            </div>
-            <div class="grid-2">
-                <article class="card"><div class="icon-box">15+</div><h3>Enterprise Platform Engineering</h3><p>15+ years across Windows, Azure-connected platforms, endpoint engineering, automation, observability, lifecycle governance, identity, and security controls.</p></article>
-                <article class="card"><div class="icon-box">AI</div><h3>AI Platform Engineering</h3><p>Microsoft Foundry agents, Python/REST APIs, RAG/MCP concepts, secure Azure identity/RBAC patterns, and AI integration with real endpoint systems and telemetry.</p></article>
-            </div>
-            <div class="button-row">
-                <a class="button" href="resume.html">Open Updated Resume</a>
-                <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Current Resume (PDF)</a>
-                <a class="button secondary" href="https://learn.microsoft.com/en-us/users/marquis-davis/transcript/v2z69h0knkqm8zx" target="_blank" rel="noopener noreferrer">Microsoft Certifications</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="contact">
-        <div class="container cta-panel">
-            <div><div class="kicker">Connect</div><h2>Interested in endpoint, automation, or AI platform engineering?</h2><p>I use this site to document the systems I build, the architecture behind them, and the progression into AI engineering.</p></div>
-            <div class="contact-links">
-                <a class="button secondary" href="https://www.linkedin.com/in/i-am-marquis-davis/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume</a>
-                <a class="button secondary" href="articles.html">Engineering Notes</a>
-            </div>
-        </div>
-    </section>
+    <section class="section" id="contact"><div class="container cta-panel"><div><div class="kicker">Connect</div><h2>Interested in endpoint, automation, or AI platform engineering?</h2><p>I use this site to document the systems I build, the architecture behind them, and the progression into AI engineering.</p></div><div class="contact-links"><a class="button secondary" href="https://www.linkedin.com/in/i-am-marquis-davis/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button secondary" href="https://github.com/Marquis-Davis" target="_blank" rel="noopener noreferrer">GitHub</a><a class="button secondary" href="Marquis-Davis-Resume-2026.pdf" download="Marquis-Davis-Resume.pdf">Download Resume</a><a class="button secondary" href="articles.html">Engineering Notes</a></div></div></section>
 </main>
 
 <footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis. Built as a living engineering portfolio.</p><p>Endpoint Engineering → Automation → AI Platform Engineering</p></div></footer>
 
 <script>
 (() => {
-    const timeEl = document.getElementById('portfolioClockTime');
-    const dateEl = document.getElementById('portfolioClockDate');
-    if (!timeEl || !dateEl) return;
+    const timeEl=document.getElementById('portfolioClockTime');
+    const dateEl=document.getElementById('portfolioClockDate');
+    if(timeEl&&dateEl){const updateClock=()=>{const now=new Date();timeEl.textContent=now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'});dateEl.textContent=now.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});};updateClock();window.setInterval(updateClock,1000);}
 
-    const updateClock = () => {
-        const now = new Date();
-        timeEl.textContent = now.toLocaleTimeString([], {
-            hour: 'numeric', minute: '2-digit', second: '2-digit'
-        });
-        dateEl.textContent = now.toLocaleDateString([], {
-            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-        });
-    };
-
-    updateClock();
-    window.setInterval(updateClock, 1000);
+    const feedEl=document.getElementById('activityFeed');
+    const updatedEl=document.getElementById('activityUpdated');
+    const relativeTime=(value)=>{if(!value)return '';const d=new Date(value);if(Number.isNaN(d.getTime()))return '';const seconds=Math.max(0,Math.floor((Date.now()-d.getTime())/1000));if(seconds<60)return 'just now';if(seconds<3600)return `${Math.floor(seconds/60)}m ago`;if(seconds<86400)return `${Math.floor(seconds/3600)}h ago`;if(seconds<604800)return `${Math.floor(seconds/86400)}d ago`;return d.toLocaleDateString([],{month:'short',day:'numeric',year:d.getFullYear()!==new Date().getFullYear()?'numeric':undefined});};
+    const loadActivity=async()=>{if(!feedEl)return;try{const response=await fetch(`data/activity.json?v=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();feedEl.textContent='';for(const item of data.items||[]){const row=document.createElement(item.url?'a':'div');row.className='activity-item';if(item.url){row.href=item.url;if(/^https?:/i.test(item.url)){row.target='_blank';row.rel='noopener noreferrer';}}const dot=document.createElement('span');dot.className=`activity-dot ${item.status||'info'}`;const copy=document.createElement('div');copy.className='activity-copy';const title=document.createElement('strong');title.textContent=item.label||'Engineering activity';const detail=document.createElement('span');detail.textContent=item.detail||'';copy.append(title,detail);const time=document.createElement('span');time.className='activity-time';time.textContent=item.timestamp?relativeTime(item.timestamp):(item.statusText||'');row.append(dot,copy,time);feedEl.appendChild(row);}if(updatedEl){const generated=relativeTime(data.generatedAtUtc);updatedEl.textContent=generated?`Automated from GitHub and engineering data • refreshed ${generated}`:'Automated from GitHub and engineering data';}}catch(error){feedEl.innerHTML='<div class="activity-loading">Activity data is temporarily unavailable.</div>';if(updatedEl)updatedEl.textContent='Automated engineering signals will refresh shortly.';}};
+    loadActivity();window.setInterval(loadActivity,60000);
 })();
 </script>
 </body>
