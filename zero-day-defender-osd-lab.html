@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defender + Zero-Day OSD Lab | Marquis Davis</title>
+    <meta name="description" content="Interactive simulation of Microsoft Defender platform, engine, security intelligence, and zero-day patching during ConfigMgr OSD.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lab-shell { padding: 72px 0 40px; }
+        .lab-console { margin-top: 26px; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: #05080d; font-family: "Cascadia Code", Consolas, monospace; min-height: 300px; }
+        .lab-console div { margin-bottom: 7px; color: #aeb9c7; font-size: 13px; }
+        .lab-console .ok { color: #7ef0c2; }
+        .lab-console .warn { color: #f8d66d; }
+        .lab-console .err { color: #ff9d9d; }
+        .version-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:24px 0; }
+        .version-card { padding:18px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.02); }
+        .version-card span { display:block; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.1em; font-weight:800; margin-bottom:6px; }
+        .version-card strong { font-size:18px; color:var(--text); word-break:break-word; }
+        .lab-status { margin-top: 12px; color: var(--muted); font-size: 13px; }
+        .source-note { margin-top:18px; padding:14px 16px; border:1px solid var(--border); border-radius:12px; background:rgba(96,165,250,.04); }
+        .source-note a { color:var(--cyan); font-weight:800; }
+        @media (max-width:760px){ .version-grid{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-container">
+        <a class="logo" href="index.html"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav><ul class="nav-links"><li><a href="index.html#work">Projects</a></li><li><a href="driver-bios-automation-lab.html">Driver/BIOS Demo</a></li><li><a href="articles.html">Articles</a></li><li><a href="resume.html">Resume</a></li></ul></nav>
+    </div>
+</header>
+
+<main class="container lab-shell">
+    <div class="kicker">Security Engineering Lab</div>
+    <h1>Defender + Zero-Day OSD Simulation</h1>
+    <p class="hero-subtitle">Simulates the ConfigMgr OSD security stages used to compare Microsoft Defender platform, engine, and security intelligence, then conditionally apply urgent zero-day servicing.</p>
+
+    <div class="version-grid">
+        <div class="version-card"><span>Microsoft Platform</span><strong id="platform">--</strong></div>
+        <div class="version-card"><span>Microsoft Engine</span><strong id="engine">--</strong></div>
+        <div class="version-card"><span>Security Intelligence</span><strong id="intel">--</strong></div>
+    </div>
+
+    <div class="button-row">
+        <button class="button" id="runBtn" type="button">Run Live Defender + Zero-Day Demo</button>
+        <a class="button secondary" href="https://www.microsoft.com/en-us/wdsi/defenderupdates" target="_blank" rel="noopener noreferrer">Open Microsoft Source</a>
+        <a class="button secondary" href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Security/Zero%20Day" target="_blank" rel="noopener noreferrer">View Zero-Day Code</a>
+    </div>
+
+    <p id="status" class="lab-status">Ready. The demo retrieves Microsoft Defender versions when you start the run.</p>
+
+    <div class="source-note">
+        <p><strong>Live-data rule:</strong> no Defender version is hardcoded into this page. Each run attempts to retrieve the current values from Microsoft Security Intelligence first. If the live lookup fails, the simulation stops instead of displaying stale versions.</p>
+    </div>
+
+    <div id="console" class="lab-console" aria-live="polite"></div>
+</main>
+
+<footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis.</p><p>ConfigMgr OSD Security Engineering</p></div></footer>
+
+<script>
+(() => {
+    const root = document;
+    const runBtn = root.getElementById('runBtn');
+    const consoleEl = root.getElementById('console');
+    const statusEl = root.getElementById('status');
+    const platformEl = root.getElementById('platform');
+    const engineEl = root.getElementById('engine');
+    const intelEl = root.getElementById('intel');
+    let running = false;
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const add = (text, cls='') => {
+        const row = document.createElement('div');
+        if (cls) row.className = cls;
+        row.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+        consoleEl.appendChild(row);
+        row.scrollIntoView({block:'nearest'});
+    };
+
+    function olderVersion(version) {
+        const parts = String(version).split('.').map(Number);
+        if (parts.length < 2 || parts.some(Number.isNaN)) return 'previous build';
+        const i = parts.length - 1;
+        parts[i] = Math.max(0, parts[i] - 2);
+        return parts.join('.');
+    }
+
+    async function getMicrosoftVersions() {
+        const url = `https://www.microsoft.com/en-us/wdsi/defenderupdates?ts=${Date.now()}`;
+        const response = await fetch(url, { cache: 'no-store', mode: 'cors' });
+        if (!response.ok) throw new Error(`Microsoft returned HTTP ${response.status}`);
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const text = (doc.body?.innerText || '').replace(/\s+/g, ' ');
+        const match = text.match(/Latest security intelligence update.*?Version:\s*(\d+\.\d+\.\d+\.\d+)\s+Engine Version:\s*(\d+\.\d+\.\d+\.\d+)\s+Platform Version:\s*(\d+\.\d+\.\d+\.\d+)\s+Released:\s*(.+?)\s+Documentation:/i);
+        if (!match) throw new Error('Microsoft page loaded but the current Defender versions could not be parsed.');
+        return { intelligence: match[1], engine: match[2], platform: match[3], released: match[4].trim() };
+    }
+
+    async function run() {
+        if (running) return;
+        running = true;
+        runBtn.disabled = true;
+        consoleEl.textContent = '';
+        platformEl.textContent = engineEl.textContent = intelEl.textContent = '--';
+        statusEl.textContent = 'Connecting to Microsoft Security Intelligence...';
+        add('Starting ConfigMgr OSD security simulation.');
+        add('Retrieving current Defender platform, engine, and security intelligence from Microsoft...');
+
+        let live;
+        try {
+            live = await getMicrosoftVersions();
+        } catch (error) {
+            add(`LIVE LOOKUP FAILED: ${error.message}`, 'err');
+            add('Simulation stopped because stale/hardcoded Defender versions are not allowed.', 'err');
+            statusEl.textContent = 'Live Microsoft lookup failed. No stale values were used.';
+            runBtn.disabled = false;
+            running = false;
+            return;
+        }
+
+        platformEl.textContent = live.platform;
+        engineEl.textContent = live.engine;
+        intelEl.textContent = live.intelligence;
+        add(`Microsoft current: Platform ${live.platform} | Engine ${live.engine} | Intelligence ${live.intelligence}`, 'ok');
+        add(`Microsoft release timestamp: ${live.released}`);
+        await sleep(650);
+
+        const beforePlatform = olderVersion(live.platform);
+        const beforeEngine = olderVersion(live.engine);
+        const beforeIntel = olderVersion(live.intelligence);
+        add(`OSD image detected: Platform ${beforePlatform} | Engine ${beforeEngine} | Intelligence ${beforeIntel}`);
+        await sleep(650);
+
+        add('Defender platform is behind Microsoft current. Staging local platform package.');
+        await sleep(650);
+        add(`Applying Defender platform ${live.platform} and engine ${live.engine}...`);
+        await sleep(750);
+        add('Defender platform and engine update completed.', 'ok');
+        await sleep(550);
+
+        add('Security intelligence is behind Microsoft current. Copying locally staged definitions.');
+        await sleep(650);
+        add(`Applying security intelligence ${live.intelligence}...`);
+        await sleep(750);
+        add('Security intelligence update completed.', 'ok');
+        await sleep(550);
+
+        add('Reading ConfigMgr task sequence variable APPLIED_CVEs...');
+        await sleep(550);
+        add('APPLIED_CVEs = CVE-2026-DEMO1_CVE-2026-DEMO2', 'warn');
+        add('Emergency patch condition evaluated TRUE. Zero-Day patch step will run.');
+        await sleep(650);
+        add('Staging emergency Windows 11 24H2 MSU from ConfigMgr package content.');
+        await sleep(650);
+        add('Starting servicing operation. Monitoring C:\\Windows\\Logs\\CBS\\CBS.log...');
+        await sleep(950);
+        add('CBS servicing completed successfully.', 'ok');
+        await sleep(550);
+
+        add(`Validation: Platform ${live.platform} | Engine ${live.engine} | Intelligence ${live.intelligence}`, 'ok');
+        add('Zero-Day CVE state recorded. Reboot required = TRUE.', 'warn');
+        add('OSD security simulation COMPLETE.', 'ok');
+        statusEl.textContent = `Complete. Microsoft data retrieved during this run: ${live.intelligence}`;
+        runBtn.disabled = false;
+        running = false;
+    }
+
+    runBtn.addEventListener('click', run);
+})();
+</script>
+</body>
+</html>
