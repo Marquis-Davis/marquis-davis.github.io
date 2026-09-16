@@ -1,0 +1,65 @@
+name: Apply Sitewide Orlando Weather Banner
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '*.html'
+      - 'weather-banner.js'
+      - 'weather-banner.css'
+      - '.github/workflows/apply-weather-banner.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-weather-banner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Add shared weather component to site pages
+        shell: python
+        run: |
+          from pathlib import Path
+
+          script_tag = '<script src="weather-banner.js?v=20260916" defer></script>'
+          changed = []
+
+          for path in sorted(Path('.').glob('*.html')):
+              # index.html already contains the weather strip directly.
+              if path.name == 'index.html':
+                  continue
+
+              text = path.read_text(encoding='utf-8')
+              if 'weather-banner.js' in text:
+                  continue
+              if '</body>' not in text:
+                  print(f'Skipping {path}: no closing body tag')
+                  continue
+
+              text = text.replace('</body>', f'{script_tag}\n</body>', 1)
+              path.write_text(text, encoding='utf-8')
+              changed.append(path.name)
+
+          if changed:
+              print('Updated: ' + ', '.join(changed))
+          else:
+              print('All HTML pages already include the shared weather component.')
+
+      - name: Commit sitewide weather references
+        shell: bash
+        run: |
+          if git diff --quiet -- '*.html'; then
+            echo "No page updates required."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "Apply Orlando weather banner sitewide"
+          git push
