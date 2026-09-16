@@ -1,4 +1,4 @@
-name: Apply Sitewide Orlando Weather Banner
+name: Apply Shared Site Components
 
 on:
   push:
@@ -8,6 +8,8 @@ on:
       - '*.html'
       - 'weather-banner.js'
       - 'weather-banner.css'
+      - 'system-health.js'
+      - 'system-health.css'
       - '.github/workflows/apply-weather-banner.yml'
   workflow_dispatch:
 
@@ -15,42 +17,50 @@ permissions:
   contents: write
 
 jobs:
-  apply-weather-banner:
+  apply-shared-components:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Add shared weather component to site pages
+      - name: Add shared components to site pages
         shell: python
         run: |
           from pathlib import Path
 
-          script_tag = '<script src="weather-banner.js?v=20260916" defer></script>'
+          weather_style = '<link rel="stylesheet" href="weather-banner.css?v=20260916">'
+          health_style = '<link rel="stylesheet" href="system-health.css?v=20260916">'
+          weather_script = '<script src="weather-banner.js?v=20260916" defer></script>'
+          health_script = '<script src="system-health.js?v=20260916" defer></script>'
           changed = []
 
           for path in sorted(Path('.').glob('*.html')):
-              # index.html already contains the weather strip directly.
-              if path.name == 'index.html':
-                  continue
-
               text = path.read_text(encoding='utf-8')
-              if 'weather-banner.js' in text:
-                  continue
-              if '</body>' not in text:
-                  print(f'Skipping {path}: no closing body tag')
-                  continue
+              original = text
 
-              text = text.replace('</body>', f'{script_tag}\n</body>', 1)
-              path.write_text(text, encoding='utf-8')
-              changed.append(path.name)
+              if 'weather-banner.css' not in text and '</head>' in text:
+                  text = text.replace('</head>', f'    {weather_style}\n</head>', 1)
+
+              if 'system-health.css' not in text and '</head>' in text:
+                  text = text.replace('</head>', f'    {health_style}\n</head>', 1)
+
+              # index.html already contains its Orlando weather strip directly.
+              if path.name != 'index.html' and 'weather-banner.js' not in text and '</body>' in text:
+                  text = text.replace('</body>', f'{weather_script}\n</body>', 1)
+
+              if 'system-health.js' not in text and '</body>' in text:
+                  text = text.replace('</body>', f'{health_script}\n</body>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(path.name)
 
           if changed:
               print('Updated: ' + ', '.join(changed))
           else:
-              print('All HTML pages already include the shared weather component.')
+              print('All HTML pages already include the shared site components.')
 
-      - name: Commit sitewide weather references
+      - name: Commit shared component references
         shell: bash
         run: |
           if git diff --quiet -- '*.html'; then
@@ -61,5 +71,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- '*.html'
-          git commit -m "Apply Orlando weather banner sitewide"
+          git commit -m "Apply shared site components"
           git push
