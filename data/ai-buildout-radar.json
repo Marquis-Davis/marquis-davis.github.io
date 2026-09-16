@@ -1,0 +1,159 @@
+{
+  "updatedAt": "2026-09-16",
+  "purpose": "Track the technologies and companies that make enterprise AI possible, with the emphasis on architecture and career learning rather than stock selection.",
+  "layers": [
+    {
+      "id": "platform",
+      "layer": "Enterprise AI Platform",
+      "companies": [
+        {
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "role": "Microsoft Foundry provides the enterprise management plane for agents, models, tools, identity, policy, networking, evaluation, and observability.",
+          "career": "Directly relevant to AI Platform Engineering: Foundry resources/projects, Entra identity, RBAC, private networking, Azure Policy, agent operations, monitoring, and governance.",
+          "watch": ["Foundry Agent Service", "RBAC and managed identity", "Observability and evaluations", "Private networking and policy", "Graph / enterprise tool integration"],
+          "marketContext": "Represents the enterprise cloud and AI platform layer where infrastructure is exposed as governed services to engineering teams.",
+          "source": "https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry"
+        }
+      ]
+    },
+    {
+      "id": "interconnect",
+      "layer": "Data Center & Interconnection",
+      "companies": [
+        {
+          "ticker": "EQIX",
+          "company": "Equinix",
+          "role": "Provides high-density AI-ready colocation and private interconnection across clouds, networks, partners, and distributed infrastructure.",
+          "career": "Useful for understanding hybrid AI architecture, data locality, private connectivity, latency, colocation, cloud adjacency, and where enterprise workloads physically meet cloud AI services.",
+          "watch": ["AI-ready high-density infrastructure", "Liquid cooling", "Private cloud interconnection", "Distributed AI architecture", "Data locality and latency"],
+          "marketContext": "Represents the physical and connectivity layer that links enterprise data, private infrastructure, and public cloud AI services.",
+          "source": "https://www.equinix.com/product-solutions/colocation/interconnected-infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "layer": "AI Network Fabric",
+      "companies": [
+        {
+          "ticker": "ANET",
+          "company": "Arista Networks",
+          "role": "Builds Ethernet networking platforms and EOS software for large AI clusters, including rack-scale 800G and 1.6T fabrics.",
+          "career": "Teaches scale-out Ethernet, RDMA/RoCE, telemetry, deterministic network performance, congestion behavior, fabric operations, and why network design controls accelerator utilization.",
+          "watch": ["Etherlink", "800G / 1.6T Ethernet", "RDMA and RoCE", "EOS telemetry", "Rack-scale AI fabrics"],
+          "marketContext": "Represents independent AI-fabric networking and the operational software required to run high-bandwidth clusters.",
+          "source": "https://www.arista.com/company/news/press-release/24102-pr-20260609"
+        },
+        {
+          "ticker": "AVGO",
+          "company": "Broadcom",
+          "role": "Supplies AI networking, connectivity silicon, and custom accelerators used in large-scale AI clusters.",
+          "career": "Useful for understanding scale-up versus scale-out networks, custom XPUs, switching silicon, interconnect bottlenecks, and why hyperscalers increasingly co-design compute and networking.",
+          "watch": ["Custom AI accelerators / XPUs", "Scale-up networking", "Scale-out Ethernet", "Switching silicon", "Power-efficient AI clusters"],
+          "marketContext": "Represents the networking-silicon and custom-accelerator layer behind hyperscale AI infrastructure.",
+          "source": "https://www.broadcom.com/solutions/ai-solutions/ai-infrastructure"
+        },
+        {
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "role": "Combines accelerated compute with NVLink scale-up, Spectrum-X Ethernet, InfiniBand, BlueField DPUs, and infrastructure software for AI factories.",
+          "career": "A compact way to study the whole GPU system: accelerators, scale-up links, scale-out fabrics, DPUs, telemetry, infrastructure offload, and multi-data-center AI networking.",
+          "watch": ["NVLink", "Spectrum-X", "Quantum InfiniBand", "BlueField DPU", "AI factory networking"],
+          "marketContext": "Represents the accelerated-compute platform plus the networking stack required to keep large GPU systems utilized.",
+          "source": "https://www.nvidia.com/en-us/networking/"
+        }
+      ]
+    },
+    {
+      "id": "compute",
+      "layer": "Accelerated Compute",
+      "companies": [
+        {
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "role": "GPU systems provide the accelerated compute foundation for large-scale AI training and inference.",
+          "career": "Learn GPU cluster architecture, scale-up versus scale-out, utilization, power and cooling constraints, workload placement, and the operational dependencies below model hosting.",
+          "watch": ["GPU system architecture", "Rack-scale systems", "Compute utilization", "Power / cooling", "Scale-up and scale-out design"],
+          "marketContext": "Represents the compute layer that turns models into running workloads.",
+          "source": "https://www.nvidia.com/en-us/networking/"
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "layer": "High-Bandwidth Memory",
+      "companies": [
+        {
+          "ticker": "MU",
+          "company": "Micron",
+          "role": "HBM and data-center memory keep accelerators supplied with the bandwidth and capacity required by AI workloads.",
+          "career": "Build intuition for memory bandwidth, capacity, data movement, accelerator starvation, power efficiency, and why AI performance is a system problem rather than only a GPU problem.",
+          "watch": ["HBM3E / HBM4", "Memory bandwidth", "Capacity per stack", "Power efficiency", "AI data-center memory hierarchy"],
+          "marketContext": "Represents the memory layer that determines how quickly accelerators can access model weights and active data.",
+          "source": "https://www.micron.com/products/memory/hbm"
+        }
+      ]
+    },
+    {
+      "id": "silicon",
+      "layer": "Silicon Manufacturing & Advanced Packaging",
+      "companies": [
+        {
+          "ticker": "TSM",
+          "company": "TSMC",
+          "role": "Advanced semiconductor manufacturing plus CoWoS and 3DFabric packaging integrates logic, chiplets, and HBM into high-performance AI systems.",
+          "career": "Explains why packaging, yield, interposer size, chiplets, HBM integration, thermals, and manufacturing capacity matter to the infrastructure layer above them.",
+          "watch": ["CoWoS", "3DFabric", "Chiplets", "HBM integration", "Advanced packaging capacity"],
+          "marketContext": "Represents the manufacturing and packaging foundation underneath accelerators, networking silicon, and memory integration.",
+          "source": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/cowos.htm"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "date": "2026-09-01",
+      "layer": "Enterprise AI Platform",
+      "ticker": "MSFT",
+      "title": "Foundry continues consolidating agents, models, tools, RBAC, networking, policy, evaluation, and observability into one enterprise platform surface.",
+      "careerTakeaway": "Study the control plane: identity, project isolation, RBAC, networking, diagnostics, and managed agent execution.",
+      "source": "https://learn.microsoft.com/en-us/azure/foundry/concepts/architecture"
+    },
+    {
+      "date": "2026-06-09",
+      "layer": "AI Network Fabric",
+      "ticker": "ANET",
+      "title": "Arista introduced a 1.6T Etherlink portfolio aimed at rack-scale AI infrastructure and scale-up / scale-out fabrics.",
+      "careerTakeaway": "AI platform reliability increasingly depends on understanding RDMA fabrics, high-speed Ethernet, telemetry, power, and thermals.",
+      "source": "https://www.arista.com/company/news/press-release/24102-pr-20260609"
+    },
+    {
+      "date": "2026-09-01",
+      "layer": "High-Bandwidth Memory",
+      "ticker": "MU",
+      "title": "Micron lists HBM4 in high-volume production with more than 2.8 TB/s bandwidth per stack.",
+      "careerTakeaway": "Memory bandwidth is a first-class AI infrastructure constraint; GPU count alone does not explain system performance.",
+      "source": "https://www.micron.com/products/memory/hbm"
+    },
+    {
+      "date": "2026-09-01",
+      "layer": "Silicon & Packaging",
+      "ticker": "TSM",
+      "title": "TSMC positions CoWoS as a core foundation for HPC and AI by integrating compute logic with HBM and continuing to scale packaging capacity.",
+      "careerTakeaway": "Advanced packaging is part of AI infrastructure architecture because compute density, memory bandwidth, thermals, and supply all meet at the package level.",
+      "source": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/cowos.htm"
+    }
+  ],
+  "learningQueue": [
+    "GPU cluster architecture and utilization",
+    "Scale-up vs scale-out networking",
+    "RDMA / RoCE and AI Ethernet fabrics",
+    "DPUs and infrastructure offload",
+    "HBM and memory bandwidth",
+    "Advanced packaging / CoWoS / chiplets",
+    "Power, cooling, and rack density",
+    "Hybrid AI interconnection and data locality",
+    "Foundry identity, RBAC, networking, policy, and observability"
+  ]
+}
