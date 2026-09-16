@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver & BIOS Automation Lab | Marquis Davis</title>
+    <meta name="description" content="Interactive simulation of enterprise HP and Dell driver and BIOS packaging automation for Microsoft Configuration Manager.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .automation-shell { padding: 72px 0 90px; }
+        .automation-grid { display:grid; grid-template-columns: 0.9fr 1.1fr; gap:20px; align-items:start; }
+        .automation-panel { border:1px solid var(--border); border-radius:var(--radius); background:linear-gradient(180deg,rgba(17,24,35,.9),rgba(8,12,18,.96)); overflow:hidden; }
+        .automation-panel-header { padding:18px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; gap:12px; align-items:center; }
+        .automation-panel-body { padding:20px; }
+        .terminal { min-height:520px; max-height:520px; overflow:auto; padding:18px; background:#05080c; font:12px/1.7 "Cascadia Code",Consolas,monospace; color:#bdc9d6; white-space:pre-wrap; }
+        .terminal .success { color:#7ef0c2; }
+        .terminal .warn { color:#f8d66d; }
+        .terminal .info { color:#9adfff; }
+        .work-queue { display:grid; gap:10px; }
+        .queue-item { border:1px solid var(--border); border-radius:13px; padding:14px; background:rgba(255,255,255,.02); }
+        .queue-top { display:flex; justify-content:space-between; gap:10px; margin-bottom:7px; }
+        .queue-title { font-weight:800; font-size:13px; }
+        .queue-meta { color:var(--muted); font-size:12px; }
+        .queue-status { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; color:#95a3b3; }
+        .queue-status.running { color:#9adfff; }
+        .queue-status.complete { color:#7ef0c2; }
+        .queue-status.current { color:#c4b5fd; }
+        .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:22px 0; }
+        .metric { border:1px solid var(--border); border-radius:13px; padding:14px; background:rgba(255,255,255,.02); }
+        .metric strong { display:block; font-size:22px; }
+        .metric span { color:var(--muted); font-size:11px; }
+        .demo-note { margin-top:20px; padding:16px 18px; border:1px solid rgba(251,191,36,.22); border-radius:14px; background:rgba(251,191,36,.04); color:#c9b77d; font-size:13px; }
+        @media(max-width:900px){.automation-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-container">
+        <a class="logo" href="index.html"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav><ul class="nav-links"><li><a href="index.html#work">Projects</a></li><li><a href="articles.html">Articles</a></li><li><a class="active" href="driver-bios-automation-lab.html">Automation Lab</a></li></ul></nav>
+    </div>
+</header>
+
+<main class="automation-shell">
+    <div class="container">
+        <div class="page-hero" style="padding-top:0">
+            <div class="kicker">Interactive Engineering Demo</div>
+            <h1>HP + Dell Driver & BIOS Automation Lab</h1>
+            <p>This browser simulation mirrors the workflow of a real ConfigMgr automation pipeline: catalog discovery, version comparison, download, validation, packaging, ConfigMgr object creation, distribution, and final validation.</p>
+            <div class="button-row">
+                <button class="button" id="runButton" type="button">Run Automation</button>
+                <button class="button secondary" id="resetButton" type="button">Reset</button>
+                <a class="button secondary" href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/ConfigMgr/Driver%20%26%20BIOS%20Automation" target="_blank" rel="noopener noreferrer">View Real Repo Code</a>
+            </div>
+            <div class="demo-note">This is a safe front-end simulation. It does not connect to a real ConfigMgr site. The PowerShell lab in GitHub writes the same style of status and log files locally and is designed to be adapted to a ConfigMgr server or Hybrid Worker later.</div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric"><strong id="metricQueued">6</strong><span>Queued</span></div>
+            <div class="metric"><strong id="metricRunning">0</strong><span>Running</span></div>
+            <div class="metric"><strong id="metricComplete">0</strong><span>Complete</span></div>
+            <div class="metric"><strong id="metricCurrent">0</strong><span>Already Current</span></div>
+        </div>
+
+        <div class="automation-grid">
+            <section class="automation-panel">
+                <div class="automation-panel-header"><strong>Work Queue</strong><span class="chip">ConfigMgr Packaging</span></div>
+                <div class="automation-panel-body"><div class="work-queue" id="queue"></div></div>
+            </section>
+            <section class="automation-panel">
+                <div class="automation-panel-header"><strong>Live Automation Log</strong><span class="project-status" id="runStatus">Ready</span></div>
+                <div class="terminal" id="terminal"></div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<script>
+const items = [
+  {vendor:'HP',workload:'Drivers',model:'EliteBook 840 G10',installed:'1.12',catalog:'1.15'},
+  {vendor:'HP',workload:'BIOS',model:'EliteBook 840 G10',installed:'01.04.03',catalog:'01.07.00'},
+  {vendor:'HP',workload:'Drivers',model:'ProBook 440 G10',installed:'1.20',catalog:'1.20'},
+  {vendor:'Dell',workload:'Drivers',model:'Latitude 7450',installed:'A03',catalog:'A05'},
+  {vendor:'Dell',workload:'BIOS',model:'Latitude 7450',installed:'1.8.1',catalog:'1.11.0'},
+  {vendor:'Dell',workload:'BIOS',model:'Precision 5680',installed:'1.16.0',catalog:'1.16.0'}
+];
+
+const queue = document.getElementById('queue');
+const terminal = document.getElementById('terminal');
+const runButton = document.getElementById('runButton');
+const resetButton = document.getElementById('resetButton');
+const runStatus = document.getElementById('runStatus');
+let running = false;
+
+function now(){ return new Date().toLocaleTimeString([], {hour12:false}); }
+function log(message, level='info'){
+  const line = document.createElement('div');
+  line.className = level;
+  line.textContent = `[${now()}] [${level.toUpperCase()}] ${message}`;
+  terminal.appendChild(line);
+  terminal.scrollTop = terminal.scrollHeight;
+}
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+function render(){
+  queue.innerHTML='';
+  items.forEach((item,i)=>{
+    item.status = item.status || 'Queued';
+    item.stage = item.stage || 'Waiting';
+    const el=document.createElement('div');
+    el.className='queue-item';
+    el.innerHTML=`<div class="queue-top"><div><div class="queue-title">${item.vendor} ${item.model}</div><div class="queue-meta">${item.workload} · Installed ${item.installed} · Catalog ${item.catalog}</div></div><span id="status-${i}" class="queue-status">${item.status}</span></div><div class="queue-meta" id="stage-${i}">${item.stage}</div>`;
+    queue.appendChild(el);
+  });
+  updateMetrics();
+}
+function setItem(i,status,stage){
+  items[i].status=status; items[i].stage=stage;
+  const statusEl=document.getElementById(`status-${i}`); const stageEl=document.getElementById(`stage-${i}`);
+  statusEl.textContent=status; statusEl.className='queue-status '+status.toLowerCase().replaceAll(' ','-'); stageEl.textContent=stage; updateMetrics();
+}
+function updateMetrics(){
+  document.getElementById('metricQueued').textContent=items.filter(x=>x.status==='Queued').length;
+  document.getElementById('metricRunning').textContent=items.filter(x=>x.status==='Running').length;
+  document.getElementById('metricComplete').textContent=items.filter(x=>x.status==='Complete').length;
+  document.getElementById('metricCurrent').textContent=items.filter(x=>x.status==='Current').length;
+}
+async function stage(i,name,message,delay=550){ setItem(i,'Running',name); log(message); await sleep(delay); }
+async function runItem(item,i){
+  await stage(i,'Catalog',`Reading ${item.vendor} catalog metadata for ${item.model}`);
+  await stage(i,'Compare',`Installed ${item.workload}: ${item.installed} | Catalog: ${item.catalog}`);
+  if(item.installed===item.catalog){ setItem(i,'Current','No package required'); log(`${item.model} ${item.workload} already current. No package required.`,'success'); return; }
+  await stage(i,'Download',`Downloading ${item.vendor} ${item.workload} payload with curl.exe`);
+  await stage(i,'Verify','Validating payload, version metadata, and vendor package identity');
+  await stage(i,'Extract',`Extracting vendor content for ${item.model}`);
+  const format=item.workload==='Drivers'?'WIM':'EXE';
+  await stage(i,'Package',`Building ${format} package for ${item.vendor} ${item.model}`);
+  await stage(i,'ConfigMgr','Creating or updating ConfigMgr package object');
+  await stage(i,'Distribution','Distributing content to configured distribution points');
+  await stage(i,'Validation','Validating package source, content version, and distribution state');
+  setItem(i,'Complete','Automation complete'); log(`Completed ${item.workload} automation for ${item.model}`,'success');
+}
+async function runAutomation(){
+  if(running) return; running=true; runButton.disabled=true; runStatus.textContent='Running'; terminal.innerHTML='';
+  log('Automation run started in Simulation mode');
+  log('Refreshing HP and Dell driver/BIOS catalog state'); await sleep(700);
+  log(`Catalog discovery complete. ${items.length} work items queued.`,'success');
+  for(let i=0;i<items.length;i++) await runItem(items[i],i);
+  log('Run complete. All work items evaluated.','success'); runStatus.textContent='Complete'; running=false; runButton.disabled=false;
+}
+function reset(){
+  if(running) return; terminal.innerHTML=''; items.forEach(x=>{x.status='Queued';x.stage='Waiting';}); render(); runStatus.textContent='Ready'; log('Lab ready. Click Run Automation to start.');
+}
+runButton.addEventListener('click',runAutomation); resetButton.addEventListener('click',reset); render(); reset();
+</script>
+</body>
+</html>
