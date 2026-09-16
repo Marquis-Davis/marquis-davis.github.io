@@ -63,7 +63,7 @@
                     <div class="signal-label">Live Date & Time</div>
                     <div id="portfolioClockTime" style="font-size:32px;font-weight:850;letter-spacing:-0.03em;color:var(--text);line-height:1.05;">--:--:--</div>
                     <div id="portfolioClockDate" style="margin-top:7px;color:var(--muted);font-size:13px;">Loading date...</div>
-                    <div id="portfolioClockZone" style="margin-top:4px;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">Local time</div>
+                    <div style="margin-top:4px;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">Device clock only • no location data</div>
                 </div>
 
                 <div class="signal-card">
@@ -241,18 +241,16 @@
 (() => {
     const timeEl = document.getElementById('portfolioClockTime');
     const dateEl = document.getElementById('portfolioClockDate');
-    const zoneEl = document.getElementById('portfolioClockZone');
-    if (!timeEl || !dateEl || !zoneEl) return;
+    if (!timeEl || !dateEl) return;
 
     const updateClock = () => {
         const now = new Date();
-        timeEl.textContent = new Intl.DateTimeFormat(undefined, {
+        timeEl.textContent = now.toLocaleTimeString([], {
             hour: 'numeric', minute: '2-digit', second: '2-digit'
-        }).format(now);
-        dateEl.textContent = new Intl.DateTimeFormat(undefined, {
+        });
+        dateEl.textContent = now.toLocaleDateString([], {
             weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-        }).format(now);
-        zoneEl.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
+        });
     };
 
     updateClock();
