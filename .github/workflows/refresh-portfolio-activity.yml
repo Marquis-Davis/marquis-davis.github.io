@@ -1,0 +1,61 @@
+name: Refresh portfolio activity
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/activity.json'
+  schedule:
+    - cron: '17 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-portfolio-activity
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 30
+
+      - name: Refresh latest meaningful commit
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $path = 'data/activity.json'
+          $data = Get-Content $path -Raw | ConvertFrom-Json
+          $commit = git log -30 --pretty=format:'%H|%cI|%s' |
+            Where-Object {
+              $_ -notmatch '\|Refresh live portfolio data \[skip ci\]$' -and
+              $_ -notmatch '\|Refresh portfolio activity \[skip ci\]$' -and
+              $_ -notmatch '\|Refresh AI radar market prices$'
+            } |
+            Select-Object -First 1
+          if (-not $commit) { throw 'No meaningful commit found.' }
+          $sha, $timestamp, $message = $commit -split '\|', 3
+          $item = $data.items | Where-Object id -eq 'commit' | Select-Object -First 1
+          if (-not $item) { throw 'Commit activity item was not found.' }
+          $item.detail = $message
+          $item.timestamp = $timestamp
+          $item.url = "https://github.com/$env:GITHUB_REPOSITORY/commit/$sha"
+          $data.generatedAtUtc = (Get-Date).ToUniversalTime().ToString('o')
+          $data | ConvertTo-Json -Depth 10 | Set-Content $path -Encoding utf8
+
+      - name: Commit activity data
+        shell: bash
+        run: |
+          if git diff --quiet -- data/activity.json; then
+            echo "Activity is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/activity.json
+          git commit -m "Refresh portfolio activity [skip ci]"
+          git push
