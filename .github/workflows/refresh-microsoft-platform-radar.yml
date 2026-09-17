@@ -1,0 +1,101 @@
+name: Refresh Microsoft Platform Radar
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: microsoft-platform-radar
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refresh Microsoft platform signals
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $headers = @{ 'User-Agent' = 'Marquis-Davis-Platform-Radar' }
+
+          function Get-Page([string]$Url) {
+            try { return (Invoke-WebRequest -Uri $Url -Headers $headers -UseBasicParsing -TimeoutSec 30).Content }
+            catch { Write-Warning "Could not refresh $Url : $($_.Exception.Message)"; return '' }
+          }
+
+          function Clean([string]$Text) {
+            if (-not $Text) { return '' }
+            $t = [regex]::Replace($Text, '<script[\s\S]*?</script>', ' ', 'IgnoreCase')
+            $t = [regex]::Replace($t, '<style[\s\S]*?</style>', ' ', 'IgnoreCase')
+            $t = [regex]::Replace($t, '<[^>]+>', ' ')
+            $t = [System.Net.WebUtility]::HtmlDecode($t)
+            return [regex]::Replace($t, '\s+', ' ').Trim()
+          }
+
+          $old = Get-Content 'data/microsoft-platform-radar.json' -Raw | ConvertFrom-Json
+          $sources = @(
+            @{ product='Windows'; url='https://learn.microsoft.com/en-us/windows/release-health/'; status='Release Health'; impact='Use Release Health as a deployment gate before updating enterprise images, servicing rings, or ConfigMgr task sequences.' },
+            @{ product='Intune'; url='https://learn.microsoft.com/en-us/intune/whats-new/'; status="What's New"; impact='Intune service changes can affect policy, apps, security configuration, enrollment, and support workflows.' },
+            @{ product='Windows Autopilot'; url='https://learn.microsoft.com/en-us/autopilot/whats-new'; status='Watchlist'; impact='Provisioning behavior, ESP, app dependencies, enrollment, and troubleshooting procedures can change as the cloud service evolves.' },
+            @{ product='Configuration Manager'; url='https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/release-notes'; status='Current Branch'; impact='Validate new releases against task sequences, boot images, clients, site dependencies, ADK support, and Windows servicing.' },
+            @{ product='Defender'; url='https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases'; status='Release Tracking'; impact='OSD and offline provisioning need more than definition currency. Platform and engine versions are separate lifecycle signals.' },
+            @{ product='Windows 365'; url='https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new'; status='Watchlist'; impact='Cloud PCs share endpoint architecture concerns with physical Windows devices: identity, policy, apps, security, and observability.' }
+          )
+
+          $items = @()
+          foreach ($s in $sources) {
+            $html = Get-Page $s.url
+            $text = Clean $html
+            $previous = $old.items | Where-Object product -eq $s.product | Select-Object -First 1
+
+            $title = if ($previous) { $previous.title } else { "$($s.product) platform update" }
+            $summary = if ($previous) { $previous.summary } else { "Tracking official Microsoft $($s.product) platform changes." }
+            $date = (Get-Date).ToString('MMMM yyyy')
+
+            if ($text) {
+              if ($s.product -eq 'Intune' -and $text -match 'Service release\s+(\d{4})') {
+                $date = "Service release $($Matches[1])"
+                $title = "Latest Intune service changes"
+                $summary = "Microsoft Intune What's New has been refreshed. Review the latest service release for Windows management, app, security, enrollment, and administration changes."
+              } elseif ($s.product -eq 'Defender' -and $text -match 'Platform\s+(4\.18\.\d+(?:\.\d+)?)') {
+                $title = "Defender Antivirus platform $($Matches[1]) tracked"
+                $summary = "Microsoft's Defender release notes have been refreshed with current Endpoint and Antivirus platform, engine, and security intelligence information."
+              } elseif ($s.product -eq 'Windows') {
+                $title = 'Latest Windows release health and servicing signals'
+                $summary = 'Microsoft Windows Release Health has been refreshed with current servicing milestones, known issues, resolved issues, and safeguards.'
+              } elseif ($s.product -eq 'Configuration Manager') {
+                $title = 'Latest Configuration Manager current-branch signals'
+                $summary = 'Microsoft ConfigMgr release documentation has been refreshed for current-branch changes, fixes, and dependency updates.'
+              } elseif ($s.product -eq 'Windows Autopilot') {
+                $title = 'Latest Windows Autopilot provisioning signals'
+                $summary = 'Microsoft Autopilot documentation has been refreshed for provisioning and device-preparation changes.'
+              } elseif ($s.product -eq 'Windows 365') {
+                $title = 'Latest Windows 365 platform signals'
+                $summary = 'Microsoft Windows 365 documentation has been refreshed for Cloud PC provisioning, management, and platform changes.'
+              }
+            }
+
+            $items += [pscustomobject]@{ product=$s.product; date=$date; title=$title; status=$s.status; summary=$summary; impact=$s.impact; url=$s.url }
+          }
+
+          [pscustomobject]@{ generatedAtUtc=(Get-Date).ToUniversalTime().ToString('o'); items=$items } |
+            ConvertTo-Json -Depth 8 | Set-Content 'data/microsoft-platform-radar.json' -Encoding utf8
+
+      - name: Commit refreshed radar
+        shell: bash
+        run: |
+          if git diff --quiet -- data/microsoft-platform-radar.json; then
+            echo "Radar already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/microsoft-platform-radar.json
+          git commit -m "Refresh Microsoft Platform Radar [skip ci]"
+          git push
