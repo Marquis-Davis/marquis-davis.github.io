@@ -1,0 +1,59 @@
+{
+  "generatedAtUtc": "2026-09-17T23:53:32.908Z",
+  "items": [
+    {
+      "product": "Windows",
+      "date": "September 2026",
+      "title": "September Windows security update is now available",
+      "status": "Release Health",
+      "summary": "Microsoft Windows Release Health is tracking the September 2026 security update, supported Windows releases, known issues, resolved issues, and safeguards.",
+      "impact": "Use Release Health as a deployment gate before updating enterprise images, servicing rings, or ConfigMgr task sequences.",
+      "url": "https://learn.microsoft.com/en-us/windows/release-health/"
+    },
+    {
+      "product": "Intune",
+      "date": "Service release 2608",
+      "title": "Intune 2608 adds new Windows management capabilities",
+      "status": "What's New",
+      "summary": "Microsoft's latest Intune What's New includes unattended Remote Help for physical Windows devices and Controlled Configuration for Microsoft Defender antivirus settings in preview.",
+      "impact": "These changes affect support operations and how authoritative Defender configuration can be enforced across Intune, ConfigMgr, Group Policy, and local configuration channels.",
+      "url": "https://learn.microsoft.com/en-us/intune/whats-new/"
+    },
+    {
+      "product": "Windows Autopilot",
+      "date": "Watching",
+      "title": "Autopilot provisioning changes",
+      "status": "Watchlist",
+      "summary": "Tracking Windows Autopilot and device preparation changes alongside Intune service updates.",
+      "impact": "Provisioning behavior, ESP, app dependencies, enrollment and troubleshooting procedures can change as the cloud service evolves.",
+      "url": "https://learn.microsoft.com/en-us/autopilot/whats-new"
+    },
+    {
+      "product": "Configuration Manager",
+      "date": "Current Branch",
+      "title": "Configuration Manager servicing and current branch",
+      "status": "Current Branch",
+      "summary": "Tracking ConfigMgr current-branch releases, fixes, supported Windows versions, ADK dependencies, and OSD-impacting changes.",
+      "impact": "OSD-heavy environments should validate new releases against task sequences, boot images, clients, site dependencies, and Windows servicing before production rollout.",
+      "url": "https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/release-notes"
+    },
+    {
+      "product": "Defender",
+      "date": "September 2026",
+      "title": "Defender platform, engine and endpoint releases",
+      "status": "Release Tracking",
+      "summary": "Microsoft publishes Defender for Endpoint releases separately from Defender Antivirus platform, engine, and security intelligence updates.",
+      "impact": "OSD and offline provisioning need more than definition currency. Platform and engine versions are separate lifecycle signals worth tracking.",
+      "url": "https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases"
+    },
+    {
+      "product": "Windows 365",
+      "date": "Watching",
+      "title": "Cloud PC administration and platform intelligence",
+      "status": "Watchlist",
+      "summary": "Tracking Windows 365 provisioning, management, operational insights, and integration with Intune.",
+      "impact": "Cloud PCs increasingly share the same endpoint architecture concerns as physical Windows devices: identity, policy, applications, security, and observability.",
+      "url": "https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new"
+    }
+  ]
+}
