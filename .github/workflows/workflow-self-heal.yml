@@ -1,0 +1,74 @@
+name: Workflow Self-Heal Monitor
+
+on:
+  workflow_run:
+    workflows:
+      - Refresh Live Portfolio Data
+      - Refresh AI Radar Market Prices
+    types:
+      - completed
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  handle-failure:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Retry first failure automatically
+        if: ${{ github.event.workflow_run.run_attempt < 2 }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "Automatically retrying failed jobs for run $RUN_ID"
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/$REPO/actions/runs/$RUN_ID/rerun-failed-jobs"
+
+      - name: Open issue after repeated failure
+        if: ${{ github.event.workflow_run.run_attempt >= 2 }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
+          ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          REPO: ${{ github.repository }}
+        run: |
+          title="Automation failure: $WORKFLOW_NAME"
+
+          existing=$(gh issue list \
+            --repo "$REPO" \
+            --state open \
+            --search "$title in:title" \
+            --json number \
+            --jq '.[0].number // empty')
+
+          body=$(cat <<EOF
+          ## Automated workflow incident
+
+          **Workflow:** $WORKFLOW_NAME
+          **Run ID:** $RUN_ID
+          **Attempt:** $ATTEMPT
+          **Run:** $RUN_URL
+
+          The self-heal monitor already retried the failed jobs once and the workflow failed again.
+
+          ### Next action
+          Review the failed step and logs before changing code. This monitor intentionally does not push code directly to main.
+          EOF
+          )
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body "$body"
+          else
+            gh issue create --repo "$REPO" --title "$title" --body "$body"
+          fi
