@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building an AI Agent for Windows Autopilot Troubleshooting with Microsoft Foundry | Marquis Davis</title>
+    <meta name="description" content="How I am extending Windows Autopilot troubleshooting with a custom Microsoft Foundry agent that can analyze endpoint diagnostics, reason over evidence, and return an engineer-ready diagnosis.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="weather-banner.css?v=20260916">
+    <link rel="stylesheet" href="system-health.css?v=20260916">
+    <meta name="author" content="Marquis Davis">
+    <meta name="copyright" content="Copyright © 2026 Marquis Davis. All rights reserved.">
+    <meta name="portfolio-build-id" content="MD-AIPE-2008-7F3C91">
+    <link rel="stylesheet" href="provenance.css?v=20260916">
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-container">
+        <a class="logo" href="index.html" aria-label="Marquis Davis home"><span class="logo-mark">MD</span><span>Marquis Davis</span></a>
+        <nav aria-label="Primary navigation"><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="index.html#work">Projects</a></li><li><a href="articles.html" class="active">Articles</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
+    </div>
+</header>
+
+<main class="container article-content">
+<article>
+    <div class="kicker">AI Platform Engineering</div>
+    <h1>Building an AI Agent for Windows Autopilot Troubleshooting with Microsoft Foundry</h1>
+    <p class="article-meta">September 17, 2026 • 7 min read</p>
+
+    <p>Windows Autopilot troubleshooting is usually evidence-heavy. When Enrollment Status Page gets stuck or an application fails during provisioning, the answer is often buried across Intune Management Extension logs, registry state, enrollment information, application IDs, policy data, and device diagnostics.</p>
+
+    <p>I have spent years troubleshooting endpoint platforms by collecting that evidence manually, determining which signal matters, and working backward toward the failure. My current AI engineering project asks a different question: what if I could give an AI agent the same evidence an endpoint engineer uses and let it perform the first layer of investigation?</p>
+
+    <h2>The Idea</h2>
+    <p>I am building a custom troubleshooting agent in Microsoft Foundry around a real Windows Autopilot workflow. The goal is not a generic chatbot. The goal is an agent designed for a specific engineering domain: endpoint provisioning.</p>
+
+    <p>The architecture I am working toward looks like this:</p>
+    <pre><code>Autopilot Device
+      ↓
+Diagnostic Collection
+      ↓ HTTPS
+Azure Function / API
+      ↓
+Azure Storage
+      ↓
+Microsoft Foundry Agent
+      ↓
+Evidence Analysis
+      ↓
+Diagnosis returned to the engineer</code></pre>
+
+    <p>The Windows device collects the diagnostic evidence. An authenticated API provides a controlled path into Azure. The evidence is stored for analysis, and the Foundry agent receives instructions and context designed around Autopilot troubleshooting rather than general-purpose conversation.</p>
+
+    <h2>Why a Customized Agent Matters</h2>
+    <p>An endpoint engineer does not troubleshoot an ESP failure by reading every log from beginning to end. The engineer starts with a hypothesis and moves through useful signals. Is the device enrolled correctly? Did IME start? Which Win32 application is blocking ESP? What state did Intune record? What error was returned? Does the local evidence agree with the cloud state?</p>
+
+    <p>That reasoning process is what makes the agent interesting to me.</p>
+
+    <p>Instead of asking an engineer to manually correlate every artifact, I want the agent to receive the evidence and return something closer to an engineering assessment:</p>
+
+    <ul>
+        <li>What failed</li>
+        <li>The evidence supporting the diagnosis</li>
+        <li>The most likely failure point</li>
+        <li>What the engineer should inspect next</li>
+        <li>A remediation path when the evidence supports one</li>
+    </ul>
+
+    <h2>Building on Tools I Already Use</h2>
+    <p>This project is not replacing my endpoint engineering background. It is extending it.</p>
+
+    <p>I already built a PowerShell troubleshooting tool for Autopilot ESP application failures. It reads ESP-tracked Win32 application state, resolves application names from local Intune Management Extension policy data, and surfaces failed applications with their recorded errors and identifiers.</p>
+
+    <p>That local tool becomes even more useful when I stop thinking of its output as something only a human can read. Structured troubleshooting evidence can become input to an AI workflow.</p>
+
+    <p>The progression is:</p>
+    <pre><code>PowerShell troubleshooting
+        ↓
+Structured endpoint evidence
+        ↓
+Secure API integration
+        ↓
+Microsoft Foundry agent
+        ↓
+AI-assisted engineering decision</code></pre>
+
+    <h2>The Platform Engineering Part Is Just as Important as the AI</h2>
+    <p>The model is only one component. A useful enterprise solution also needs identity, authentication, authorization, APIs, storage, logging, monitoring, and governance.</p>
+
+    <p>That is where this project connects directly to platform engineering. Entra identity can control access. Azure provides the API and storage layer. Microsoft Foundry provides the agent and model orchestration. Endpoint tooling supplies the operational evidence.</p>
+
+    <p>The interesting part is connecting those systems securely and making the entire workflow observable.</p>
+
+    <h2>Where I Want to Take It Next</h2>
+    <p>The first version is intentionally focused on Autopilot. Once the evidence pipeline and agent reasoning are working, the same architecture could expand into Microsoft Graph and Intune so the agent can combine local device diagnostics with authorized cloud-side device, application, policy, and enrollment information.</p>
+
+    <p>Longer term, I also want to explore grounding the agent in known troubleshooting documentation and runbooks so it can distinguish between raw evidence, established engineering knowledge, and its own reasoning.</p>
+
+    <h2>Why I Am Building This</h2>
+    <p>For me, this project represents the bridge between endpoint engineering and AI platform engineering.</p>
+
+    <p>I am not learning AI by building a random chatbot. I am taking a problem I understand deeply, Autopilot troubleshooting, and using it to learn agents, APIs, Azure architecture, identity, observability, and Microsoft Foundry.</p>
+
+    <p>The endpoint is still where the problem starts. The difference is that the troubleshooting platform now has an intelligence layer.</p>
+
+    <div class="architecture">
+        <div class="architecture-title">Project Direction</div>
+        <div class="flow-row"><div class="flow-node">Endpoint</div><div class="flow-node">Diagnostics</div><div class="flow-node">Azure API</div><div class="flow-node">Foundry Agent</div><div class="flow-node">AI Reasoning</div><div class="flow-node">Engineer</div></div>
+    </div>
+
+    <div class="button-row"><a class="button" href="index.html#work">View AI Endpoint Project</a><a class="button secondary" href="articles.html">More Engineering Notes</a><a class="button secondary" href="https://github.com/Marquis-Davis/modern-endpoint-platform/tree/main/Tools/ESP%20Troubleshooting" target="_blank" rel="noopener noreferrer">Autopilot Toolkit</a></div>
+</article>
+</main>
+
+<footer class="site-footer"><div class="container footer-row"><p>© 2026 Marquis Davis. Built as a living engineering portfolio.</p><p>Endpoint Engineering → Automation → AI Platform Engineering</p></div></footer>
+<script src="weather-banner.js?v=20260916" defer></script>
+<script src="system-health.js?v=20260916" defer></script>
+<script src="provenance.js?v=20260916" defer></script>
+</body>
+</html>
