@@ -1,0 +1,37 @@
+{
+  "generatedAtUtc": "2026-09-18T11:10:24.997Z",
+  "items": [
+    {
+      "id": "microsoft-certification-week-md102",
+      "title": "Microsoft Certification Week: MD-102 Endpoint Administrator",
+      "organizer": "Microsoft",
+      "startDate": null,
+      "endDate": null,
+      "location": "Online",
+      "mode": "Digital",
+      "state": "interested",
+      "autoComplete": false,
+      "sourceUrl": "https://www.microsoft.com/en-us/events",
+      "notesUrl": null,
+      "labUrl": null,
+      "learned": [],
+      "description": "Tracking the next Microsoft training session aligned to MD-102 endpoint administration."
+    },
+    {
+      "id": "microsoft-ignite-2026",
+      "title": "Microsoft Ignite 2026",
+      "organizer": "Microsoft",
+      "startDate": "2026-11-17",
+      "endDate": "2026-11-20",
+      "location": "San Francisco + Online",
+      "mode": "Hybrid",
+      "state": "interested",
+      "autoComplete": false,
+      "sourceUrl": "https://www.microsoft.com/en-us/events",
+      "notesUrl": null,
+      "labUrl": null,
+      "learned": [],
+      "description": "Following Microsoft's flagship event for AI, cloud, security, and platform engineering."
+    }
+  ]
+}
