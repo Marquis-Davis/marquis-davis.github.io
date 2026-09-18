@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-09-18T19:02:38.5401663Z",
+  "generatedAtUtc": "2026-09-18T20:11:11.4734881Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh Microsoft Platform Radar [skip ci]",
-      "timestamp": "2026-09-18T16:34:51Z",
+      "detail": "Update Certification Week event to AZ-305",
+      "timestamp": "2026-09-18T16:10:57-04:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/67491ee6060b90897efe18bacff2c07fc0045031"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/2513e9ba356f5c30e58d8aa7b1095cab420c2f4e"
     }
   ]
 }
