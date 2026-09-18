@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-09-18T10:40:05.0690635Z",
+  "generatedAtUtc": "2026-09-18T11:10:37.2216065Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh Microsoft Platform Radar [skip ci]",
-      "timestamp": "2026-09-18T04:55:28Z",
+      "detail": "Add professional learning and events data",
+      "timestamp": "2026-09-18T07:10:27-04:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/0d0a0e9ca0f4ed0111ab25cbc87525d5f39d2f56"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/b8a92edd9b6afd697a3e44f9066e44cfb0651d6c"
     }
   ]
 }
