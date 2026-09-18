@@ -2,8 +2,8 @@
   "generatedAtUtc": "2026-09-18T11:10:24.997Z",
   "items": [
     {
-      "id": "microsoft-certification-week-md102",
-      "title": "Microsoft Certification Week: MD-102 Endpoint Administrator",
+      "id": "microsoft-certification-week-az305",
+      "title": "Microsoft Certification Week: AZ-305 Azure Solutions Architect",
       "organizer": "Microsoft",
       "startDate": "2026-09-28",
       "endDate": "2026-10-02",
@@ -15,7 +15,7 @@
       "notesUrl": null,
       "labUrl": null,
       "learned": [],
-      "description": "Tracking the next Microsoft training session aligned to MD-102 endpoint administration."
+      "description": "Registered for Microsoft Certification Week training focused on designing Microsoft Azure infrastructure solutions and preparing for AZ-305."
     },
     {
       "id": "microsoft-ignite-2026",
