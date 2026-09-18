@@ -54,8 +54,8 @@ jobs:
             echo "Activity is already current."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Marquis Davis"
+          git config user.email "102924796+Marquis-Davis@users.noreply.github.com"
           git add data/activity.json
           git commit -m "Refresh portfolio activity [skip ci]"
           git push
