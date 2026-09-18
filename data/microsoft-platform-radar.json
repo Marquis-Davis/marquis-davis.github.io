@@ -1,58 +1,58 @@
 {
-  "generatedAtUtc": "2026-09-17T23:53:32.908Z",
+  "generatedAtUtc": "2026-09-18T04:55:28.6096856Z",
   "items": [
     {
       "product": "Windows",
       "date": "September 2026",
-      "title": "September Windows security update is now available",
+      "title": "Latest Windows release health and servicing signals",
       "status": "Release Health",
-      "summary": "Microsoft Windows Release Health is tracking the September 2026 security update, supported Windows releases, known issues, resolved issues, and safeguards.",
+      "summary": "Microsoft Windows Release Health has been refreshed with current servicing milestones, known issues, resolved issues, and safeguards.",
       "impact": "Use Release Health as a deployment gate before updating enterprise images, servicing rings, or ConfigMgr task sequences.",
       "url": "https://learn.microsoft.com/en-us/windows/release-health/"
     },
     {
       "product": "Intune",
       "date": "Service release 2608",
-      "title": "Intune 2608 adds new Windows management capabilities",
+      "title": "Latest Intune service changes",
       "status": "What's New",
-      "summary": "Microsoft's latest Intune What's New includes unattended Remote Help for physical Windows devices and Controlled Configuration for Microsoft Defender antivirus settings in preview.",
-      "impact": "These changes affect support operations and how authoritative Defender configuration can be enforced across Intune, ConfigMgr, Group Policy, and local configuration channels.",
+      "summary": "Microsoft Intune What's New has been refreshed. Review the latest service release for Windows management, app, security, enrollment, and administration changes.",
+      "impact": "Intune service changes can affect policy, apps, security configuration, enrollment, and support workflows.",
       "url": "https://learn.microsoft.com/en-us/intune/whats-new/"
     },
     {
       "product": "Windows Autopilot",
-      "date": "Watching",
-      "title": "Autopilot provisioning changes",
+      "date": "September 2026",
+      "title": "Latest Windows Autopilot provisioning signals",
       "status": "Watchlist",
-      "summary": "Tracking Windows Autopilot and device preparation changes alongside Intune service updates.",
-      "impact": "Provisioning behavior, ESP, app dependencies, enrollment and troubleshooting procedures can change as the cloud service evolves.",
+      "summary": "Microsoft Autopilot documentation has been refreshed for provisioning and device-preparation changes.",
+      "impact": "Provisioning behavior, ESP, app dependencies, enrollment, and troubleshooting procedures can change as the cloud service evolves.",
       "url": "https://learn.microsoft.com/en-us/autopilot/whats-new"
     },
     {
       "product": "Configuration Manager",
-      "date": "Current Branch",
-      "title": "Configuration Manager servicing and current branch",
+      "date": "September 2026",
+      "title": "Latest Configuration Manager current-branch signals",
       "status": "Current Branch",
-      "summary": "Tracking ConfigMgr current-branch releases, fixes, supported Windows versions, ADK dependencies, and OSD-impacting changes.",
-      "impact": "OSD-heavy environments should validate new releases against task sequences, boot images, clients, site dependencies, and Windows servicing before production rollout.",
+      "summary": "Microsoft ConfigMgr release documentation has been refreshed for current-branch changes, fixes, and dependency updates.",
+      "impact": "Validate new releases against task sequences, boot images, clients, site dependencies, ADK support, and Windows servicing.",
       "url": "https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/release-notes"
     },
     {
       "product": "Defender",
       "date": "September 2026",
-      "title": "Defender platform, engine and endpoint releases",
+      "title": "Defender Antivirus platform 4.18.26080.3 tracked",
       "status": "Release Tracking",
-      "summary": "Microsoft publishes Defender for Endpoint releases separately from Defender Antivirus platform, engine, and security intelligence updates.",
-      "impact": "OSD and offline provisioning need more than definition currency. Platform and engine versions are separate lifecycle signals worth tracking.",
+      "summary": "Microsoft's Defender release notes have been refreshed with current Endpoint and Antivirus platform, engine, and security intelligence information.",
+      "impact": "OSD and offline provisioning need more than definition currency. Platform and engine versions are separate lifecycle signals.",
       "url": "https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases"
     },
     {
       "product": "Windows 365",
-      "date": "Watching",
-      "title": "Cloud PC administration and platform intelligence",
+      "date": "September 2026",
+      "title": "Latest Windows 365 platform signals",
       "status": "Watchlist",
-      "summary": "Tracking Windows 365 provisioning, management, operational insights, and integration with Intune.",
-      "impact": "Cloud PCs increasingly share the same endpoint architecture concerns as physical Windows devices: identity, policy, applications, security, and observability.",
+      "summary": "Microsoft Windows 365 documentation has been refreshed for Cloud PC provisioning, management, and platform changes.",
+      "impact": "Cloud PCs share endpoint architecture concerns with physical Windows devices: identity, policy, apps, security, and observability.",
       "url": "https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new"
     }
   ]
