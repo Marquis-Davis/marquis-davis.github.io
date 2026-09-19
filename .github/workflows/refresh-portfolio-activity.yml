@@ -26,24 +26,57 @@ jobs:
 
       - name: Refresh latest meaningful commit
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $ErrorActionPreference = 'Stop'
           $path = 'data/activity.json'
           $data = Get-Content $path -Raw | ConvertFrom-Json
-          $commit = git log -30 --pretty=format:'%H|%cI|%s' |
-            Where-Object {
-              $_ -notmatch '\|Refresh live portfolio data \[skip ci\]$' -and
-              $_ -notmatch '\|Refresh portfolio activity \[skip ci\]$' -and
-              $_ -notmatch '\|Refresh AI radar market prices$'
-            } |
-            Select-Object -First 1
-          if (-not $commit) { throw 'No meaningful commit found.' }
-          $sha, $timestamp, $message = $commit -split '\|', 3
+          $headers = @{
+            Authorization = "Bearer $env:GH_TOKEN"
+            Accept = 'application/vnd.github+json'
+            'X-GitHub-Api-Version' = '2022-11-28'
+            'User-Agent' = 'marquis-portfolio-activity'
+          }
+          $repos = @(
+            'Marquis-Davis/marquis-davis.github.io',
+            'Marquis-Davis/modern-endpoint-platform'
+          )
+          $candidates = foreach ($repo in $repos) {
+            try {
+              $commits = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/commits?per_page=30" -Headers $headers
+              foreach ($entry in $commits) {
+                $message = (($entry.commit.message -split "`n")[0]).Trim()
+                if (
+                  $message -notmatch '^Refresh live portfolio data' -and
+                  $message -notmatch '^Refresh portfolio activity' -and
+                  $message -notmatch '^Refresh AI radar market prices' -and
+                  $message -notmatch '^Refresh Microsoft Platform Radar' -and
+                  $message -notmatch '^Apply shared site components'
+                ) {
+                  [pscustomobject]@{
+                    sha = $entry.sha
+                    timestamp = [datetimeoffset]$entry.commit.committer.date
+                    message = $message
+                    repo = $repo
+                    url = $entry.html_url
+                  }
+                }
+              }
+            } catch {
+              Write-Warning "Could not read commits from $repo : $($_.Exception.Message)"
+            }
+          }
+          $commit = $candidates | Sort-Object timestamp -Descending | Select-Object -First 1
+          if (-not $commit) { throw 'No meaningful commit found across engineering repositories.' }
+          $sha = $commit.sha
+          $timestamp = $commit.timestamp.ToString('o')
+          $message = $commit.message
           $item = $data.items | Where-Object id -eq 'commit' | Select-Object -First 1
           if (-not $item) { throw 'Commit activity item was not found.' }
           $item.detail = $message
           $item.timestamp = $timestamp
-          $item.url = "https://github.com/$env:GITHUB_REPOSITORY/commit/$sha"
+          $item.url = $commit.url
           $data.generatedAtUtc = (Get-Date).ToUniversalTime().ToString('o')
           $data | ConvertTo-Json -Depth 10 | Set-Content $path -Encoding utf8
 
