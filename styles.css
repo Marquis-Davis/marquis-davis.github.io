@@ -955,6 +955,12 @@ code {
     font-size: 12px;
 }
 
+.site-footer .footer-credit strong {
+    color: var(--cyan);
+    font-weight: 850;
+    letter-spacing: 0.02em;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 980px) {
     .hero-grid,
