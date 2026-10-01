@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-10-01T13:35:35.3118616Z",
+  "generatedAtUtc": "2026-10-01T22:48:03.2051856Z",
   "items": [
     {
       "product": "Windows",
@@ -40,7 +40,7 @@
     {
       "product": "Defender",
       "date": "October 2026",
-      "title": "Defender Antivirus platform 4.18.26080.3 tracked",
+      "title": "Defender Antivirus platform 4.18.26080.4 tracked",
       "status": "Release Tracking",
       "summary": "Microsoft's Defender release notes have been refreshed with current Endpoint and Antivirus platform, engine, and security intelligence information.",
       "impact": "OSD and offline provisioning need more than definition currency. Platform and engine versions are separate lifecycle signals.",
