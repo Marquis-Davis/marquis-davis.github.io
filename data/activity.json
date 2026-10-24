@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-10-24T01:25:55.5479228Z",
+  "generatedAtUtc": "2026-10-24T04:40:44.8205612Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh portfolio activity [skip ci]",
-      "timestamp": "2026-10-23T23:10:19Z",
+      "detail": "Add AI platform engineering concept map",
+      "timestamp": "2026-09-19T09:45:12.0000000+00:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/a3b6c0e0cc05fd73c830b92e8af738fe2eb8fc67"
+      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/b07228313391f597a2543d98f7f24c2ccf914571"
     }
   ]
 }
