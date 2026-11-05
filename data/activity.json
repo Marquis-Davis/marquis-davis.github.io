@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-04T23:17:16.5222515Z",
+  "generatedAtUtc": "2026-11-05T00:54:31.4044911Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh AI radar market prices",
-      "timestamp": "2026-11-04T22:43:09Z",
+      "detail": "Add AI platform engineering concept map",
+      "timestamp": "2026-09-19T09:45:12.0000000+00:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/bea3507329491dceee0050770e3182507491dd49"
+      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/b07228313391f597a2543d98f7f24c2ccf914571"
     }
   ]
 }
