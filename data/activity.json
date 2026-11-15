@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-15T15:25:42.0313617Z",
+  "generatedAtUtc": "2026-11-15T15:40:33.9264533Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh Microsoft Platform Radar [skip ci]",
-      "timestamp": "2026-11-15T06:52:28Z",
+      "detail": "Add AI platform engineering concept map",
+      "timestamp": "2026-09-19T09:45:12.0000000+00:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/a84a023f799433c8092110da2519ca939f8e465c"
+      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/b07228313391f597a2543d98f7f24c2ccf914571"
     }
   ]
 }
