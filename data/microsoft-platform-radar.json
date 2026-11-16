@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-15T18:59:21.7754533Z",
+  "generatedAtUtc": "2026-11-16T06:54:34.1455110Z",
   "items": [
     {
       "product": "Windows",
@@ -12,7 +12,7 @@
     },
     {
       "product": "Intune",
-      "date": "Service release 2610",
+      "date": "Service release 2611",
       "title": "Latest Intune service changes",
       "status": "What's New",
       "summary": "Microsoft Intune What's New has been refreshed. Review the latest service release for Windows management, app, security, enrollment, and administration changes.",
