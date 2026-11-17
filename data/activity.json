@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-17T02:56:52.1733888Z",
+  "generatedAtUtc": "2026-11-17T08:35:16.4707785Z",
   "items": [
     {
       "id": "defender",
@@ -13,9 +13,9 @@
       "id": "deployment",
       "label": "Portfolio deployment succeeded",
       "detail": "GitHub Pages • main",
-      "timestamp": "2026-11-16T22:23:42Z",
+      "timestamp": "2026-11-17T08:12:36Z",
       "status": "healthy",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/actions/runs/43969522900"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/actions/runs/44044685013"
     },
     {
       "id": "driver-bios",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Add AI platform engineering concept map",
-      "timestamp": "2026-09-19T09:45:12.0000000+00:00",
+      "detail": "Refresh Microsoft Platform Radar [skip ci]",
+      "timestamp": "2026-11-17T08:11:54Z",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/b07228313391f597a2543d98f7f24c2ccf914571"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/8b249fa5bcb31fa270ecec6187cec5b11da0a9db"
     }
   ]
 }
