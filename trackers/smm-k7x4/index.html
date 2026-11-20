@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="robots" content="noindex, nofollow" />
 <meta name="color-scheme" content="light dark" />
 <link rel="icon" href="data:," />
-<title>Tu avance — Servicio Múltiple y Más · QuiseIQ</title>
+<meta name="robots" content="noindex, nofollow" />
+<title>Servicio Múltiple y Más · QuiseIQ Build Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -247,10 +247,6 @@
   .mini p{ margin:0; font-size:13.5px; color:var(--muted); }
 
   footer.page-foot{ max-width:1080px; margin:0 auto; padding:0 20px 28px; text-align:center; font-size:12.5px; color:var(--muted); font-weight:600; }
-
-  /* Production tracker: single centered column (no demo layout) */
-  .wrap{ max-width:720px; }
-  .layout{ display:block; margin-top:0; }
 </style>
 </head>
 <body>
@@ -264,6 +260,7 @@
         <div class="brand-sub">Build Tracker</div>
       </div>
     </div>
+    <div class="demo-pill" data-i18n-html="demoPill">Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b></div>
     <div class="lang-toggle" role="group" aria-label="Idioma / Language">
       <button id="langEs" class="active" aria-pressed="true">ES</button>
       <button id="langEn" aria-pressed="false">EN</button>
@@ -273,15 +270,17 @@
 
 <div class="wrap">
   <div class="intro">
-    <h1 data-i18n-html="introTitle">Así va <em>tu plataforma</em>, paso a paso.</h1>
-    <p data-i18n-html="introText">Esta es tu página personal de avance. Un solo enlace, sin contraseña — entra cuando quieras y mira exactamente en qué paso va tu construcción.</p>
+    <h1 data-i18n-html="introTitle">Así ve el cliente <em>su avance</em>, paso a paso.</h1>
+    <p data-i18n-html="introText">Esta es la página que recibe cada cliente con el paquete de <strong>US$49</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.</p>
   </div>
+
   <div class="layout">
+    <!-- ============ CLIENT VIEW ============ -->
     <section class="tracker" aria-label="Vista del cliente">
       <div class="tracker-head">
         <div class="client-label" data-i18n="clientLabel">Tu plataforma · Paquete US$49</div>
         <div class="client-name">Servicio Múltiple y Más</div>
-        <div class="client-meta"><span>Verón · Bávaro</span><span data-i18n="metaDelivery">Entrega al pagar</span></div>
+        <div class="client-meta"><span data-i18n="metaDemo">Verón · Bávaro</span><span data-i18n="metaDelivery">Entrega al pagar</span></div>
       </div>
 
       <div class="paid-banner" id="paidBanner" role="status">
@@ -296,9 +295,9 @@
       <div class="progress-wrap">
         <div class="progress-top">
           <span class="label" id="progressLabel">Tu avance</span>
-          <span class="pct" id="progressPct">38%</span>
+          <span class="pct" id="progressPct">25%</span>
         </div>
-        <div class="bar" role="progressbar" aria-label="Avance de la construcción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" id="progressBar">
+        <div class="bar" role="progressbar" aria-label="Avance de la construcción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" id="progressBar">
           <div class="bar-fill" id="barFill"></div>
         </div>
         <div class="updated" id="updatedLine"><i>●</i> <span data-i18n="updatedPrefix">Actualizado hoy — paso</span> <span id="updatedStep">3 de 8</span></div>
@@ -315,18 +314,61 @@
         <div class="powered"><span class="mini-q">Q</span> Powered by <b>QuiseIQ Automations</b></div>
       </div>
     </section>
+
+    <!-- ============ DEMO CONTROLS ============ -->
+    <aside class="panel" aria-label="Controles de la demo">
+      <h2 data-i18n="panelTitle">Controles de la demo</h2>
+      <p class="sub" data-i18n="panelSub">Solo para ti — el cliente nunca ve esto. Avanza los pasos como lo haría el equipo durante la construcción.</p>
+
+      <div class="stage-label" data-i18n="stageJump">Saltar a una etapa</div>
+      <div class="chips" id="chips">
+        <button class="chip" data-stage="0" data-i18n="chipStart">Inicio</button>
+        <button class="chip" data-stage="2" data-i18n="chipProgress">En proceso</button>
+        <button class="chip" data-stage="5" data-i18n="chipAlmost">Casi listo</button>
+        <button class="chip" data-stage="7" data-i18n="chipReview">Revisión</button>
+        <button class="chip" data-stage="8" data-i18n="chipPay">Pago</button>
+      </div>
+
+      <div class="stage-label" data-i18n="stageAdvance">Avanzar el proceso</div>
+      <div class="controls">
+        <button class="btn primary" id="btnNext">Completar paso siguiente →</button>
+        <button class="btn" id="btnBack" data-i18n="btnBack">← Paso anterior</button>
+        <button class="btn" id="btnReset" data-i18n="btnReset">Reiniciar</button>
+        <button class="btn pay" id="btnPay">Marcar como pagado ✓</button>
+      </div>
+
+      <div class="status-line"><span data-i18n="statusLabel">Estado actual</span><span id="statusText" style="display:inline;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);">Paso 3 de 8 — Instagram en proceso</span></div>
+
+      <div class="how">
+        <h3 data-i18n="howTitle">Cómo funciona para el cliente</h3>
+        <ol>
+          <li data-i18n-html="how1"><b>Un enlace, una vez.</b> La mesa lo envía por WhatsApp: “aquí puedes ver tu avance cuando quieras”.</li>
+          <li data-i18n-html="how2"><b>Sin mensajes de “¿cómo va lo mío?”</b> El cliente toca el enlace y ve el paso exacto.</li>
+          <li data-i18n-html="how3"><b>Al pagar, se voltea solo.</b> La página queda en “Pagado en su totalidad” — y sirve como su recibo.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <div class="below">
+    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></i> <span data-i18n="mini1Title">Enlace privado</span></div><p data-i18n="mini1Text">Cada cliente recibe su propio enlace con un final aleatorio. Solo muestra su negocio y los pasos — nada sensible.</p></div>
+    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21a2.5 2.5 0 0 0 2.5-2.5c0-.8.7-1.5 1.5-1.5H18a3 3 0 0 0 3-3"/></svg></i> <span data-i18n="mini2Title">Sus colores, su marca</span></div><p data-i18n="mini2Text">En la versión real, cada tracker usa los colores del negocio del cliente. Este demo usa la marca QuiseIQ: Evergreen y Copper.</p></div>
+    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M17 6.5c-.8-1.2-2.7-2-5-2-3 0-5 1.6-5 3.7 0 5 10 2.6 10 7.1 0 2.1-2 3.7-5 3.7-2.3 0-4.2-.8-5-2"/></svg></i> <span data-i18n="mini3Title">Costo: $0</span></div><p data-i18n="mini3Text">Vive en el mismo sitio en GitHub del cliente. Antes del pago corre en la dirección de prueba; al pagar, se conecta su dominio.</p></div>
   </div>
 </div>
 
-<footer class="page-foot">QuiseIQ Build Tracker · ⚡️Powered by QuiseIQ Automations</footer>
+<footer class="page-foot" data-i18n="pageFoot">QuiseIQ Build Tracker — página de avance de Servicio Múltiple y Más. ⚡️Powered by QuiseIQ Automations</footer>
 
 <script>
 (function(){
+  // ---- Language strings: static page text (applied via data-i18n) ----
   var UI = {
     es: {
-      introTitle: 'Así va <em>tu plataforma</em>, paso a paso.',
-      introText: 'Esta es tu página personal de avance. Un solo enlace, sin contraseña — entra cuando quieras y mira exactamente en qué paso va tu construcción.',
+      demoPill: 'Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b>',
+      introTitle: 'Así ve el cliente <em>su avance</em>, paso a paso.',
+      introText: 'Esta es la página que recibe cada cliente con el paquete de <strong>US$49</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.',
       clientLabel: 'Tu plataforma · Paquete US$49',
+      metaDemo: 'Verón · Bávaro',
       metaDelivery: 'Entrega al pagar',
       paidTitle: '¡Pagado en su totalidad!',
       paidThanks: 'Gracias. Tu plataforma está activa y todo queda en línea.',
@@ -335,12 +377,32 @@
       receiptStatus: 'Estado: Activo',
       updatedPrefix: 'Actualizado hoy — paso',
       waBtn: '¿Preguntas? Escríbenos por WhatsApp',
-      footNote: 'Toca tu enlace cuando quieras para ver tu avance al instante.'
+      footNote: 'Toca tu enlace cuando quieras para ver tu avance al instante.',
+      panelTitle: 'Controles de la demo',
+      panelSub: 'Solo para ti — el cliente nunca ve esto. Avanza los pasos como lo haría el equipo durante la construcción.',
+      stageJump: 'Saltar a una etapa',
+      chipStart: 'Inicio', chipProgress: 'En proceso', chipAlmost: 'Casi listo', chipReview: 'Revisión', chipPay: 'Pago',
+      stageAdvance: 'Avanzar el proceso',
+      btnBack: '← Paso anterior', btnReset: 'Reiniciar',
+      statusLabel: 'Estado actual',
+      howTitle: 'Cómo funciona para el cliente',
+      how1: '<b>Un enlace, una vez.</b> La mesa lo envía por WhatsApp: “aquí puedes ver tu avance cuando quieras”.',
+      how2: '<b>Sin mensajes de “¿cómo va lo mío?”</b> El cliente toca el enlace y ve el paso exacto.',
+      how3: '<b>Al pagar, se voltea solo.</b> La página queda en “Pagado en su totalidad” — y sirve como su recibo.',
+      mini1Title: 'Enlace privado',
+      mini1Text: 'Cada cliente recibe su propio enlace con un final aleatorio. Solo muestra su negocio y los pasos — nada sensible.',
+      mini2Title: 'Sus colores, su marca',
+      mini2Text: 'En la versión real, cada tracker usa los colores del negocio del cliente. Este demo usa la marca QuiseIQ: Evergreen y Copper.',
+      mini3Title: 'Costo: $0',
+      mini3Text: 'Vive en el mismo sitio en GitHub del cliente. Antes del pago corre en la dirección de prueba; al pagar, se conecta su dominio.',
+      pageFoot: 'QuiseIQ Build Tracker — página de avance de Servicio Múltiple y Más. ⚡️Powered by QuiseIQ Automations'
     },
     en: {
-      introTitle: 'Your platform, <em>step by step</em>.',
-      introText: 'This is your personal progress page. One link, no password — check in anytime and see exactly where your build stands.',
+      demoPill: 'Interactive demo &nbsp;·&nbsp; <b>Tap and try it</b>',
+      introTitle: 'This is how the client sees <em>their progress</em>, step by step.',
+      introText: 'This is the page every client receives with the <strong>US$49</strong> package. One single link over WhatsApp — no password, no app. Use the demo controls to move the process forward and see the final <strong>paid</strong> state.',
       clientLabel: 'Your platform · US$49 package',
+      metaDemo: 'Verón · Bávaro',
       metaDelivery: 'Delivery on payment',
       paidTitle: 'Paid in full!',
       paidThanks: 'Thank you. Your platform is active and everything is live.',
@@ -349,10 +411,29 @@
       receiptStatus: 'Status: Active',
       updatedPrefix: 'Updated today — step',
       waBtn: 'Questions? Message us on WhatsApp',
-      footNote: 'Tap your link anytime to see your progress instantly.'
+      footNote: 'Tap your link anytime to see your progress instantly.',
+      panelTitle: 'Demo controls',
+      panelSub: 'Just for you — the client never sees this. Advance the steps the way the team would during the build.',
+      stageJump: 'Jump to a stage',
+      chipStart: 'Start', chipProgress: 'In progress', chipAlmost: 'Almost done', chipReview: 'Review', chipPay: 'Payment',
+      stageAdvance: 'Move the process forward',
+      btnBack: '← Previous step', btnReset: 'Reset',
+      statusLabel: 'Current status',
+      howTitle: 'How it works for the client',
+      how1: '<b>One link, once.</b> The desk sends it on WhatsApp: “tap here anytime to see your progress”.',
+      how2: '<b>No more “how’s my project going?” messages.</b> The client taps the link and sees the exact step.',
+      how3: '<b>When they pay, it flips on its own.</b> The page switches to “Paid in full” — and doubles as their receipt.',
+      mini1Title: 'Private link',
+      mini1Text: 'Each client gets their own link with a random ending. It only shows their business and the steps — nothing sensitive.',
+      mini2Title: 'Their colors, their brand',
+      mini2Text: 'In the real version, each tracker uses the client’s business colors. This demo uses the QuiseIQ brand: Evergreen and Copper.',
+      mini3Title: 'Cost: $0',
+      mini3Text: 'It lives on the client’s own GitHub site. Before payment it runs on the test address; once they pay, their domain is connected.',
+      pageFoot: 'QuiseIQ Build Tracker — progress page for Servicio Múltiple y Más. ⚡️Powered by QuiseIQ Automations'
     }
   };
 
+  // ---- Language strings: tracker state (steps, badges, status) ----
   var STR = {
     es: {
       steps: [
@@ -372,7 +453,13 @@
       labelDone: "Plataforma entregada",
       barLabel: "Avance de la construcción",
       stepOf: function(n){ return n + " de 8"; },
-      stepOfDone: "8 de 8 — completado"
+      stepOfDone: "8 de 8 — completado",
+      statusPaid: "Pagado en su totalidad — todos los pasos completos, dominio conectado.",
+      statusAllDone: "Los 8 pasos están listos — falta marcar el pago.",
+      statusInProgress: function(n, title){ return "Paso " + n + " de 8 — " + title + " en proceso"; },
+      payBtn: "Marcar como pagado ✓",
+      payBtnDone: "Pagado ✓",
+      nextBtn: "Completar paso siguiente →"
     },
     en: {
       steps: [
@@ -392,14 +479,20 @@
       labelDone: "Platform delivered",
       barLabel: "Build progress",
       stepOf: function(n){ return n + " of 8"; },
-      stepOfDone: "8 of 8 — complete"
+      stepOfDone: "8 of 8 — complete",
+      statusPaid: "Paid in full — all steps complete, domain connected.",
+      statusAllDone: "All 8 steps are ready — just need to mark the payment.",
+      statusInProgress: function(n, title){ return "Step " + n + " of 8 — " + title + " in progress"; },
+      payBtn: "Mark as paid ✓",
+      payBtnDone: "Paid ✓",
+      nextBtn: "Complete next step →"
     }
   };
 
   var lang = "es";
-  // Lui's real build state: steps are 0-based. Done: Google(0), Facebook(1), Website(4). Current: Instagram(2).
-  var DONE = { 0:true, 1:true, 4:true };
-  var CURRENT = 2;
+
+  // completed = number of finished steps (0..8). paid flips the final state.
+  var completed = 2;
   var paid = false;
 
   var list = document.getElementById('stepsList');
@@ -408,7 +501,14 @@
   var pctEl = document.getElementById('progressPct');
   var labelEl = document.getElementById('progressLabel');
   var updatedStep = document.getElementById('updatedStep');
+  var updatedLine = document.getElementById('updatedLine');
   var banner = document.getElementById('paidBanner');
+  var statusText = document.getElementById('statusText');
+  var btnNext = document.getElementById('btnNext');
+  var btnBack = document.getElementById('btnBack');
+  var btnPay = document.getElementById('btnPay');
+  var btnReset = document.getElementById('btnReset');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('#chips .chip'));
 
   function checkSVG(){
     return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -418,14 +518,16 @@
     var S = STR[lang];
     list.innerHTML = '';
     S.steps.forEach(function(step, i){
-      var state = paid || DONE[i] ? 'done' : (i === CURRENT ? 'current' : 'upcoming');
+      var state = paid || i < completed ? 'done' : (i === completed ? 'current' : 'upcoming');
       var li = document.createElement('li');
       li.className = 'step ' + state;
+
       var icon = document.createElement('div');
       icon.className = 'step-icon';
       if(state === 'done'){ icon.innerHTML = checkSVG(); }
       else if(state === 'current'){ icon.innerHTML = '<span class="pulse"></span>'; }
       else { icon.textContent = String(i + 1); }
+
       var body = document.createElement('div');
       body.className = 'step-body';
       var badge = '';
@@ -433,28 +535,76 @@
       if(state === 'current'){ badge = ' <span class="badge-here">' + S.badgeHere + '</span>'; }
       body.innerHTML = '<div class="step-title">' + (i+1) + '. ' + step.title + badge + '</div>' +
                        '<div class="step-desc">' + step.desc + '</div>';
+
       if(i === 7){
         var pay = document.createElement('div');
         pay.className = 'pay-amount';
         pay.innerHTML = S.payAmount;
         body.appendChild(pay);
       }
+
       li.appendChild(icon);
       li.appendChild(body);
       list.appendChild(li);
     });
 
-    var doneCount = paid ? 8 : Object.keys(DONE).length;
-    var pct = Math.round((doneCount / S.steps.length) * 100);
+    var pct = paid ? 100 : Math.round((completed / S.steps.length) * 100);
     barFill.style.width = pct + '%';
     bar.setAttribute('aria-valuenow', String(pct));
     bar.setAttribute('aria-label', S.barLabel);
     pctEl.textContent = pct + '%';
-    labelEl.textContent = paid ? S.labelDone : S.labelProgress;
-    updatedStep.textContent = paid ? S.stepOfDone : S.stepOf(CURRENT + 1);
-    banner.classList.toggle('show', paid);
+
+    if(paid){
+      labelEl.textContent = S.labelDone;
+      updatedStep.textContent = S.stepOfDone;
+      banner.classList.add('show');
+      statusText.textContent = S.statusPaid;
+    } else {
+      labelEl.textContent = S.labelProgress;
+      var currentNum = Math.min(completed + 1, 8);
+      updatedStep.textContent = S.stepOf(currentNum);
+      banner.classList.remove('show');
+      statusText.textContent = completed >= 8
+        ? S.statusAllDone
+        : S.statusInProgress(currentNum, S.steps[completed].title);
+    }
+    updatedLine.style.display = paid ? 'none' : '';
+
+    btnNext.disabled = paid || completed >= 8;
+    btnBack.disabled = completed <= 0 && !paid;
+    btnPay.disabled = paid;
+    btnPay.textContent = paid ? S.payBtnDone : S.payBtn;
+    btnNext.textContent = S.nextBtn;
+
+    chips.forEach(function(chip){
+      var stage = parseInt(chip.getAttribute('data-stage'), 10);
+      chip.classList.toggle('active', !paid && stage === completed);
+    });
   }
 
+  btnNext.addEventListener('click', function(){
+    if(completed < 8){ completed++; render(); }
+  });
+  btnBack.addEventListener('click', function(){
+    if(paid){ paid = false; render(); return; }
+    if(completed > 0){ completed--; render(); }
+  });
+  btnPay.addEventListener('click', function(){
+    completed = 8; paid = true; render();
+    banner.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+  btnReset.addEventListener('click', function(){
+    completed = 2; paid = false; render();
+  });
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      completed = parseInt(chip.getAttribute('data-stage'), 10);
+      paid = false;
+      render();
+    });
+  });
+
+  // ---- Language toggle (ES / EN) ----
   var langEsBtn = document.getElementById('langEs');
   var langEnBtn = document.getElementById('langEn');
 
