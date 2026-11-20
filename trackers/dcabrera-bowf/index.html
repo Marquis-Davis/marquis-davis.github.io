@@ -295,7 +295,7 @@
         <div class="bar" role="progressbar" aria-label="Avance de la construcción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" id="progressBar">
           <div class="bar-fill" id="barFill"></div>
         </div>
-        <div class="updated" id="updatedLine"><i>●</i> <span data-i18n="updatedPrefix">Actualizado hoy — paso</span> <span id="updatedStep">3 de 8</span></div>
+        <div class="updated" id="updatedLine"><i>●</i> <span data-i18n="updatedPrefix">Actualizado hoy — paso</span> <span id="updatedStep">2 de 4</span></div>
       </div>
 
       <ol class="steps" id="stepsList"></ol>
@@ -392,14 +392,10 @@
   var STR = {
     es: {
       steps: [
-        { title:"Perfil de Google",    desc:"Tu negocio aparece en Google y en Maps." },
-        { title:"Página de Facebook",  desc:"Tu página lista para recibir clientes." },
-        { title:"Instagram",           desc:"Cuenta creada y conectada a tu Facebook." },
-        { title:"TikTok",              desc:"Cuenta lista para tus videos." },
-        { title:"Tu página web",       desc:"Una página con tus servicios, teléfono y redes." },
-        { title:"Mensaje de reseñas",  desc:"Mensaje listo para pedir reseñas a tus clientes." },
-        { title:"Revisión final",      desc:"Revisamos todo contigo antes de entregar." },
-        { title:"Pago",                desc:"Al pagar, conectamos tu dominio y todo queda activo." }
+        { title:"Google Profile",   desc:"Your business shows up on Google and Maps." },
+        { title:"Your website",     desc:"One page with your services, phone and socials." },
+        { title:"Final review",     desc:"We go over everything with you before delivery." },
+        { title:"Payment",          desc:"Once you pay, we connect your domain and everything goes live." }
       ],
       badgeDone: "Listo",
       badgeHere: "Estamos aquí",
@@ -407,8 +403,8 @@
       labelProgress: "Tu avance",
       labelDone: "Plataforma entregada",
       barLabel: "Avance de la construcción",
-      stepOf: function(n){ return n + " de 8"; },
-      stepOfDone: "8 de 8 — completado",
+      stepOf: function(n, total){ return n + " de " + total; },
+      stepOfDone: function(total){ return total + " de " + total + " — completado"; },
       statusPaid: "Pagado en su totalidad — todos los pasos completos, dominio conectado.",
       statusAllDone: "Los 8 pasos están listos — falta marcar el pago.",
       statusInProgress: function(n, title){ return "Paso " + n + " de 8 — " + title + " en proceso"; },
@@ -433,8 +429,8 @@
       labelProgress: "Your progress",
       labelDone: "Platform delivered",
       barLabel: "Build progress",
-      stepOf: function(n){ return n + " of 8"; },
-      stepOfDone: "8 of 8 — complete",
+      stepOf: function(n, total){ return n + " of " + total; },
+      stepOfDone: function(total){ return total + " of " + total + " — complete"; },
       statusPaid: "Paid in full — all steps complete, domain connected.",
       statusAllDone: "All 8 steps are ready — just need to mark the payment.",
       statusInProgress: function(n, title){ return "Step " + n + " of 8 — " + title + " in progress"; },
@@ -485,7 +481,7 @@
       body.innerHTML = '<div class="step-title">' + (i+1) + '. ' + step.title + badge + '</div>' +
                        '<div class="step-desc">' + step.desc + '</div>';
 
-      if(i === 7){
+      if(i === S.steps.length - 1){
         var pay = document.createElement('div');
         pay.className = 'pay-amount';
         pay.innerHTML = S.payAmount;
@@ -505,12 +501,12 @@
 
     if(paid){
       labelEl.textContent = S.labelDone;
-      updatedStep.textContent = S.stepOfDone;
+      updatedStep.textContent = S.stepOfDone(S.steps.length);
       banner.classList.add('show');
     } else {
       labelEl.textContent = S.labelProgress;
-      var currentNum = Math.min(completed + 1, 8);
-      updatedStep.textContent = S.stepOf(currentNum);
+      var currentNum = Math.min(completed + 1, S.steps.length);
+      updatedStep.textContent = S.stepOf(currentNum, S.steps.length);
       banner.classList.remove('show');
     }
     updatedLine.style.display = paid ? 'none' : '';
