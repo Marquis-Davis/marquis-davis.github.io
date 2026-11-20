@@ -180,11 +180,17 @@
     background:var(--copper); color:#fff; padding:3px 8px; border-radius:999px; white-space:nowrap;
   }
   .badge-done{ font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--success); }
+  .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
   .pay-amount{
     display:none; margin-top:8px; background:var(--ivory); border:1px dashed var(--copper); border-radius:10px; padding:10px 12px; font-size:14px;
   }
-  @media (prefers-color-scheme: dark){ .pay-amount{ background:#0E3429; } }
-  .step.current .pay-amount{ display:block; }
+  @media (prefers-color-scheme: dark){ .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
+  .pay-amount{ background:#0E3429; } }
+  .step.current .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
+  .pay-amount{ display:block; }
   .pay-amount b{ font-family:"Sora",sans-serif; font-size:18px; color:var(--copper); }
 
   .tracker-foot{ padding:14px 22px 20px; }
@@ -273,7 +279,7 @@
     <!-- ============ CLIENT VIEW ============ -->
     <section class="tracker" aria-label="Vista del cliente">
       <div class="tracker-head">
-        <div class="client-label" data-i18n="clientLabel">Tu plataforma · Paquete US$99</div>
+        <div class="client-label" data-i18n="clientLabel">Tu plataforma · Paquete RD$5,990</div>
         <div class="client-name">Buena Fe Control de Plagas</div>
         <div class="client-meta"><span data-i18n="metaDemo">Santo Domingo y Bávaro</span><span data-i18n="metaDelivery">Entrega al pagar</span></div>
       </div>
@@ -284,7 +290,7 @@
           <span data-i18n="paidTitle">¡Pagado en su totalidad!</span>
         </div>
         <p data-i18n="paidThanks">Gracias. Tu plataforma está activa y todo queda en línea.</p>
-        <div class="receipt"><span data-i18n="receiptPkg">Paquete: US$99</span><span data-i18n="receiptDomain">Dominio año 1: incluido</span><span data-i18n="receiptStatus">Estado: Activo</span></div>
+        <div class="receipt"><span data-i18n="receiptPkg">Paquete: RD$5,990</span><span data-i18n="receiptDomain">Dominio año 1: incluido</span><span data-i18n="receiptStatus">Estado: Activo</span></div>
       </div>
 
       <div class="progress-wrap">
@@ -295,7 +301,7 @@
         <div class="bar" role="progressbar" aria-label="Avance de la construcción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" id="progressBar">
           <div class="bar-fill" id="barFill"></div>
         </div>
-        <div class="updated" id="updatedLine"><i>●</i> <span data-i18n="updatedPrefix">Actualizado hoy — paso</span> <span id="updatedStep">3 de 8</span></div>
+        <div class="updated" id="updatedLine"><i>●</i> <span data-i18n="updatedPrefix">Actualizado hoy — paso</span> <span id="updatedStep">1 de 8</span></div>
       </div>
 
       <ol class="steps" id="stepsList"></ol>
@@ -321,13 +327,13 @@
     es: {
       demoPill: 'Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b>',
       introTitle: 'Así ve el cliente <em>su avance</em>, paso a paso.',
-      introText: 'Esta es la página que recibe cada cliente con el paquete de <strong>US$99</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.',
-      clientLabel: 'Tu plataforma · Paquete US$99',
+      introText: 'Esta es la página que recibe cada cliente con el paquete de <strong>US$49</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.',
+      clientLabel: 'Tu plataforma · Paquete {amount}',
       metaDemo: 'Santo Domingo y Bávaro',
       metaDelivery: 'Entrega al pagar',
       paidTitle: '¡Pagado en su totalidad!',
       paidThanks: 'Gracias. Tu plataforma está activa y todo queda en línea.',
-      receiptPkg: 'Paquete: US$99',
+      receiptPkg: 'Paquete: {amount}',
       receiptDomain: 'Dominio año 1: incluido',
       receiptStatus: 'Estado: Activo',
       updatedPrefix: 'Actualizado hoy — paso',
@@ -355,13 +361,13 @@
     en: {
       demoPill: 'Interactive demo &nbsp;·&nbsp; <b>Tap and try it</b>',
       introTitle: 'This is how the client sees <em>their progress</em>, step by step.',
-      introText: 'This is the page every client receives with the <strong>US$99</strong> package. One single link over WhatsApp — no password, no app. Use the demo controls to move the process forward and see the final <strong>paid</strong> state.',
-      clientLabel: 'Your platform · US$99 package',
+      introText: 'This is the page every client receives with the <strong>US$49</strong> package. One single link over WhatsApp — no password, no app. Use the demo controls to move the process forward and see the final <strong>paid</strong> state.',
+      clientLabel: 'Your platform · {amount} package',
       metaDemo: 'Santo Domingo y Bávaro',
       metaDelivery: 'Delivery on payment',
       paidTitle: 'Paid in full!',
       paidThanks: 'Thank you. Your platform is active and everything is live.',
-      receiptPkg: 'Package: US$99',
+      receiptPkg: 'Package: {amount}',
       receiptDomain: 'Year 1 domain: included',
       receiptStatus: 'Status: Active',
       updatedPrefix: 'Updated today — step',
@@ -403,12 +409,13 @@
       ],
       badgeDone: "Listo",
       badgeHere: "Estamos aquí",
-      payAmount: 'Total al entregar: <b>US$99</b> &nbsp;·&nbsp; Dominio del primer año incluido.',
+      payAmount: 'Total al entregar: <b>{amount}</b> &nbsp;·&nbsp; Dominio del primer año incluido.',
+      payFlyer: 'Ver datos para pagar',
       labelProgress: "Tu avance",
       labelDone: "Plataforma entregada",
       barLabel: "Avance de la construcción",
-      stepOf: function(n){ return n + " de 8"; },
-      stepOfDone: "8 de 8 — completado",
+      stepOf: function(n, total){ return n + " de " + total; },
+      stepOfDone: function(total){ return total + " de " + total + " — completado"; },
       statusPaid: "Pagado en su totalidad — todos los pasos completos, dominio conectado.",
       statusAllDone: "Los 8 pasos están listos — falta marcar el pago.",
       statusInProgress: function(n, title){ return "Paso " + n + " de 8 — " + title + " en proceso"; },
@@ -429,12 +436,13 @@
       ],
       badgeDone: "Done",
       badgeHere: "We're here",
-      payAmount: 'Total on delivery: <b>US$99</b> &nbsp;·&nbsp; First-year domain included.',
+      payAmount: 'Total on delivery: <b>{amount}</b> &nbsp;·&nbsp; First-year domain included.',
+      payFlyer: 'See payment details',
       labelProgress: "Your progress",
       labelDone: "Platform delivered",
       barLabel: "Build progress",
-      stepOf: function(n){ return n + " of 8"; },
-      stepOfDone: "8 of 8 — complete",
+      stepOf: function(n, total){ return n + " of " + total; },
+      stepOfDone: function(total){ return total + " of " + total + " — complete"; },
       statusPaid: "Paid in full — all steps complete, domain connected.",
       statusAllDone: "All 8 steps are ready — just need to mark the payment.",
       statusInProgress: function(n, title){ return "Step " + n + " of 8 — " + title + " in progress"; },
@@ -449,6 +457,10 @@
   // completed = number of finished steps (0..8). paid flips the final state.
   var completed = 0;
   var paid = false;
+  var priceUSD = "US$99";
+  var priceDOP = "RD$5,990";
+  var FLYER_URL = "https://marquis-davis.github.io/trackers/assets/datos-de-pago-quiseiq.jpg";
+  function AMT(){ return lang === 'es' ? priceDOP : priceUSD; }
 
   var list = document.getElementById('stepsList');
   var barFill = document.getElementById('barFill');
@@ -485,10 +497,10 @@
       body.innerHTML = '<div class="step-title">' + (i+1) + '. ' + step.title + badge + '</div>' +
                        '<div class="step-desc">' + step.desc + '</div>';
 
-      if(i === 7){
+      if(i === S.steps.length - 1){
         var pay = document.createElement('div');
         pay.className = 'pay-amount';
-        pay.innerHTML = S.payAmount;
+        pay.innerHTML = S.payAmount.split('{amount}').join(AMT()) + '<div class="pay-flyer"><a class="paylink" href="' + FLYER_URL + '" target="_blank" rel="noopener">' + S.payFlyer + '</a></div>';
         body.appendChild(pay);
       }
 
@@ -505,12 +517,12 @@
 
     if(paid){
       labelEl.textContent = S.labelDone;
-      updatedStep.textContent = S.stepOfDone;
+      updatedStep.textContent = S.stepOfDone(S.steps.length);
       banner.classList.add('show');
     } else {
       labelEl.textContent = S.labelProgress;
-      var currentNum = Math.min(completed + 1, 8);
-      updatedStep.textContent = S.stepOf(currentNum);
+      var currentNum = Math.min(completed + 1, S.steps.length);
+      updatedStep.textContent = S.stepOf(currentNum, S.steps.length);
       banner.classList.remove('show');
     }
     updatedLine.style.display = paid ? 'none' : '';
@@ -526,7 +538,7 @@
     var dict = UI[l];
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
       var k = el.getAttribute('data-i18n');
-      if(dict[k] !== undefined){ el.textContent = dict[k]; }
+      if(dict[k] !== undefined){ el.textContent = String(dict[k]).split('{amount}').join(AMT()); }
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-html]'), function(el){
       var k = el.getAttribute('data-i18n-html');

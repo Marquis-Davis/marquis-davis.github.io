@@ -180,11 +180,17 @@
     background:var(--copper); color:#fff; padding:3px 8px; border-radius:999px; white-space:nowrap;
   }
   .badge-done{ font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--success); }
+  .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
   .pay-amount{
     display:none; margin-top:8px; background:var(--ivory); border:1px dashed var(--copper); border-radius:10px; padding:10px 12px; font-size:14px;
   }
-  @media (prefers-color-scheme: dark){ .pay-amount{ background:#0E3429; } }
-  .step.current .pay-amount{ display:block; }
+  @media (prefers-color-scheme: dark){ .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
+  .pay-amount{ background:#0E3429; } }
+  .step.current .pay-amount a.paylink{ color:#E8B48C; font-weight:700; }
+  .pay-amount .pay-flyer{ margin-top:8px; }
+  .pay-amount{ display:block; }
   .pay-amount b{ font-family:"Sora",sans-serif; font-size:18px; color:var(--copper); }
 
   .tracker-foot{ padding:14px 22px 20px; }
@@ -273,7 +279,7 @@
     <!-- ============ CLIENT VIEW ============ -->
     <section class="tracker" aria-label="Vista del cliente">
       <div class="tracker-head">
-        <div class="client-label" data-i18n="clientLabel">Tu plataforma · Paquete US$25</div>
+        <div class="client-label" data-i18n="clientLabel">Tu plataforma · Paquete RD$1,515</div>
         <div class="client-name">Los Chamo Mudanza y Acarreo</div>
         <div class="client-meta"><span data-i18n="metaDemo">Santo Domingo Norte</span><span data-i18n="metaDelivery">Entrega al pagar</span></div>
       </div>
@@ -284,7 +290,7 @@
           <span data-i18n="paidTitle">¡Pagado en su totalidad!</span>
         </div>
         <p data-i18n="paidThanks">Gracias. Tu plataforma está activa y todo queda en línea.</p>
-        <div class="receipt"><span data-i18n="receiptPkg">Paquete: US$25</span><span data-i18n="receiptDomain">Dominio año 1: incluido</span><span data-i18n="receiptStatus">Estado: Activo</span></div>
+        <div class="receipt"><span data-i18n="receiptPkg">Paquete: RD$1,515</span><span data-i18n="receiptDomain">Dominio año 1: incluido</span><span data-i18n="receiptStatus">Estado: Activo</span></div>
       </div>
 
       <div class="progress-wrap">
@@ -321,14 +327,14 @@
     es: {
       demoPill: 'Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b>',
       introTitle: 'Así ve el cliente <em>su avance</em>, paso a paso.',
-      introText: 'Esta es la página que recibe cada cliente con el paquete de <strong>US$25</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.',
-      clientLabel: 'Tu plataforma · Paquete US$25',
+      introText: 'Esta es la página que recibe cada cliente con el paquete de <strong>US$49</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.',
+      clientLabel: 'Tu plataforma · Paquete {amount}',
       metaDemo: 'Santo Domingo Norte',
       metaDelivery: 'Entrega al pagar',
       paidTitle: '¡Pagado en su totalidad!',
       paidThanks: 'Gracias. Tu plataforma está activa y todo queda en línea.',
-      receiptPkg: 'Paquete: US$25',
-      receiptDomain: 'Dominio año 1: incluido',
+      receiptPkg: 'Paquete: {amount}',
+      receiptDomain: 'Dominio: no aplica',
       receiptStatus: 'Estado: Activo',
       updatedPrefix: 'Actualizado hoy — paso',
       waBtn: '¿Preguntas? Escríbenos por WhatsApp',
@@ -355,13 +361,13 @@
     en: {
       demoPill: 'Interactive demo &nbsp;·&nbsp; <b>Tap and try it</b>',
       introTitle: 'This is how the client sees <em>their progress</em>, step by step.',
-      introText: 'This is the page every client receives with the <strong>US$25</strong> package. One single link over WhatsApp — no password, no app. Use the demo controls to move the process forward and see the final <strong>paid</strong> state.',
-      clientLabel: 'Your platform · US$25 package',
+      introText: 'This is the page every client receives with the <strong>US$49</strong> package. One single link over WhatsApp — no password, no app. Use the demo controls to move the process forward and see the final <strong>paid</strong> state.',
+      clientLabel: 'Your platform · {amount} package',
       metaDemo: 'Santo Domingo Norte',
       metaDelivery: 'Delivery on payment',
       paidTitle: 'Paid in full!',
       paidThanks: 'Thank you. Your platform is active and everything is live.',
-      receiptPkg: 'Package: US$25',
+      receiptPkg: 'Package: {amount}',
       receiptDomain: 'Year 1 domain: included',
       receiptStatus: 'Status: Active',
       updatedPrefix: 'Updated today — step',
@@ -399,7 +405,8 @@
       ],
       badgeDone: "Listo",
       badgeHere: "Estamos aquí",
-      payAmount: 'Total al entregar: <b>US$25</b> &nbsp;·&nbsp; Dominio del primer año incluido.',
+      payAmount: 'Total al entregar: <b>{amount}</b> &nbsp;·&nbsp; Nada por adelantado.',
+      payFlyer: 'Ver datos para pagar',
       labelProgress: "Tu avance",
       labelDone: "Plataforma entregada",
       barLabel: "Avance de la construcción",
@@ -421,7 +428,8 @@
       ],
       badgeDone: "Done",
       badgeHere: "We're here",
-      payAmount: 'Total on delivery: <b>US$25</b> &nbsp;·&nbsp; First-year domain included.',
+      payAmount: 'Total on delivery: <b>{amount}</b> &nbsp;·&nbsp; Nothing up front.',
+      payFlyer: 'See payment details',
       labelProgress: "Your progress",
       labelDone: "Platform delivered",
       barLabel: "Build progress",
@@ -441,6 +449,10 @@
   // completed = number of finished steps (0..8). paid flips the final state.
   var completed = 0;
   var paid = false;
+  var priceUSD = "US$25";
+  var priceDOP = "RD$1,515";
+  var FLYER_URL = "https://marquis-davis.github.io/trackers/assets/datos-de-pago-quiseiq.jpg";
+  function AMT(){ return lang === 'es' ? priceDOP : priceUSD; }
 
   var list = document.getElementById('stepsList');
   var barFill = document.getElementById('barFill');
@@ -480,7 +492,7 @@
       if(i === S.steps.length - 1){
         var pay = document.createElement('div');
         pay.className = 'pay-amount';
-        pay.innerHTML = S.payAmount;
+        pay.innerHTML = S.payAmount.split('{amount}').join(AMT()) + '<div class="pay-flyer"><a class="paylink" href="' + FLYER_URL + '" target="_blank" rel="noopener">' + S.payFlyer + '</a></div>';
         body.appendChild(pay);
       }
 
@@ -518,7 +530,7 @@
     var dict = UI[l];
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
       var k = el.getAttribute('data-i18n');
-      if(dict[k] !== undefined){ el.textContent = dict[k]; }
+      if(dict[k] !== undefined){ el.textContent = String(dict[k]).split('{amount}').join(AMT()); }
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-html]'), function(el){
       var k = el.getAttribute('data-i18n-html');
