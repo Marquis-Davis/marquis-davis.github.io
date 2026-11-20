@@ -272,6 +272,10 @@
 </header>
 
 <div class="wrap">
+  <div class="intro">
+    <h1 data-i18n-html="introTitle">Así va <em>tu plataforma</em>, paso a paso.</h1>
+    <p data-i18n-html="introText">Esta es tu página personal de avance. Un solo enlace, sin contraseña — entra cuando quieras y mira exactamente en qué paso va tu construcción.</p>
+  </div>
   <div class="layout">
     <section class="tracker" aria-label="Vista del cliente">
       <div class="tracker-head">
@@ -320,6 +324,8 @@
 (function(){
   var UI = {
     es: {
+      introTitle: 'Así va <em>tu plataforma</em>, paso a paso.',
+      introText: 'Esta es tu página personal de avance. Un solo enlace, sin contraseña — entra cuando quieras y mira exactamente en qué paso va tu construcción.',
       clientLabel: 'Tu plataforma · Paquete US$49',
       metaDelivery: 'Entrega al pagar',
       paidTitle: '¡Pagado en su totalidad!',
@@ -332,6 +338,8 @@
       footNote: 'Toca tu enlace cuando quieras para ver tu avance al instante.'
     },
     en: {
+      introTitle: 'Your platform, <em>step by step</em>.',
+      introText: 'This is your personal progress page. One link, no password — check in anytime and see exactly where your build stands.',
       clientLabel: 'Your platform · US$49 package',
       metaDelivery: 'Delivery on payment',
       paidTitle: 'Paid in full!',
@@ -457,6 +465,10 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
       var k = el.getAttribute('data-i18n');
       if(dict[k] !== undefined){ el.textContent = dict[k]; }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-html]'), function(el){
+      var k = el.getAttribute('data-i18n-html');
+      if(dict[k] !== undefined){ el.innerHTML = dict[k]; }
     });
     langEsBtn.classList.toggle('active', l === 'es');
     langEnBtn.classList.toggle('active', l === 'en');
