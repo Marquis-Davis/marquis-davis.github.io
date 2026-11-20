@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tu avance — Servicio Múltiple y Más · QuiseIQ</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.55 system-ui, Arial, sans-serif; background: #FAF5ED; color: #14201b; }
+  .brand { background: #153F33; color: #FAF5ED; padding: 20px 18px 16px; text-align: center; border-bottom: 4px solid #B45A34; position: relative; }
+  .brand .q { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 2.5px solid #B45A34; border-radius: 50%; font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+  .brand h2 { margin: 0; font-size: 24px; letter-spacing: .02em; }
+  .brand h2 span { color: #B45A34; }
+  .brand p { margin: 3px 0 0; font-size: 13px; color: #E5EBE3; }
+  .lang { position: absolute; top: 14px; right: 14px; display: flex; gap: 4px; }
+  .lang button { background: transparent; border: 1.5px solid #B45A34; color: #FAF5ED; font-weight: 800; font-size: 12px; padding: 4px 10px; border-radius: 99px; cursor: pointer; }
+  .lang button.on { background: #B45A34; }
+  .wrap { max-width: 540px; margin: 0 auto; padding: 22px 16px 30px; }
+  .card { background: #fff; border: 1px solid #e6e0d2; border-radius: 14px; padding: 26px 24px; box-shadow: 0 2px 12px rgba(21,63,51,.08); }
+  h1 { font-size: 23px; margin: 0 0 2px; letter-spacing: -.02em; color: #153F33; }
+  .sub { color: #5c665f; font-size: 14px; margin: 0 0 18px; }
+  .bar { height: 10px; background: #E5EBE3; border-radius: 99px; overflow: hidden; }
+  .fill { height: 100%; width: 38%; background: #B45A34; border-radius: 99px; }
+  .pct { font-size: 13px; color: #5c665f; margin: 6px 0 14px; }
+  .step { display: flex; align-items: center; gap: 13px; padding: 11px 10px; border-radius: 10px; }
+  .step + .step { border-top: 1px solid #f2eee2; }
+  .ico { flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 15px; }
+  .done .ico { background: #153F33; color: #FAF5ED; }
+  .now { background: #FBF1EA; outline: 1.5px solid #B45A34; }
+  .now .ico { background: #fff; border: 2.5px solid #B45A34; color: #B45A34; }
+  .pend { color: #a3a89f; }
+  .pend .ico { background: #eef0ea; color: #a3a89f; }
+  .name { font-weight: 700; }
+  .tag { margin-left: auto; font-size: 12px; font-weight: 800; color: #8a3d20; background: #f6ddcd; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
+  .upd { font-size: 13px; color: #8b928a; margin: 18px 0 16px; }
+  .btn { display: block; text-align: center; background: #153F33; color: #FAF5ED; text-decoration: none; font-weight: 800; padding: 14px; border-radius: 10px; }
+  .foot { text-align: center; padding: 4px 16px 26px; color: #5c665f; font-size: 13px; }
+  .foot a { color: #B45A34; font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="brand">
+    <div class="lang"><button id="bEs" class="on" onclick="setLang('es')">ES</button><button id="bEn" onclick="setLang('en')">EN</button></div>
+    <div class="q">Q</div>
+    <h2>Quise<span>IQ</span></h2>
+    <p>AI Consulting &amp; Automation for Small Businesses</p>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <h1><span data-i="title">Tu plataforma</span> — Servicio Múltiple y Más</h1>
+      <p class="sub" data-i="sub">Aquí ves el avance de tu construcción, paso a paso.</p>
+      <div class="bar"><div class="fill"></div></div>
+      <p class="pct"><span data-i="done1">3 de 8 pasos listos</span></p>
+      <div class="step done"><span class="ico">✓</span><span class="name" data-i="s1">Perfil de Google</span></div>
+      <div class="step done"><span class="ico">✓</span><span class="name" data-i="s2">Página de Facebook</span></div>
+      <div class="step now"><span class="ico">3</span><span class="name">Instagram</span><span class="tag" data-i="here">Estamos aquí</span></div>
+      <div class="step pend"><span class="ico">4</span><span class="name">TikTok</span></div>
+      <div class="step done"><span class="ico">✓</span><span class="name" data-i="s5">Página web</span></div>
+      <div class="step pend"><span class="ico">6</span><span class="name" data-i="s6">Mensaje de reseñas</span></div>
+      <div class="step pend"><span class="ico">7</span><span class="name" data-i="s7">Revisión final</span></div>
+      <div class="step pend"><span class="ico">8</span><span class="name" data-i="s8">Pago</span></div>
+      <p class="upd"><span data-i="upd">Actualizado</span>: 20/11/2026</p>
+      <a class="btn" href="https://wa.me/18084654290" data-i="btn">¿Dudas? Escríbenos por WhatsApp</a>
+    </div>
+  </div>
+  <div class="foot">⚡️Powered by QuiseIQ Automations · <a href="https://quiseiq.com">quiseiq.com</a></div>
+<script>
+  var T = {
+    es: { title: "Tu plataforma", sub: "Aquí ves el avance de tu construcción, paso a paso.", done1: "3 de 8 pasos listos",
+      s1: "Perfil de Google", s2: "Página de Facebook", s5: "Página web", s6: "Mensaje de reseñas", s7: "Revisión final", s8: "Pago",
+      here: "Estamos aquí", upd: "Actualizado", btn: "¿Dudas? Escríbenos por WhatsApp" },
+    en: { title: "Your platform", sub: "Here you can see your build's progress, step by step.", done1: "3 of 8 steps done",
+      s1: "Google profile", s2: "Facebook page", s5: "Website", s6: "Review message", s7: "Final review", s8: "Payment",
+      here: "We are here", upd: "Updated", btn: "Questions? Message us on WhatsApp" }
+  };
+  function setLang(l) {
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-i]").forEach(function (el) { el.textContent = T[l][el.getAttribute("data-i")]; });
+    document.getElementById("bEs").classList.toggle("on", l === "es");
+    document.getElementById("bEn").classList.toggle("on", l === "en");
+  }
+</script>
+</body>
+</html>
