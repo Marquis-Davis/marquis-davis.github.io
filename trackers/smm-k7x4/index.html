@@ -101,13 +101,14 @@
   .intro p strong{ color:var(--ink); }
 
   .layout{
-    display:grid; grid-template-columns: 1fr 340px; gap:22px; margin-top:22px; align-items:start;
+    display:block; margin-top:2px;
   }
   @media (max-width:860px){ .layout{ grid-template-columns:1fr; } }
 
   /* Client tracker card — this is what the client sees */
   .tracker{
     background:var(--card); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); overflow:hidden;
+    max-width:718px; margin:0 auto;
   }
   .tracker-head{
     background:var(--evergreen); color:#FAF5ED; padding:20px 22px 18px; position:relative; overflow:hidden;
@@ -260,7 +261,6 @@
         <div class="brand-sub">Build Tracker</div>
       </div>
     </div>
-    <div class="demo-pill" data-i18n-html="demoPill">Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b></div>
     <div class="lang-toggle" role="group" aria-label="Idioma / Language">
       <button id="langEs" class="active" aria-pressed="true">ES</button>
       <button id="langEn" aria-pressed="false">EN</button>
@@ -269,11 +269,6 @@
 </header>
 
 <div class="wrap">
-  <div class="intro">
-    <h1 data-i18n-html="introTitle">Así ve el cliente <em>su avance</em>, paso a paso.</h1>
-    <p data-i18n-html="introText">Esta es la página que recibe cada cliente con el paquete de <strong>US$49</strong>. Un solo enlace por WhatsApp — sin contraseña, sin app. Usa los controles de la demo para avanzar el proceso y ver el estado final de <strong>pagado</strong>.</p>
-  </div>
-
   <div class="layout">
     <!-- ============ CLIENT VIEW ============ -->
     <section class="tracker" aria-label="Vista del cliente">
@@ -315,53 +310,13 @@
       </div>
     </section>
 
-    <!-- ============ DEMO CONTROLS ============ -->
-    <aside class="panel" aria-label="Controles de la demo">
-      <h2 data-i18n="panelTitle">Controles de la demo</h2>
-      <p class="sub" data-i18n="panelSub">Solo para ti — el cliente nunca ve esto. Avanza los pasos como lo haría el equipo durante la construcción.</p>
-
-      <div class="stage-label" data-i18n="stageJump">Saltar a una etapa</div>
-      <div class="chips" id="chips">
-        <button class="chip" data-stage="0" data-i18n="chipStart">Inicio</button>
-        <button class="chip" data-stage="2" data-i18n="chipProgress">En proceso</button>
-        <button class="chip" data-stage="5" data-i18n="chipAlmost">Casi listo</button>
-        <button class="chip" data-stage="7" data-i18n="chipReview">Revisión</button>
-        <button class="chip" data-stage="8" data-i18n="chipPay">Pago</button>
-      </div>
-
-      <div class="stage-label" data-i18n="stageAdvance">Avanzar el proceso</div>
-      <div class="controls">
-        <button class="btn primary" id="btnNext">Completar paso siguiente →</button>
-        <button class="btn" id="btnBack" data-i18n="btnBack">← Paso anterior</button>
-        <button class="btn" id="btnReset" data-i18n="btnReset">Reiniciar</button>
-        <button class="btn pay" id="btnPay">Marcar como pagado ✓</button>
-      </div>
-
-      <div class="status-line"><span data-i18n="statusLabel">Estado actual</span><span id="statusText" style="display:inline;text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);">Paso 3 de 8 — Instagram en proceso</span></div>
-
-      <div class="how">
-        <h3 data-i18n="howTitle">Cómo funciona para el cliente</h3>
-        <ol>
-          <li data-i18n-html="how1"><b>Un enlace, una vez.</b> La mesa lo envía por WhatsApp: “aquí puedes ver tu avance cuando quieras”.</li>
-          <li data-i18n-html="how2"><b>Sin mensajes de “¿cómo va lo mío?”</b> El cliente toca el enlace y ve el paso exacto.</li>
-          <li data-i18n-html="how3"><b>Al pagar, se voltea solo.</b> La página queda en “Pagado en su totalidad” — y sirve como su recibo.</li>
-        </ol>
-      </div>
-    </aside>
+    
   </div>
 
-  <div class="below">
-    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></i> <span data-i18n="mini1Title">Enlace privado</span></div><p data-i18n="mini1Text">Cada cliente recibe su propio enlace con un final aleatorio. Solo muestra su negocio y los pasos — nada sensible.</p></div>
-    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21a2.5 2.5 0 0 0 2.5-2.5c0-.8.7-1.5 1.5-1.5H18a3 3 0 0 0 3-3"/></svg></i> <span data-i18n="mini2Title">Sus colores, su marca</span></div><p data-i18n="mini2Text">En la versión real, cada tracker usa los colores del negocio del cliente. Este demo usa la marca QuiseIQ: Evergreen y Copper.</p></div>
-    <div class="mini"><div class="k"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M17 6.5c-.8-1.2-2.7-2-5-2-3 0-5 1.6-5 3.7 0 5 10 2.6 10 7.1 0 2.1-2 3.7-5 3.7-2.3 0-4.2-.8-5-2"/></svg></i> <span data-i18n="mini3Title">Costo: $0</span></div><p data-i18n="mini3Text">Vive en el mismo sitio en GitHub del cliente. Antes del pago corre en la dirección de prueba; al pagar, se conecta su dominio.</p></div>
   </div>
-</div>
-
-<footer class="page-foot" data-i18n="pageFoot">QuiseIQ Build Tracker — página de avance de Servicio Múltiple y Más. ⚡️Powered by QuiseIQ Automations</footer>
 
 <script>
 (function(){
-  // ---- Language strings: static page text (applied via data-i18n) ----
   var UI = {
     es: {
       demoPill: 'Demo interactiva &nbsp;·&nbsp; <b>Toca y pruébala</b>',
@@ -503,12 +458,6 @@
   var updatedStep = document.getElementById('updatedStep');
   var updatedLine = document.getElementById('updatedLine');
   var banner = document.getElementById('paidBanner');
-  var statusText = document.getElementById('statusText');
-  var btnNext = document.getElementById('btnNext');
-  var btnBack = document.getElementById('btnBack');
-  var btnPay = document.getElementById('btnPay');
-  var btnReset = document.getElementById('btnReset');
-  var chips = Array.prototype.slice.call(document.querySelectorAll('#chips .chip'));
 
   function checkSVG(){
     return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -558,51 +507,14 @@
       labelEl.textContent = S.labelDone;
       updatedStep.textContent = S.stepOfDone;
       banner.classList.add('show');
-      statusText.textContent = S.statusPaid;
     } else {
       labelEl.textContent = S.labelProgress;
       var currentNum = Math.min(completed + 1, 8);
       updatedStep.textContent = S.stepOf(currentNum);
       banner.classList.remove('show');
-      statusText.textContent = completed >= 8
-        ? S.statusAllDone
-        : S.statusInProgress(currentNum, S.steps[completed].title);
     }
     updatedLine.style.display = paid ? 'none' : '';
-
-    btnNext.disabled = paid || completed >= 8;
-    btnBack.disabled = completed <= 0 && !paid;
-    btnPay.disabled = paid;
-    btnPay.textContent = paid ? S.payBtnDone : S.payBtn;
-    btnNext.textContent = S.nextBtn;
-
-    chips.forEach(function(chip){
-      var stage = parseInt(chip.getAttribute('data-stage'), 10);
-      chip.classList.toggle('active', !paid && stage === completed);
-    });
   }
-
-  btnNext.addEventListener('click', function(){
-    if(completed < 8){ completed++; render(); }
-  });
-  btnBack.addEventListener('click', function(){
-    if(paid){ paid = false; render(); return; }
-    if(completed > 0){ completed--; render(); }
-  });
-  btnPay.addEventListener('click', function(){
-    completed = 8; paid = true; render();
-    banner.scrollIntoView({ behavior:'smooth', block:'center' });
-  });
-  btnReset.addEventListener('click', function(){
-    completed = 2; paid = false; render();
-  });
-  chips.forEach(function(chip){
-    chip.addEventListener('click', function(){
-      completed = parseInt(chip.getAttribute('data-stage'), 10);
-      paid = false;
-      render();
-    });
-  });
 
   // ---- Language toggle (ES / EN) ----
   var langEsBtn = document.getElementById('langEs');
