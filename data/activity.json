@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-28T07:53:30.2841444Z",
+  "generatedAtUtc": "2026-11-28T13:12:19.1938994Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Add AI platform engineering concept map",
-      "timestamp": "2026-09-19T09:45:12.0000000+00:00",
+      "detail": "Fix same-month event date range formatting",
+      "timestamp": "2026-11-28T13:12:01.0000000+00:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/modern-endpoint-platform/commit/b07228313391f597a2543d98f7f24c2ccf914571"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/caebf10d2e89f63b35814e7bf7c50007e83c8666"
     }
   ]
 }
