@@ -25,13 +25,13 @@
       "endDate": "2026-11-20",
       "location": "San Francisco + Online",
       "mode": "Hybrid",
-      "state": "interested",
+      "state": "attended",
       "autoComplete": false,
       "sourceUrl": "https://www.microsoft.com/en-us/events",
       "notesUrl": null,
       "labUrl": null,
       "learned": [],
-      "description": "Following Microsoft's flagship event for AI, cloud, security, and platform engineering."
+      "description": "Attended Microsoft Ignite 2026, exploring Microsoft's latest innovations in AI, cloud infrastructure, security, and platform engineering."
     }
   ]
 }
