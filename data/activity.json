@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-28T13:41:46.6571792Z",
+  "generatedAtUtc": "2026-11-28T16:54:35.4404307Z",
   "items": [
     {
       "id": "defender",
@@ -37,10 +37,10 @@
     {
       "id": "commit",
       "label": "Latest GitHub commit",
-      "detail": "Refresh portfolio activity [skip ci]",
-      "timestamp": "2026-11-28T13:12:19Z",
+      "detail": "Fix same-month event date range formatting",
+      "timestamp": "2026-11-28T13:12:01.0000000+00:00",
       "status": "info",
-      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/0aafefa507f0fd00fc346690b9eb0bdbc146fcb9"
+      "url": "https://github.com/Marquis-Davis/marquis-davis.github.io/commit/caebf10d2e89f63b35814e7bf7c50007e83c8666"
     }
   ]
 }
